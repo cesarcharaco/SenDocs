@@ -36,6 +36,7 @@
           />
           <div class="q-mt-md q-ml-sm">
             <q-btn
+              push
               round
               color="primary"
               icon="update"

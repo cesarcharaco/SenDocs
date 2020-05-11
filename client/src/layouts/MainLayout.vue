@@ -43,17 +43,19 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+    <Footer />
   </q-layout>
 </template>
 
 <script>
 import EssentialLink from 'components/EssentialLink'
+import Footer from '../components/Footer'
 
 export default {
   name: 'MainLayout',
 
   components: {
-    EssentialLink
+    EssentialLink, Footer
   },
 
   data () {
