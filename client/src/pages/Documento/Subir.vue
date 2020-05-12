@@ -2,23 +2,25 @@
   <div class="q-pa-md">
     <q-input
       v-model="form.nomDoc"
-      label="Standard"
+      label="Nombre del Documento"
     />
     <q-input
       v-model="form.correo"
-      label="Standard"
+      label="Correo"
     />
     <q-input
       v-model="form.fvencimiento"
       mask="date"
       readonly
       :rules="['date']"
+      label="Fecha de Vencimiento"
     >
       <template v-slot:append>
         <q-btn
           icon="event"
           color="primary"
           class="q-mr-md"
+          round
         >
           <q-popup-proxy
             ref="qDateProxy"
@@ -34,11 +36,21 @@
       </template>
     </q-input>
     <q-uploader
-      label="Individual upload"
+      label="Subir Archivos"
       multiple
       :factory="factoryFn"
       style="max-width: 400px; width:100%: height: 100%"
     />
+
+    <q-card-actions align="right">
+      <q-btn
+        class="glossy q-pa-sm"
+        rounded
+        color="primary"
+        label="Guardar"
+        style="width:100px"
+      />
+    </q-card-actions>
   </div>
 </template>
 
