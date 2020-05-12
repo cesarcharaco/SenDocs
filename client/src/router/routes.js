@@ -7,7 +7,8 @@ const routes = [
       { path: '', component: () => import('pages/Index.vue') },
       { path: '/archivosdescargados', component: () => import('pages/ArchivosDescargados.vue') },
       { path: '/documento/editar', component: () => import('pages/Documento/Edit.vue') },
-      { path: '/documento/subir', component: () => import('pages/Documento/Subir.vue') }
+      { path: '/documento/subir', component: () => import('pages/Documento/Subir.vue') },
+      { path: '/home', component: () => import('pages/Documento/Listado.vue') }
     ]
   },
   { path: '/inicio', component: () => import('pages/InicioAplicacionSD.vue') }
