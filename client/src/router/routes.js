@@ -6,7 +6,8 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/Index.vue') },
       { path: '/archivosdescargados', component: () => import('pages/ArchivosDescargados.vue') },
-      { path: '/documento/editar', component: () => import('pages/Documento/Edit.vue') }
+      { path: '/documento/editar', component: () => import('pages/Documento/Edit.vue') },
+      { path: '/documento/subir', component: () => import('pages/Documento/Subir.vue') }
     ]
   },
   { path: '/inicio', component: () => import('pages/InicioAplicacionSD.vue') }
