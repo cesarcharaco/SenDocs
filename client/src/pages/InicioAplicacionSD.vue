@@ -5,7 +5,8 @@
         <div class="col column items-center justify-center">
           <img
             alt="Quasar logo"
-            src="~assets/quasar-logo-full.svg"
+            src="statics/Sen-Docs logo 500x500.png"
+            style="width:250px; height:250px"
           >
           <div class="footer gray">
             <p>Un proyecto EICHE</p>
@@ -42,6 +43,6 @@ export default {
   text-align: center;
 }
 .gray {
-  color: darkslategray;
+  color: rgb(0, 0, 0);
 }
 </style>

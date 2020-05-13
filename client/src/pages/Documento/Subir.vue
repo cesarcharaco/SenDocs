@@ -47,7 +47,7 @@
         class="glossy q-pa-sm"
         rounded
         color="primary"
-        label="Guardar"
+        label="Subir"
         style="width:100px"
       />
     </q-card-actions>
