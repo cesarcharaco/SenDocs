@@ -1,6 +1,6 @@
-# sendocs (sendocs)
+# Quasar App (sendocs)
 
-envios de documentos
+A Quasar Framework app
 
 ## Install the dependencies
 ```bash

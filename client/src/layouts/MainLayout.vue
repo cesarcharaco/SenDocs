@@ -2,128 +2,107 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-img src="statics/Sen-Docs logo 50x50.png" basic style="width:40px; height:40px" class="q-ma-sm" />
-        <div class="absolute-top-right q-pa-sm">
-                <q-btn
-                  flat
-                  dense
-                  icon="notifications"
-                  auto-close
-                  size="md"
-                >
-                  <q-badge
-                    color="red"
-                    floating
-                    transparent
-                    v-if="nNotify"
-                  >{{nNotify}}</q-badge>
-                  <q-menu
-                    transition-show="jump-down"
-                    transition-hide="jump-up"
-                    fit
-                    :offset="[0, 10]"
-                    anchor="bottom right"
-                    self="top right"
-                    v-close-popup
-                    auto-close
-                  >
-                    <q-item>
-                      <q-item-section>
-                        <q-item-label>Notificaciones</q-item-label>
-                      </q-item-section>
+        <q-btn
+          flat
+          dense
+          round
+          icon="menu"
+          aria-label="Menu"
+          @click="leftDrawerOpen = !leftDrawerOpen"
+        />
 
-                      <q-item-section
-                        side
-                        bottom
-                      >
-                        <q-item-label caption>
-                          <a
-                            class="cursor-pointer text-primary"
-                            @click="disableAllNotify()"
-                            primary
-                          >Marcar como Leidas</a>
-                        </q-item-label>
-                      </q-item-section>
-                    </q-item>
-                    <q-separator />
-                    <q-list>
-                      <q-scroll-area style="height: 200px; max-width: 300px;">
-                        <q-item
-                          v-for="n in myNotification"
-                          :key="n.id"
-                          clickable
-                          v-close-popup
-                          :class="[n.status?'white':colorActive]"
-                        >
-                          <q-item-section
-                            push
-                            @click="disableNotify(n.id)"
-                          >
-                            <q-item-label ovequasrline>{{n.title}}</q-item-label>
-                            <q-item-label lines="
-                    1">{{n.message}}</q-item-label>
-                            <q-item-label caption>{{n.createdAt}}</q-item-label>
-                          </q-item-section>
-                        </q-item>
-                      </q-scroll-area>
-                    </q-list>
-                  </q-menu>
-                </q-btn>
-                <q-btn
-                  flat
-                  dense
-                  icon="settings"
-                  auto-close
-                  size="md"
-                >
-                  <q-menu
-                    transition-show="jump-down"
-                    transition-hide="jump-up"
-                    fit
-                    :offset="[0, 10]"
-                    anchor="bottom right"
-                    self="top right"
-                    v-close-popup
-                    auto-close
-                  >
-                    <q-item
-                      clickable
-                      v-ripple
-                      style="width:200px"
-                      class="text-primary"
-                    >
-                      <q-item-section avatar>
-                        <q-icon
-                          color="primary"
-                          name="exit_to_app"
-                        />
-                      </q-item-section>
+        <q-toolbar-title>
+          Quasar App
+        </q-toolbar-title>
 
-                      <q-item-section>Cerrar Sesión</q-item-section>
-                    </q-item>
-                  </q-menu>
-                </q-btn>
-              </div>
+        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
+
+    <q-drawer
+      v-model="leftDrawerOpen"
+      show-if-above
+      bordered
+      content-class="bg-grey-1"
+    >
+      <q-list>
+        <q-item-label
+          header
+          class="text-grey-8"
+        >
+          Essential Links
+        </q-item-label>
+        <EssentialLink
+          v-for="link in essentialLinks"
+          :key="link.title"
+          v-bind="link"
+        />
+      </q-list>
+    </q-drawer>
 
     <q-page-container>
       <router-view />
     </q-page-container>
-    <Footer />
   </q-layout>
 </template>
 
 <script>
-import Footer from '../components/Footer'
+import EssentialLink from 'components/EssentialLink'
 
 export default {
   name: 'MainLayout',
-  components: { Footer },
+
+  components: {
+    EssentialLink
+  },
+
   data () {
     return {
-      nNotify: 0,
-      myNotification: {}
+      leftDrawerOpen: false,
+      essentialLinks: [
+        {
+          title: 'Docs',
+          caption: 'quasar.dev',
+          icon: 'school',
+          link: 'https://quasar.dev'
+        },
+        {
+          title: 'Github',
+          caption: 'github.com/quasarframework',
+          icon: 'code',
+          link: 'https://github.com/quasarframework'
+        },
+        {
+          title: 'Discord Chat Channel',
+          caption: 'chat.quasar.dev',
+          icon: 'chat',
+          link: 'https://chat.quasar.dev'
+        },
+        {
+          title: 'Forum',
+          caption: 'forum.quasar.dev',
+          icon: 'record_voice_over',
+          link: 'https://forum.quasar.dev'
+        },
+        {
+          title: 'Twitter',
+          caption: '@quasarframework',
+          icon: 'rss_feed',
+          link: 'https://twitter.quasar.dev'
+        },
+        {
+          title: 'Facebook',
+          caption: '@QuasarFramework',
+          icon: 'public',
+          link: 'https://facebook.quasar.dev'
+        },
+        {
+          title: 'Quasar Awesome',
+          caption: 'Community Quasar projects',
+          icon: 'favorite',
+          link: 'https://awesome.quasar.dev'
+        }
+      ]
     }
   }
 }
