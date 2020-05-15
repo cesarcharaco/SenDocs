@@ -55,14 +55,14 @@
             size="lg"
             color="teal"
             icon="backup"
-            to=""
+            to="/documento/subir"
           />
           <q-btn
             round
             size="lg"
             color="teal"
             icon="edit"
-            to=""
+            to="/documento/editar"
           />
         </div>
       </div>
@@ -81,7 +81,7 @@
             class="q-mb-sm"
           >
             <q-card class="my-card">
-              <q-item>
+              <q-item to="/archivosdescargados">
                 <q-item-section>
                   <q-item-label class="text-h6">{{ last.name+(index+1) }}</q-item-label>
                 </q-item-section>
