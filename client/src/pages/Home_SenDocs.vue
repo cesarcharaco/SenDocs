@@ -132,6 +132,9 @@ export default {
     }
   },
   mounted () {
+    this.$api.get('hola').then(v => {
+      console.log(v)
+    })
   },
   methods: {
     refresh (done) {

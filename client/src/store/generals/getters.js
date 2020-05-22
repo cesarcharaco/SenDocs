@@ -1,6 +1,3 @@
-/*
-* Se verifica que el usuario puede ver un item determinado según sus permisos guardados en localstorage
-*/
 export function can (state) {
   return permission => {
     const userInfo = JSON.parse(localStorage.getItem('GM_SESSION_INFO'))

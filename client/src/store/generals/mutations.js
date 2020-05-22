@@ -9,7 +9,6 @@ export function loginStop (state, errorMessage) {
 export function updateAccessToken (state, GM_SESSION_INFO) {
   if (GM_SESSION_INFO) {
     state.GM_SESSION_INFO = GM_SESSION_INFO
-    // state.userFullName = GM_SESSION_INFO.name + ' ' + GM_SESSION_INFO.lastName
   } else {
     state.GM_SESSION_INFO = {}
   }
