@@ -10,15 +10,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['middleware' => ['cors']], function () {
-    Route::get('hola', 'Controller@prueba');
-});
 Route::get('/', function () {
     return view('welcome');
 });
+    Auth::routes();
+	Auth::routes(["verify" => true]);
+Route::group(['middleware' => ['cors']], function () {
+    Route::get('hola', 'Controller@prueba');
 
-Auth::routes();
-Auth::routes(["verify" => true]);
+});
+
 
 Route::group(['middleware' => ['web', 'auth']], function() { 
 
