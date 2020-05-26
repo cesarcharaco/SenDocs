@@ -15,10 +15,6 @@ Route::get('/', function () {
 });
     Auth::routes();
 	Auth::routes(["verify" => true]);
-Route::group(['middleware' => ['cors']], function () {
-    Route::get('hola', 'Controller@prueba');
-
-});
 
 
 Route::group(['middleware' => ['web', 'auth']], function() { 
