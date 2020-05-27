@@ -13,12 +13,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::group(['middleware' => ['cors','web']], function () {
     Auth::routes();
 	Auth::routes(["verify" => true]);
-
-
-Route::group(['middleware' => ['web', 'auth']], function() { 
-
 	Route::get('/home', 'HomeController@index')->name('home');
-
 });
+
