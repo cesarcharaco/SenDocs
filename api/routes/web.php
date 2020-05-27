@@ -13,8 +13,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
-    Auth::routes();
-	Auth::routes(["verify" => true]);
+
+    
 Route::group(['middleware' => ['cors','web']], function () {
 	Route::get('/home', 'HomeController@index')->name('home');
 });
