@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Http\Controllers\Controller;
 use App\User;
 class AuthController extends Controller
@@ -31,7 +32,7 @@ class AuthController extends Controller
     		'password' => 'required'
     	]);*/
   		$this->validateLogin($request);
-  		
+
 		$loginData=['email' =>
 				$request->email , 'password' =>
 				$request->password
