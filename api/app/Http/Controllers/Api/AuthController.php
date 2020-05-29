@@ -26,6 +26,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+    	 header('Access-Control-Allow-Origin: *');
     	$loginData=$request->validate([
     		'email' => 'email|required',
     		'password' => 'required'
