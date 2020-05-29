@@ -3,15 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Http\Controllers\Controller;
 use App\User;
-use Illuminate\Support\Facades\Auth;
+
 
 class AuthController extends Controller
 {
-	
-	use AuthenticatesUsers;
 	
     public function register(Request $request)
     {
@@ -32,11 +29,11 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-    	 /*$loginData=$this->validate($request,[
+    	$loginData=$this->validate($request,[
     		'email' => 'email|required',
     		'password' => 'required'
-    	]);*/
-  		$this->validateLogin($request);
+    	]);
+  		
 
 		$loginData=['email' =>
 				$request->email , 'password' =>
