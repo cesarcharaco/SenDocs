@@ -97,7 +97,7 @@ export default {
       this.$api.get('hola').then(res => {
         console.log(res)
       })
-      this.$api.post('hola2', this.form).then(res => {
+      this.$api.post('login', this.form).then(res => {
         console.log(res)
       })
      

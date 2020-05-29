@@ -26,13 +26,15 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-    	 header('Access-Control-Allow-Origin: *');
-    	 header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Token-Auth, Authorization");
-    	$loginData=$request->validate([
+    	/* $loginData=$request->validate([
     		'email' => 'email|required',
     		'password' => 'required'
     	]);
-
+ */ 
+		$loginData=['email' =>
+				$request->email , 'password' =>
+				$request->password
+			];
     	if(!auth()->attempt($loginData)){
     		return response(['message' => 'Credenciales Inválidas']);
     	}
@@ -41,6 +43,6 @@ class AuthController extends Controller
 
     	return response(['user' => auth()->user(),'access_token' => $accessToken]);
 
-    	//return ('si funciona');
+    	 
     }
 }
