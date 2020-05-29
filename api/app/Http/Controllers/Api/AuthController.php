@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
-use App\Http\Requests\LoginRequest;
 class AuthController extends Controller
 {
     public function register(Request $request)
@@ -25,13 +24,13 @@ class AuthController extends Controller
     }
 
 
-    public function login(LoginRequest $request)
+    public function login(Request $request)
     {
-    	/* $loginData=$request->validate([
+    	 $loginData=$this->validate($request,[
     		'email' => 'email|required',
     		'password' => 'required'
     	]);
- */ 
+  
 		$loginData=['email' =>
 				$request->email , 'password' =>
 				$request->password
