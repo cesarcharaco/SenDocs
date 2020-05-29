@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\User;
 class AuthController extends Controller
 {
+	use AuthenticatesUsers;
+	
     public function register(Request $request)
     {
     	$validateData= $request->validate([
