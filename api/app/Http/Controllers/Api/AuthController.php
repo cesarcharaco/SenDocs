@@ -7,10 +7,12 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+
 class AuthController extends Controller
 {
 	
-
+	use AuthenticatesUsers;
+	
     public function register(Request $request)
     {
     	$validateData= $request->validate([
