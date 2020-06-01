@@ -6,9 +6,8 @@
       <animation-transition :animation-in-type="AnimationType.ZOOMIN" :animation-out-type="AnimationType.ROLLOUT">
       <div class="q-pa-sm row items-start justify-start animated-body" v-show="show">
         <q-card
-          class="bg-grey-1 shadow-2 q-ma-xs"
+          class="bg-grey-1 shadow-2 q-ma-xs q-mt-sm"
           style="width: 100%;border-radius:20px"
-          bordered
         >
           <q-card-section horizontal>
             <q-card-section class="col-4 flex flex-center">
@@ -16,7 +15,8 @@
                 <img src="statics/icons/favicon-128x128.png">
               </q-avatar>
             </q-card-section>
-            <q-card-section class="q-pt-xs">
+            <q-separator inset vertical />
+            <q-card-section class="q-pt-xs q-mt-sm">
               <div class="text-h6 q-mt-sm">Nombre Usuario</div>
               <div class="text-overline">Correo@Email.com</div>
               <div class="text-caption text-grey">Untima conexión</div>

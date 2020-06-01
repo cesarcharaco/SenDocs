@@ -2,8 +2,13 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-img src="statics/Sen-Docs logo 50x50.png" basic style="width:40px; height:40px" class="q-ma-sm" />
-        <div class="absolute-top-right q-pa-sm">
+        <animation-transition :animation-in-type="AnimationType.ZOOMIN" :animation-out-type="AnimationType.ROLLOUT">
+          <div class="animated-body" v-show="show">
+            <q-img src="statics/Sen-Docs logo 50x50.png" basic style="width:40px; height:40px" class="q-ma-sm" />
+          </div>
+        </animation-transition>
+        <animation-transition :animation-in-type="AnimationType.ZOOMIN" :animation-out-type="AnimationType.ROLLOUT">
+        <div class="absolute-top-right q-pa-sm animated-body" v-show="show">
                 <q-btn
                   flat
                   dense
@@ -104,6 +109,7 @@
                   </q-menu>
                 </q-btn>
               </div>
+              </animation-transition>
       </q-toolbar>
     </q-header>
 
@@ -116,14 +122,23 @@
 
 <script>
 import Footer from '../components/Footer'
+import {AnimationVueTransition, AnimationVueTransitionType} from 'vue-animation'
 
 export default {
   name: 'MainLayout',
+  components: {
+    [AnimationVueTransition.name]: AnimationVueTransition,
+  },
   data () {
     return {
       nNotify: 0,
-      myNotification: {}
+      myNotification: {},
+      AnimationType: AnimationVueTransitionType,
+      show: false
     }
-  }
+  },
+  mounted () {
+    this.show = true
+  },
 }
 </script>
