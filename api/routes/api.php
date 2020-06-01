@@ -18,9 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::group(['middleware' => ['cors']], function () {
    Route::get('hola', 'Controller@prueba2');
-   Route::post('/register','Api\AuthController@register');
-   //Route::post('/login','Api\AuthController@login');
-
 });
-//Route::match(['post', 'options'], "hola2", "Controller@prueba")->middleware("cors");
 Route::match(['post', 'options'], "login", "Api\AuthController@login")->middleware("cors");
+Route::match(['post', 'options'], "register", "Api\AuthController@register")->middleware("cors");
