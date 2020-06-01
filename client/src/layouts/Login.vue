@@ -94,11 +94,12 @@ export default {
     ...mapMutations('generals', ['login']),
     onSubmit () {
      // this.loading = true
-      this.$api.get('hola').then(res => {
-        console.log(res)
-      })
+      /* this.form.name = 'andres'
+      this.form.password_confirmation = this.form.password */
       this.$api.post('login', this.form).then(res => {
-        console.log(res)
+        if (res) {
+          this.$router.push('home')
+        }
       })
 
     }
