@@ -1,43 +1,19 @@
 <template>
   <!-- Nuevo proyecto -->
   <q-page class=" row bg-grey-1">
-    <div class="col">
-      <div class="q-pa-xs row items-start justify-between">
-        <q-img
-          src="statics/logo_quasar.png"
-          alt=""
-          style="width: 38px"
-        ></q-img>
-        <div>
-          <q-btn
-            flat
-            round
-            size="md"
-            color="warning"
-            icon="notifications"
-          >
-          </q-btn>
-          <q-btn
-            flat
-            round
-            size="md"
-            color="dark"
-            icon="settings"
-          >
-          </q-btn>
-        </div>
-      </div>
+    <div class="col" v-show="show">
       <q-separator />
-      <div class="q-pa-sm row items-start justify-start">
+      <animation-transition :animation-in-type="AnimationType.ZOOMIN" :animation-out-type="AnimationType.ROLLOUT">
+      <div class="q-pa-sm row items-start justify-start animated-body" v-show="show">
         <q-card
-          class="bg-grey-1 my-card"
-          style="width: 100%"
-          flat
+          class="bg-grey-1 shadow-2 q-ma-xs"
+          style="width: 100%;border-radius:20px"
+          bordered
         >
           <q-card-section horizontal>
             <q-card-section class="col-4 flex flex-center">
               <q-avatar size="100px">
-                <img src="statics/perfil.jpg">
+                <img src="statics/icons/favicon-128x128.png">
               </q-avatar>
             </q-card-section>
             <q-card-section class="q-pt-xs">
@@ -48,28 +24,44 @@
           </q-card-section>
         </q-card>
       </div>
+      </animation-transition>
+
       <div class="q-pa-xs">
         <div class="q-gutter-xl row justify-center">
-          <q-btn
-            round
-            size="lg"
-            color="teal"
-            icon="backup"
-            to="/documento/subir"
-          />
-          <q-btn
-            round
-            size="lg"
-            color="teal"
-            icon="edit"
-            to="/documento/editar"
-          />
+          <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
+            <div class="animated-body" v-show="show">
+              <q-btn
+                round
+                size="lg"
+                color="teal"
+                icon="backup"
+                to="/documento/subir"
+                class="shadow-3"
+              />
+            </div>
+          </animation-transition>
+          <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
+            <div class="animated-body" v-show="show">
+              <q-btn
+                round
+                size="lg"
+                color="teal"
+                icon="edit"
+                to="/documento/editar"
+                class="shadow-3"
+              />
+            </div>
+          </animation-transition>
         </div>
       </div>
+       <q-separator inset class="q-ma-md"/>
       <div class="q-pa-sm text-left text-caption text-grey">Untimos Archivos</div>
+
+      <animation-transition :animation-in-type="AnimationType.BOUNCEINUP" :animation-out-type="AnimationType.ROLLOUT">
       <div
-        class="q-pa-sm scroll text-bold text-grey-10"
+        class="q-pa-sm scroll text-bold text-grey-10 animated-body"
         style="height: 295px"
+        v-show="show"
       >
         <q-pull-to-refresh
           @refresh="refresh"
@@ -92,7 +84,7 @@
                 <q-item-section avatar>
                   <q-avatar>
                     <img
-                      src="statics/logo_quasar.png"
+                      src="statics/icons/favicon-128x128.png"
                       style="width: 40px"
                     >
                   </q-avatar>
@@ -102,13 +94,18 @@
           </div>
         </q-pull-to-refresh>
       </div>
+      </animation-transition>
     </div>
   </q-page>
 </template>
 
 <script>
+import {AnimationVueTransition, AnimationVueTransitionType} from 'vue-animation'
 export default {
   name: 'PageIndex',
+  components: {
+    [AnimationVueTransition.name]: AnimationVueTransition,
+  },
   data () {
     return {
       lastFiles: [
@@ -128,13 +125,16 @@ export default {
           name: 'Titulo',
           doc: 'Archivo'
         }
-      ]
+      ],
+      AnimationType: AnimationVueTransitionType,
+      show: false
     }
   },
   mounted () {
     this.$api.get('hola').then(v => {
       console.log(v)
     })
+    this.show = true
   },
   methods: {
     refresh (done) {

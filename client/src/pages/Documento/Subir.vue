@@ -1,8 +1,12 @@
 <template>
   <div class="q-pa-md">
     <q-input
-      v-model="form.nomDoc"
+      v-model="form.nombre"
       label="Nombre del Documento"
+    />
+    <q-input
+      v-model="form.etiqueta"
+      label="Etiqueta del Documento"
     />
     <q-input
       v-model="form.correo"

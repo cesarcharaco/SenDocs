@@ -1,8 +1,12 @@
 <template>
   <div>
+    <animation-transition :animation-in-type="AnimationType.ZOOMIN" :animation-out-type="AnimationType.ROLLOUT">
+    <div class="animated-body" v-show="show">
     <q-card
-      class="full-width shadow-3"
+      class="shadow-2 q-ma-sm"
       bordered
+      v-for="index in test"
+      :key="index"
     >
       <q-card-section>
         <div class="row justify-center">
@@ -12,6 +16,7 @@
                 icon="event"
                 class="q-pa-md"
                 color="primary"
+                size="10px"
                 text-color="white"
               >Etiqueta</q-chip>
             </div>
@@ -118,19 +123,32 @@
         </div>
       </q-card-section>
     </q-card>
+    </div>
+    </animation-transition>
 
   </div>
 </template>
 
 <script>
-export default {
+import {AnimationVueTransition, AnimationVueTransitionType} from 'vue-animation'
+
+  export default {
+  components: {
+    [AnimationVueTransition.name]: AnimationVueTransition,
+  },
   data () {
     return {
       data: [],
       form: {},
-      dialog: false
+      dialog: false,
+      test: 2,
+      AnimationType: AnimationVueTransitionType,
+      show: false
     }
-  }
+  },
+  mounted() {
+    this.show = true
+  },
 }
 </script>
 

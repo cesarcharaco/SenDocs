@@ -1,9 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
+import collapseTranstion from "vue-transition-collapse"
 import routes from './routes'
+import AnimatedVue from 'animated-vue'
 
 Vue.use(VueRouter)
+Vue.use(collapseTranstion)
+Vue.use(AnimatedVue)
 
 /*
  * If not building with SSR mode, you can

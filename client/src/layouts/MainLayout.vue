@@ -119,7 +119,6 @@ import Footer from '../components/Footer'
 
 export default {
   name: 'MainLayout',
-  components: { Footer },
   data () {
     return {
       nNotify: 0,

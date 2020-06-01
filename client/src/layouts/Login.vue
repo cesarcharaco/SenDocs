@@ -100,7 +100,7 @@ export default {
       this.$api.post('login', this.form).then(res => {
         console.log(res)
       })
-     
+
     }
   }
 }
