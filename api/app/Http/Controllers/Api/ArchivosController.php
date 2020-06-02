@@ -14,12 +14,13 @@ class ArchivosController extends Controller
      */
     public function index()
     {
-        $id_user=\Auth::user()->id;
+        //$id_user=\Auth::user()->id;
+        $id_user=1;
         $mis_archivos=\DB::table('archivos')
-        ->join('user_has_envio','user_has_envio.id_user','=','users.id')
-        ->join('archivos','archivos.id','=','user_has_envio.id_archivo')
+        ->join('user_has_envio','user_has_envio.id_archivo','=','archivos.id')
+        ->join('users','users.id','=','user_has_envio.id_user')
         ->where('users.id', $id_user)
-        ->select('archivos.*','user_has_envio.status AS email_status','user_has_envio..email_envio')
+        ->select('archivos.*','user_has_envio.status AS envio_status','user_has_envio.email')
         ->get();
 
         return response(['mis_archivos' => $mis_archivos]);
