@@ -80,10 +80,10 @@
           <animation-transition :animation-in-type="AnimationType.BOUNCEINUP" :animation-out-type="AnimationType.ROLLOUT">
           <div class="animated-body" v-show="show">
             <p align="center"><a
-                href=""
                 style="color: blue"
                 class="text-bold"
-              >¿Eres nuevo? Regístrate</a></p>
+                @click="$router.push('registro')"
+              >¿Eres nuevo? Regístrate.</a></p>
             <p
               align="center"
               class="gray text-bold"
