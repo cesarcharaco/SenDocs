@@ -18,6 +18,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::group(['middleware' => ['cors']], function () {
    Route::get('hola', 'Controller@prueba2');
+
+   Route::get('archivos/index','Api\ArchivosController@index')->name('archivos.index');
+   Route::get('archivos/create','Api\ArchivosController@create')->name('archivos.create');
 });
 Route::match(['post', 'options'], "login", "Api\AuthController@login")->middleware("cors");
 Route::match(['post', 'options'], "register", "Api\AuthController@register")->middleware("cors");
+
+//registro de archivos
+	Route::match(['post', 'options'], "archivos/registro", "Api\ArchivosController@store")->name('archivos.store')->middleware("cors");

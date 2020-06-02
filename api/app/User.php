@@ -37,4 +37,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function archivos()
+    {
+        return $this->belongsToMany('App\Archivos','user_has_envio','id_user','id_archivo')->withPivot('email_envio','status');
+    }
 }
