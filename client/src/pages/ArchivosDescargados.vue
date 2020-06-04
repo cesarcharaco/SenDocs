@@ -1,53 +1,29 @@
 <template>
   <div>
+    <q-item-label header>Archivos Subidos</q-item-label>
     <animation-transition :animation-in-type="AnimationType.ZOOMIN" :animation-out-type="AnimationType.ROLLOUT">
     <div class="animated-body" v-show="show">
-    <q-card
-      class="shadow-2 q-ma-sm"
-      bordered
-      v-for="index in test"
-      :key="index"
-    >
-      <q-card-section>
-        <div class="row justify-center">
-          <div class="column col">
-            <div class="col">
-              <q-chip
-                icon="event"
-                class="q-pa-md"
-                color="primary"
-                size="10px"
-                text-color="white"
-              >Etiqueta</q-chip>
-            </div>
-            <div class="col q-mt-md q-ml-sm text-bold">
-              Nombre del Archivo
-            </div>
-          </div>
-          <q-separator
-            vertical
-            inset
-            class="q-ma-sm"
-          />
-          <div class="q-mt-sm column">
-            <div class="col">Tipo</div>
-            <div class="col">Correo Destino</div>
-            <div class="col">fecha de Vencimiento</div>
-          </div>
-          <q-separator
-            vertical
-            inset
-            class="q-ma-sm"
-          />
-          <div class="q-mt-md q-ml-sm">
-            <q-btn
-              push
-              round
-              color="primary"
-              icon="update"
-              @click="dialog = true"
-            />
-            <q-dialog v-model="dialog">
+    <q-card bordered class="q-ma-sm shadow-3" v-for="index in test" :key="index">
+        <q-item>
+          <q-item-section>
+            <q-item-label class="text-bold">Nombre Archivo
+              <q-badge color="blue">
+                Etiqueta
+              </q-badge>
+            </q-item-label>
+            <q-item-label caption class="text-bold">Correo Destino</q-item-label>
+            <q-item-label caption class="text-bold">Tipo</q-item-label>
+          </q-item-section>
+
+          <q-item-section side top>
+            <q-item-label caption>Fecha Vencimiento</q-item-label>
+            <q-btn flat class="q-mt-xs q-mr-sm" round color="primary" icon="update" @click="dialog = true" />
+          </q-item-section>
+        </q-item>
+      </q-card>
+    </div>
+    </animation-transition>
+    <q-dialog v-model="dialog">
               <q-card>
                 <q-card-section>
                   <div class="text-h6">Nombre del Archivo</div>
@@ -119,13 +95,6 @@
                 </q-card-actions>
               </q-card>
             </q-dialog>
-          </div>
-        </div>
-      </q-card-section>
-    </q-card>
-    </div>
-    </animation-transition>
-
   </div>
 </template>
 
@@ -141,7 +110,7 @@ import {AnimationVueTransition, AnimationVueTransitionType} from 'vue-animation'
       data: [],
       form: {},
       dialog: false,
-      test: 2,
+      test: 10,
       AnimationType: AnimationVueTransitionType,
       show: false
     }
