@@ -4,7 +4,7 @@
       <q-item-label header class="text-bold" v-show="show">Edita tu Archivo</q-item-label>
     </animation-transition>
     <q-card
-      class="full-width shadow-3 q-mt-sm"
+      class="shadow-2 q-mt-sm q-ma-sm"
       bordered
     >
       <q-card-section>
