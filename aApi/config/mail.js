@@ -26,10 +26,10 @@ module.exports = {
     driver: 'smtp',
     pool: true,
     port: Env.get('MAIL_PORT', 465),
-    host: Env.get('MAIL_HOST', 'softlutionszone.com'),
+    host: Env.get('MAIL_HOST', 'eiche.com'),
     secure: true,
     auth: {
-      user: Env.get('MAIL_USERNAME', 'guiomarket@softlutionszone.com'),
+      user: Env.get('MAIL_USERNAME', 'eicash@eiche.com'),
       pass: Env.get('MAIL_PASSWORD', 'KS.BSrOB#p7m')
     },
     tls: {

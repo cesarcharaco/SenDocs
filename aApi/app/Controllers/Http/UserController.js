@@ -43,22 +43,19 @@ class UserController {
    */
   async register({ request, response }) {
     let requestAll = request.all()
-    console.log(requestAll, 'request alll')
     const validation = await validate(request.all(), User.fieldValidationRules(requestAll.role))
     if (validation.fails()) {
       response.unprocessableEntity(validation.messages())
     } else if (((await User.where({email: requestAll.email}).fetch()).toJSON()).length) {
       response.unprocessableEntity([{
-        message: 'Correo ya registrado en el sistema!'
+        message: 'Correo Existente!'
       }])
     } else {
       let body = request.only(User.fillable)
       body.roles = [requestAll.role]
       delete body.role
-      body.verify = false
       const user = await User.create(body)
-      Email.sendMail(body.email, 'Bienvenido a EiCash', 'A partir de Ahora Formas Parte De Nuestra Plataforma')
-      // const user = body
+      Email.sendMail(body.email, 'Bienvenido a Sendocs', 'A partir de Ahora Formas Parte De Nuestra Plataforma')
       response.send(user)
     }
   }

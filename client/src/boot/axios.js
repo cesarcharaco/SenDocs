@@ -28,7 +28,7 @@ export default async ({
             message: 'Registro guardado con éxito!'
           })
         } else { // Es Login
-          localStorage.setItem('GM_SESSION_INFO', JSON.stringify(response.data))
+          localStorage.setItem('SD_SESSION_INFO', JSON.stringify(response.data))
         }
       }
     }

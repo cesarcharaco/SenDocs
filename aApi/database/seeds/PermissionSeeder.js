@@ -16,8 +16,8 @@ const Permission = use("App/Models/Permission")
 const permissionData = [
   {
     id: 1,
-    name: 'Crear Cuenta Bancaria - Modificar',
-    description: 'Permiso para ver la lista de Cuentas Bancarias Registradas'
+    name: 'Nombre del Permiso',
+    description: 'Descripcion del Permiso'
   },
 
 ]

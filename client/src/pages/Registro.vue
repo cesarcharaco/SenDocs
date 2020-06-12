@@ -46,12 +46,12 @@
           <div class="row">
             <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
               <div class="col animated-body" v-show="show" style="float: right">
-                <q-btn @click="$router.go(-1)" class="shadow-3" color="primary" label="Volver" outline icon="keyboard_backspace" style="border-radius:15px" />
+                <q-btn @click="$router.go(-1)" class="shadow-3" color="primary" label="Volver" outline icon="keyboard_backspace" />
               </div>
             </animation-transition>
             <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
               <div class="col animated-body" v-show="show">
-                <q-btn class="glossy shadow-3" push color="primary" label="Guardar" style="float: right; border-radius:15px" icon-right="save" />
+                <q-btn class="shadow-3" push color="primary" label="Guardar" style="float: right" icon-right="save" />
               </div>
             </animation-transition>
           </div>
@@ -61,6 +61,7 @@
 </template>
 <script>
 import {AnimationVueTransition, AnimationVueTransitionType} from 'vue-animation'
+import { required, sameAs, minLength, maxLength } from 'vuelidate/lib/validators'
 export default {
   components: {
     [AnimationVueTransition.name]: AnimationVueTransition,
@@ -68,21 +69,45 @@ export default {
   data () {
     return {
       form: {},
-      password2: '',
+      password: '',
+      repeatPassword: '',
+      formError: {},
       AnimationType: AnimationVueTransitionType,
       show: false
     }
+  },
+  validations: {
+    form: {
+      fullName: { required, maxLength: maxLength(50), minLength: minLength(4) },
+      email: { required }
+    },
+    repeatPassword: {
+      sameAsPassword: sameAs('password')
+    },
+    password: { required, maxLength: maxLength(256), minLength: minLength(8) }
   },
   mounted () {
     this.show = true
   },
   methods: {
     onSubmit () {
-      if (this.form.contrasena === password2) {
-
-      } else {
-
+      this.$q.loading.show()
+      this.$v.$touch()
+      if (!validateErrors()) {
+        //Guardar
       }
+      this.$q.loading.hide()
+    },
+    validateErrors () {
+      let error = false
+      if (this.$v.form.$error || this.$v.password.$error || this.$v.repeatPassword.$error) {
+        error = true
+        this.formError.fullName = this.form.fullName.length < 2 ? 'debe ser mayor a 2 caracteres' : this.form.fullName.length > 50 ? 'El Nombre debe ser menor a 50 caracteres' : 'Ingrese su Nombre'
+        this.formError.email = 'Ingrese su Email'
+        this.formError.password = this.password.length < 7 ? 'la Contraseña debe ser mayor a 7 caracteres' : this.password.length > 256 ? 'la contraseña no puede ser tan larga' : 'Ingrese su Contraseña'
+        this.formError.repeatPassword = 'Las Contraseñas no Coinciden'
+      }
+      return error
     }
   }
 }

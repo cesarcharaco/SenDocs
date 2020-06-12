@@ -16,14 +16,8 @@ const Role = use("App/Models/Role")
 const roleData = [
   {
     id: 1,
-    name: 'Super Admin',
-    description: 'Rol de Súper Administrador de EICASH',
-    permissions: [1]
-  },
-  {
-    id: 2,
-    name: 'Cliente',
-    description: 'Rol de Cliente de EICASH',
+    name: 'Usuario',
+    description: 'Rol de Usuario de Sendocs',
     permissions: [1]
   }
 ]
