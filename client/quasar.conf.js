@@ -56,7 +56,7 @@ module.exports = function (/* ctx */) {
       directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: ['Notify', 'Dialog', 'Loading', 'AppFullscreen']
     },
 
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie

@@ -6,11 +6,11 @@ export function loginStop (state, errorMessage) {
   state.loginError = errorMessage
 }
 
-export function updateAccessToken (state, GM_SESSION_INFO) {
-  if (GM_SESSION_INFO) {
-    state.GM_SESSION_INFO = GM_SESSION_INFO
+export function updateAccessToken (state, SD_SESSION_INFO) {
+  if (SD_SESSION_INFO) {
+    state.SD_SESSION_INFO = SD_SESSION_INFO
   } else {
-    state.GM_SESSION_INFO = {}
+    state.SD_SESSION_INFO = {}
   }
 }
 export function setCurrentModule (state, payload) {
@@ -45,8 +45,8 @@ export function showCurrentMonth (state) {
   state.customShowListable = 'Mes Actual'
 }
 export function login (state, data) {
-  localStorage.setItem('GM_SESSION_INFO', JSON.stringify(data.GM_SESSION_INFO))
-  state.GM_SESSION_INFO = data.GM_SESSION_INFO
+  localStorage.setItem('SD_SESSION_INFO', JSON.stringify(data.SD_SESSION_INFO))
+  state.SD_SESSION_INFO = data.SD_SESSION_INFO
   state.user = data.user
 }
 export function dataUser (state, data) {
@@ -54,7 +54,7 @@ export function dataUser (state, data) {
   state.user = data
 }
 export function logout (state) {
-  localStorage.removeItem('GM_SESSION_INFO')
-  state.GM_SESSION_INFO = ''
+  localStorage.removeItem('SD_SESSION_INFO')
+  state.SD_SESSION_INFO = ''
   state.user = ''
 }

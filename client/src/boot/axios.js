@@ -1,17 +1,12 @@
 import axios from 'axios'
 import env from '../env'
-import {
-  Notify
-} from 'quasar'
+import { Notify } from 'quasar'
 
 const axiosInstance = axios.create({
-  baseURL: env.apiUrl // url base cargada de archivo env.js
+  baseURL: env.apiUrl// url base cargada de archivo env.js
 })
 
-export default async ({
-  store,
-  Vue
-}) => {
+export default async ({ store, Vue }) => {
   // Vue.prototype.$axios = axios
   Vue.prototype.$api = axiosInstance
 
@@ -112,29 +107,22 @@ export default async ({
 
     // return Promise.reject(data)
   })
-
- /*  axiosInstance.interceptors.request.use(async function (config) {
-      // Antes de enviar cada petición se añade el token si existe
-
-      store.dispatch('generals/fetchAccessToken')
-      const token = (store.state.generals.GM_SESSION_INFO !== null) ? store.state.generals.GM_SESSION_INFO.token : false
-      console.log('token', token)
-      if (token) {
-        if (!config.headers) {
-          config.headers = {}
-        }
-        config.headers = {
-          Authorization: 'Bearer ' + token
-        }
+  /*  axiosInstance.interceptors.request.use(async function (config) {
+    // Antes de enviar cada petición se añade el token si existe
+       store.dispatch('generals/fetchAccessToken')
+    const token = (store.state.generals.SD_SESSION_INFO !== null) ? store.state.generals.SD_SESSION_INFO.token : false
+    console.log('token', token)
+    if (token) {
+      if (!config.headers) { config.headers = {} }
+      config.headers = {
+        Authorization: 'Bearer ' + token
       }
-      return config
-    },
-    function (error) {
-      // Do something with request error
-      return Promise.reject(error)
-    }) */
+    }
+    return config
+  }, function (error) {
+    // Do something with request error
+    return Promise.reject(error)
+  }) */
 }
 
-export {
-  axiosInstance
-}
+export { axiosInstance }

@@ -124,15 +124,21 @@ export default {
   methods: {
     ...mapMutations('generals', ['login']),
     onSubmit () {
-     // this.loading = true
-      /* this.form.name = 'andres'
-      this.form.password_confirmation = this.form.password */
+      this.$q.loading.show({
+        message: 'Iniciando sesión'
+      })
       this.$api.post('login', this.form).then(res => {
         if (res) {
-          this.$router.push('home')
+          const client = res.SD_SESSION_INFO.roles.find(value => value === 1)
+          if (client) {
+            this.login(res)
+            this.$router.push('home')
+          }
+        } else {
+          console.log('hubo un error')
         }
       })
-
+      this.$q.loading.hide()
     }
   }
 }

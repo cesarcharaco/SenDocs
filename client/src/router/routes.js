@@ -13,7 +13,7 @@ const routes = [
     ]
   },
   { path: '/inicio', component: () => import('pages/InicioAplicacionSD.vue') },
-  { path: '/', component: () => import('layouts/Login.vue') }
+  { path: '/login', component: () => import('layouts/Login.vue') }
 ]
 // Always leave this as last one
 if (process.env.MODE !== 'ssr') {

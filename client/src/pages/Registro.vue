@@ -9,7 +9,7 @@
       <q-form class="q-gutter-md q-ma-md">
         <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
             <div class="animated-body" v-show="show">
-              <q-input class="q-ma-sm text-bold" dark v-model="form.nombreC" label="Nombre Completo">
+              <q-input class="q-ma-sm text-bold" dark v-model="form.fullName" label="Nombre Completo">
                 <template v-slot:prepend>
                   <q-icon name="person" color="primary"></q-icon>
                 </template>
@@ -18,7 +18,7 @@
           </animation-transition>
           <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
             <div class="animated-body" v-show="show">
-              <q-input class="q-ma-sm text-bold" type="email" dark v-model="form.correo" label="Correo electrónico">
+              <q-input class="q-ma-sm text-bold" type="email" dark v-model="form.email" label="Correo electrónico">
                 <template v-slot:prepend>
                   <q-icon name="mail" color="primary"></q-icon>
                 </template>
@@ -27,7 +27,7 @@
           </animation-transition>
           <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
             <div class="animated-body" v-show="show">
-              <q-input class="q-ma-sm text-bold" type="password" dark v-model="form.contrasena" label="Contrasena">
+              <q-input class="q-ma-sm text-bold" type="password" dark v-model="password" label="Contraseña">
                 <template v-slot:prepend>
                   <q-icon name="vpn_key" color="primary"></q-icon>
                 </template>
@@ -36,7 +36,7 @@
           </animation-transition>
           <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
             <div class="animated-body" v-show="show">
-              <q-input class="q-ma-sm text-bold" type="password" dark v-model="password2" label="Repita su Contrasena">
+              <q-input class="q-ma-sm text-bold" type="password" dark v-model="repeatPassword" label="Repita su Contraseña">
                 <template v-slot:prepend>
                   <q-icon name="vpn_key" color="primary"></q-icon>
                 </template>
@@ -102,7 +102,7 @@ export default {
       let error = false
       if (this.$v.form.$error || this.$v.password.$error || this.$v.repeatPassword.$error) {
         error = true
-        this.formError.fullName = this.form.fullName.length < 2 ? 'debe ser mayor a 2 caracteres' : this.form.fullName.length > 50 ? 'El Nombre debe ser menor a 50 caracteres' : 'Ingrese su Nombre'
+        this.formError.fullName = this.form.fullName.length < 2 ? 'Debe ser mayor a 2 caracteres' : this.form.fullName.length > 50 ? 'Ddebe ser menor a 50 caracteres' : 'Ingrese su Nombre Completo'
         this.formError.email = 'Ingrese su Email'
         this.formError.password = this.password.length < 7 ? 'la Contraseña debe ser mayor a 7 caracteres' : this.password.length > 256 ? 'la contraseña no puede ser tan larga' : 'Ingrese su Contraseña'
         this.formError.repeatPassword = 'Las Contraseñas no Coinciden'

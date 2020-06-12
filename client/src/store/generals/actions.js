@@ -1,8 +1,8 @@
 export function fetchAccessToken ({ commit }) {
-  commit('updateAccessToken', JSON.parse(localStorage.getItem('GM_SESSION_INFO')))
+  commit('updateAccessToken', JSON.parse(localStorage.getItem('SD_SESSION_INFO')))
 }
 export function logout ({ commit }) {
-  localStorage.removeItem('GM_SESSION_INFO')
+  localStorage.removeItem('SD_SESSION_INFO')
   commit('logout')
 }
 export async function saveUser ({ commit }) {
@@ -13,4 +13,4 @@ export async function saveUser ({ commit }) {
     }
   })
 }
-/* eslint-disable */ 
+/* eslint-disable */

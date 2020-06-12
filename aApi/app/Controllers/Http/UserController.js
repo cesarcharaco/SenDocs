@@ -129,19 +129,13 @@ class UserController {
     await user.delete();
   }
 
-  async login({
-    auth,
-    request
-  }) {
-    const {
-      email,
-      password
-    } = request.all();
+  async login({ auth, request }) {
+    const { email, password } = request.all();
     let token = await auth.attempt(email, password)
     const user = (await User.findBy('email', email)).toJSON()
     let isUser = false
     token.roles = user.roles.map(roleMap => {
-      if (roleMap === 3) {
+      if (roleMap === 1) {
         isUser = true
       }
       return roleMap
@@ -154,10 +148,10 @@ class UserController {
         token.permissions.push(element2)
       })
     })
-    token.name = user.name
-    token.lastName = user.lastName
+    token.fullName = user.fullName
+
     let data = {}
-    data.EIC_SESSION_INFO = token
+    data.SD_SESSION_INFO = token
     return data
   }
 

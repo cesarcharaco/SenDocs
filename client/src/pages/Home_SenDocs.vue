@@ -131,9 +131,6 @@ export default {
     }
   },
   mounted () {
-    this.$api.get('hola').then(v => {
-      console.log(v)
-    })
     this.show = true
   },
   methods: {

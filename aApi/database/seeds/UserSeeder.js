@@ -18,20 +18,11 @@ const Factory = use('Factory')
 
 const userData = [
   {
-    _id: '5e90d6e6f75366526a680091',
-    email: 'admin@sendocs.com',
-    password: 'sendocs2020',
-    name: 'Súper',
-    lastName: 'Administrador',
-    roles: [1]
-  },
-  {
     _id: '5e90d6e6f75366526a680092',
     email: 'cliente@sendocs.com',
     password: 'sendocs2020',
-    name: 'Haidee',
-    lastName: 'Martinez',
-    roles: [2]
+    fullName: 'Haidee',
+    roles: [1]
   }
 ]
 
@@ -45,10 +36,8 @@ class UserSeeder {
       else {
         user.email = i.email
         user.password = i.password
-        user.name = i.name
-        user.lastName = i.lastName
+        user.fullName = i.fullName
         user.roles = i.roles
-        user.country_id = i.country_id ? i.country_id : null
         await user.save()
       }
     }
