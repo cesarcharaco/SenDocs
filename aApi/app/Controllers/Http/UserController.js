@@ -149,6 +149,7 @@ class UserController {
       })
     })
     token.fullName = user.fullName
+    token.email = user.email
 
     let data = {}
     data.SD_SESSION_INFO = token

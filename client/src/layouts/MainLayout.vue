@@ -94,6 +94,7 @@
                     <q-item
                       clickable
                       v-ripple
+                      @click="cerrarSesion()"
                       style="width:200px"
                       class="text-primary"
                     >
@@ -123,7 +124,7 @@
 <script>
 import Footer from '../components/Footer'
 import {AnimationVueTransition, AnimationVueTransitionType} from 'vue-animation'
-
+import { mapMutations } from 'vuex'
 export default {
   name: 'MainLayout',
   components: {
@@ -140,5 +141,12 @@ export default {
   mounted () {
     this.show = true
   },
+  methods: {
+    ...mapMutations('generals', ['logout']),
+    cerrarSesion () {
+      this.logout()
+      this.$router.push('/')
+    }
+  }
 }
 </script>

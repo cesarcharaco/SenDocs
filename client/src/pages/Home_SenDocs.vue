@@ -17,9 +17,9 @@
             </q-card-section>
             <q-separator inset vertical />
             <q-card-section class="q-pt-xs q-mt-sm">
-              <div class="text-h6 q-mt-sm">Nombre Usuario</div>
-              <div class="text-overline">Correo@Email.com</div>
-              <div class="text-caption text-grey">Untima conexión</div>
+              <div class="text-h6 q-mt-sm">{{userInfo.fullName}}</div>
+              <div class="text-overline">{{userInfo.email}}</div>
+              <div class="text-caption text-grey">ultima conexión</div>
             </q-card-section>
           </q-card-section>
         </q-card>
@@ -108,6 +108,7 @@ export default {
   },
   data () {
     return {
+      userInfo: '',
       lastFiles: [
         {
           name: 'Titulo',
@@ -132,6 +133,7 @@ export default {
   },
   mounted () {
     this.show = true
+    this.getUser()
   },
   methods: {
     refresh (done) {
@@ -144,6 +146,9 @@ export default {
       this.$api.get('location').then(v => {
         this.configUser.ubication = v.country
       })
+    },
+    getUser () {
+      this.userInfo = JSON.parse(localStorage.getItem('SD_SESSION_INFO'))
     }
   }
 }
