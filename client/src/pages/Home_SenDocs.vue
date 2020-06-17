@@ -25,35 +25,6 @@
         </q-card>
       </div>
       </animation-transition>
-
-      <div class="q-pa-xs">
-        <div class="q-gutter-xl row justify-center">
-          <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
-            <div class="animated-body" v-show="show">
-              <q-btn
-                round
-                size="lg"
-                color="teal"
-                icon="backup"
-                to="/documento/subir"
-                class="shadow-3"
-              />
-            </div>
-          </animation-transition>
-          <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
-            <div class="animated-body" v-show="show">
-              <q-btn
-                round
-                size="lg"
-                color="teal"
-                icon="edit"
-                to="/documento/editar"
-                class="shadow-3"
-              />
-            </div>
-          </animation-transition>
-        </div>
-      </div>
        <q-separator inset class="q-ma-md"/>
       <div class="q-pa-sm text-left text-caption text-grey">Untimos Archivos</div>
 
@@ -96,6 +67,13 @@
       </div>
       </animation-transition>
     </div>
+    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+      <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
+        <div class="animated-body" v-show="show">
+          <q-btn round size="lg" color="teal" icon="backup" to="/documento/subir" class="shadow-3" />
+        </div>
+      </animation-transition>
+    </q-page-sticky>
   </q-page>
 </template>
 

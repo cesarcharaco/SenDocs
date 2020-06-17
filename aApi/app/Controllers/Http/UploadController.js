@@ -2,7 +2,6 @@
 
 const Helpers = use('Helpers')
 const mkdirp = use('mkdirp')
-const Shop = use('App/Models/Shop')
 const fs = require('fs')
 
 
@@ -17,64 +16,26 @@ class UploadController {
   async upload({
     request
   }) {
-    let data = {}
+    const profilePic = request.file('files', {
+      size: '1024mb'
+    })
+
     var dat = request.only(['dat'])
     dat = JSON.parse(dat.dat)
-    var profilePic = request.file('files', {
-      types: ['image'],
-      size: '2mb'
-    })
-    if (profilePic) {
-      if (Helpers.appRoot('storage/uploads')) {
-        await profilePic.move(Helpers.appRoot('storage/uploads'), {
-          name: dat.identification + '-' + dat.name + '.' + profilePic.extname,
-          overwrite: true
-        })
-      } else {
-        mkdirp.sync(`${__dirname}/storage/Excel`)
-      }
-
-      data.name = profilePic.fileName
-
-      if (!profilePic.moved()) {
-        return profilePic.error()
-      }
+    const date = new Date().getTime()
+    if (Helpers.appRoot('storage/uploads')) {
+      await profilePic.move(Helpers.appRoot('storage/uploads'), {
+        name: dat.code + '-' + dat.name + '.' + profilePic.extname,
+        overwrite: true
+      })
+    } else {
+      mkdirp.sync(`${__dirname}/storage/Excel`)
     }
-    profilePic = request.file('files2', {
-      types: ['image'],
-      size: '2mb'
-    })
-    if (profilePic) {
-      if (Helpers.appRoot('storage/uploads')) {
-        await profilePic.move(Helpers.appRoot('storage/uploads'), {
-          name: dat.identification + '- license -' + dat.name + '.' + profilePic.extname,
-          overwrite: true
-        })
-      } else {
-        mkdirp.sync(`${__dirname}/storage/Excel`)
-      }
-      data.license = profilePic.fileName
-      if (!profilePic.moved()) {
-        return profilePic.error()
-      }
+    const data = {
+      name: profilePic.fileName
     }
-    profilePic = request.file('files3', {
-      types: ['image'],
-      size: '2mb'
-    })
-    if (profilePic) {
-      if (Helpers.appRoot('storage/uploads')) {
-        await profilePic.move(Helpers.appRoot('storage/uploads'), {
-          name: dat.identification + '- identification -' + dat.name + '.' + profilePic.extname,
-          overwrite: true
-        })
-      } else {
-        mkdirp.sync(`${__dirname}/storage/Excel`)
-      }
-      data.identification = profilePic.fileName
-      if (!profilePic.moved()) {
-        return profilePic.error()
-      }
+    if (!profilePic.moved()) {
+      return profilePic.error()
     }
     return data
   }

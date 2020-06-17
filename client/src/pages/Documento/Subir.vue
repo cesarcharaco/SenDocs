@@ -7,28 +7,41 @@
       <div class="q-pa-sm">
         <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
           <q-input
-            v-model="form.nombre"
+            v-model="form.name"
             label="Nombre del Documento"
             v-show="show"
           />
         </animation-transition>
         <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
           <q-input
-            v-model="form.etiqueta"
+            v-model="form.label"
             label="Etiqueta del Documento"
             v-show="show"
           />
         </animation-transition>
         <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
-          <q-input
-            v-model="form.correo"
-            label="Correo"
-            v-show="show"
-          />
+          <q-select label="Ingrese el/los Correo/s" v-model="form.emails" use-input use-chips multiple hide-dropdown-icon input-debounce="0" new-value-mode="add-unique" v-show="show" >
+            <template v-slot:append>
+              <q-btn icon="add" color="primary" flat round @click="addEmailShow = true" />
+            </template>
+          </q-select>
         </animation-transition>
+        <q-dialog v-model="addEmailShow">
+          <q-card class="window-width" >
+            <q-form @submit="addEmail" >
+              <q-card-section>
+                  <q-input v-model="email" label="Email *" lazy-rules :rules="[ val => val && val.length > 0 || 'Ingrese Su Correo']" />
+              </q-card-section>
+              <q-card-actions align="right" >
+                <q-btn color="primary" flat label="Cancelar" v-close-popup @click="this.email = ''" />
+                <q-btn color="primary" label="Agregar" type="submit"/>
+              </q-card-actions>
+            </q-form>
+          </q-card>
+        </q-dialog>
         <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
           <q-input
-            v-model="form.fvencimiento"
+            v-model="form.expiration"
             mask="date"
             readonly
             :rules="['date']"
@@ -49,7 +62,7 @@
                   transition-hide="scale"
                 >
                   <q-date
-                    v-model="form.fvencimiento"
+                    v-model="form.expiration"
                     @input="() => $refs.qDateProxy.hide()"
                   />
                 </q-popup-proxy>
@@ -58,7 +71,7 @@
           </q-input>
         </animation-transition>
         <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
-          <q-file bottom-slots v-model="model" label="Subir Archivo" v-show="show" counter>
+          <q-file bottom-slots v-model="file" label="Subir Archivo" v-show="show" counter >
             <template v-slot:prepend>
               <q-icon name="cloud_upload" color="primary" @click.stop />
             </template>
@@ -76,6 +89,7 @@
               label="Subir"
               style="width:100px; border-radius:20px"
               v-show="show"
+              @click="onSubmit()"
             />
           </animation-transition>
         </q-card-actions>
@@ -85,6 +99,7 @@
 </template>
 
 <script>
+import env from '../../env'
 import {AnimationVueTransition, AnimationVueTransitionType} from 'vue-animation'
 export default {
   components: {
@@ -92,18 +107,42 @@ export default {
   },
   data () {
     return {
-      form: {},
+      form: {
+        emails: []
+      },
       AnimationType: AnimationVueTransitionType,
       show: false,
-      model: null
+      file: null,
+      baseu: '',
+      addEmailShow: false,
+      email: ''
     }
   },
   mounted () {
     this.show = true
+    this.baseu = env.apiUrl
   },
   methods: {
-    factoryFn (files) {
-      console.log(files, 'filesss')
+    async onSubmit () {
+      console.log(this.file, 'filesss')
+      if (this.file) {
+        let formData = new FormData()
+        formData.append('files', this.file)
+        formData.append('dat', JSON.stringify(test))
+        console.log(formData, 'formdata')
+        await this.$api.post('uploads', formData, {
+          headers: {
+            'Content-Type': undefined
+          }
+        }).then((res) => {
+          console.log(res, 'RESPUESTA')
+        })
+      }
+    },
+    addEmail () {
+      this.form.emails.push(this.email)
+      this.email = ''
+      this.addEmailShow = false
     }
   }
 }
