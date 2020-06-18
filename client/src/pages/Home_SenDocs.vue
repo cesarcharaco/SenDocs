@@ -26,44 +26,13 @@
       </div>
       </animation-transition>
        <q-separator inset class="q-ma-md"/>
-      <div class="q-pa-sm text-left text-caption text-grey">Untimos Archivos</div>
-
       <animation-transition :animation-in-type="AnimationType.BOUNCEINUP" :animation-out-type="AnimationType.ROLLOUT">
       <div
         class="q-pa-sm scroll text-bold text-grey-10 animated-body"
         style="height: 295px"
         v-show="show"
       >
-        <q-pull-to-refresh
-          @refresh="refresh"
-          color="teal"
-        >
-          <div
-            v-for="(last, index) in lastFiles"
-            :key="index"
-            class="q-mb-sm"
-          >
-            <q-card class="my-card">
-              <q-item to="/archivosdescargados">
-                <q-item-section>
-                  <q-item-label class="text-h6">{{ last.name+(index+1) }}</q-item-label>
-                </q-item-section>
-                <q-item-section>
-                  <q-item-label>{{ last.doc }}</q-item-label>
-                </q-item-section>
-                <q-separator vertical />
-                <q-item-section avatar>
-                  <q-avatar>
-                    <img
-                      src="statics/icons/favicon-128x128.png"
-                      style="width: 40px"
-                    >
-                  </q-avatar>
-                </q-item-section>
-              </q-item>
-            </q-card>
-          </div>
-        </q-pull-to-refresh>
+      <Archivos />
       </div>
       </animation-transition>
     </div>
@@ -79,10 +48,12 @@
 
 <script>
 import {AnimationVueTransition, AnimationVueTransitionType} from 'vue-animation'
+import Archivos from '../pages/ArchivosDescargados.vue'
 export default {
   name: 'PageIndex',
   components: {
     [AnimationVueTransition.name]: AnimationVueTransition,
+    Archivos
   },
   data () {
     return {

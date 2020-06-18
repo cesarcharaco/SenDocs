@@ -3,20 +3,20 @@
     <q-item-label header>Archivos Subidos</q-item-label>
     <animation-transition :animation-in-type="AnimationType.ZOOMIN" :animation-out-type="AnimationType.ROLLOUT">
     <div class="animated-body" v-show="show">
-    <q-card bordered class="q-ma-sm shadow-3" v-for="index in test" :key="index">
+    <q-card bordered class="q-ma-sm shadow-3" v-for="(archive, index) in data" :key="index">
         <q-item>
           <q-item-section>
-            <q-item-label class="text-bold">Nombre Archivo
+            <q-item-label class="text-bold">{{archive.name}}
               <q-badge color="blue">
-                Etiqueta
+                {{archive.label}}
               </q-badge>
             </q-item-label>
-            <q-item-label caption class="text-bold">Correo Destino</q-item-label>
-            <q-item-label caption class="text-bold">Tipo</q-item-label>
+            <q-item-label caption class="text-bold">{{archive.emails[0]}}</q-item-label>
+            <!-- <q-item-label caption class="text-bold"></q-item-label> -->
           </q-item-section>
 
           <q-item-section side top>
-            <q-item-label caption>Fecha Vencimiento</q-item-label>
+            <q-item-label caption>{{archive.expiration}}</q-item-label>
             <q-btn flat class="q-mt-xs q-mr-sm" round color="primary" icon="update" @click="dialog = true" />
           </q-item-section>
         </q-item>
@@ -117,7 +117,15 @@ import {AnimationVueTransition, AnimationVueTransitionType} from 'vue-animation'
   },
   mounted() {
     this.show = true
+    this.getRecord()
   },
+  methods: {
+    getRecord () {
+      this.$api.get('archives').then(res => {
+        this.data = res
+      })
+    }
+  }
 }
 </script>
 
