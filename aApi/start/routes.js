@@ -38,7 +38,7 @@ addPrefixToGroup(
     // Insertar rutas sin protección de autenticación aquí
     Route.post("login", "UserController.login");
     Route.post("register", "UserController.register")
-    Route.post('uploads', 'UploadController.upload');
+
   })
 );
 
@@ -51,6 +51,7 @@ addPrefixToGroup(
     ///////////////////////////////
 
     ////////////Usuarios////////////////////////
+    Route.post('uploads', 'UploadController.upload');
 
   }).middleware("auth")
 );

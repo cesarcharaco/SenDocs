@@ -128,7 +128,7 @@ export default {
       if (this.file) {
         let formData = new FormData()
         formData.append('files', this.file)
-        formData.append('dat', JSON.stringify(test))
+        formData.append('dat', JSON.stringify(this.form))
         console.log(formData, 'formdata')
         await this.$api.post('uploads', formData, {
           headers: {

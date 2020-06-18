@@ -3,6 +3,7 @@
 const Helpers = use('Helpers')
 const mkdirp = use('mkdirp')
 const fs = require('fs')
+const Archivo = use("App/Models/Archivo")
 
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
@@ -13,19 +14,17 @@ const fs = require('fs')
  * Resourceful controller for interacting with uploads
  */
 class UploadController {
-  async upload({
-    request
-  }) {
+  async upload({ request, auth }) {
     const profilePic = request.file('files', {
-      size: '1024mb'
+      size: '25mb'
     })
-
+    const idUser = ((await auth.getUser()).toJSON())._id
     var dat = request.only(['dat'])
     dat = JSON.parse(dat.dat)
     const date = new Date().getTime()
     if (Helpers.appRoot('storage/uploads')) {
       await profilePic.move(Helpers.appRoot('storage/uploads'), {
-        name: dat.code + '-' + dat.name + '.' + profilePic.extname,
+        name: idUser + '-' + dat.name + '-' + dat.label + '.' + profilePic.extname,
         overwrite: true
       })
     } else {

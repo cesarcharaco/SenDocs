@@ -11,7 +11,7 @@ export default async ({ store, Vue }) => {
   Vue.prototype.$api = axiosInstance
 
   axiosInstance.interceptors.response.use(function (response) {
-    console.log('axiosResponse', response)
+    // console.log('axiosResponse', response)
     // Todo bien con la respuesta
     if (response.config.method === 'post') {
       if (response.status === 201) {
@@ -37,7 +37,7 @@ export default async ({ store, Vue }) => {
         color: 'red-5',
         textColor: 'white',
         icon: 'fas fa-exclamation-triangle',
-        message: 'No se pudo establecer conexión con el servidor' + error
+        message: 'No se pudo establecer conexión con el servidor. Revisa tu conexión a internet. ' + error
       })
     } else {
       if (error.response.status === 401) {
@@ -45,11 +45,13 @@ export default async ({ store, Vue }) => {
           message: 'Correo y/o Contraseña Incorrectos',
           color: 'black'
         })
+        localStorage.removeItem('SD_SESSION_INFO')
       } else if (error.response.status === 403) {
         Notify.create({
           message: error.response.data,
           color: 'red'
         })
+        localStorage.removeItem('SD_SESSION_INFO')
       } else if (error.response.status === 404) {
         Notify.create({
           message: 'Ruta no encontrada - 404',
@@ -69,7 +71,7 @@ export default async ({ store, Vue }) => {
         })
       }
       var data = error.response.data
-      console.log('error.response.data.error', data)
+      // console.log('error.response.data.error', data)
       if (data) {
         if (data.statusCode === 403) {
           Notify.create({
@@ -107,11 +109,13 @@ export default async ({ store, Vue }) => {
 
     // return Promise.reject(data)
   })
-  /*  axiosInstance.interceptors.request.use(async function (config) {
+
+  axiosInstance.interceptors.request.use(async function (config) {
     // Antes de enviar cada petición se añade el token si existe
-       store.dispatch('generals/fetchAccessToken')
+
+    store.dispatch('generals/fetchAccessToken')
     const token = (store.state.generals.SD_SESSION_INFO !== null) ? store.state.generals.SD_SESSION_INFO.token : false
-    console.log('token', token)
+    // console.log('token', token)
     if (token) {
       if (!config.headers) { config.headers = {} }
       config.headers = {
@@ -122,7 +126,7 @@ export default async ({ store, Vue }) => {
   }, function (error) {
     // Do something with request error
     return Promise.reject(error)
-  }) */
+  })
 }
 
 export { axiosInstance }
