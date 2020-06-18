@@ -10,6 +10,8 @@
             v-model="form.name"
             label="Nombre del Documento"
             v-show="show"
+            :error-message="errorMsg.name"
+            :error="$v.form.name.$error"
           />
         </animation-transition>
         <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
@@ -17,10 +19,12 @@
             v-model="form.label"
             label="Etiqueta del Documento"
             v-show="show"
+            :error-message="errorMsg.label"
+            :error="$v.form.label.$error"
           />
         </animation-transition>
         <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
-          <q-select label="Ingrese el/los Correo/s" v-model="form.emails" use-input use-chips multiple hide-dropdown-icon input-debounce="0" new-value-mode="add-unique" v-show="show" >
+          <q-select label="Ingrese el/los Correo/s" v-model="form.emails" use-input use-chips multiple hide-dropdown-icon input-debounce="0" new-value-mode="add-unique" v-show="show" :error-message="errorMsg.emails" :error="$v.form.emails.$error" >
             <template v-slot:append>
               <q-btn icon="add" color="primary" flat round @click="addEmailShow = true" />
             </template>
@@ -47,6 +51,8 @@
             :rules="['date']"
             label="Fecha de Vencimiento"
             v-show="show"
+            :error-message="errorMsg.expiration"
+            :error="$v.form.expiration.$error"
           >
             <template v-slot:append>
               <q-btn
@@ -71,7 +77,7 @@
           </q-input>
         </animation-transition>
         <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
-          <q-file bottom-slots v-model="file" label="Subir Archivo" v-show="show" counter >
+          <q-file bottom-slots v-model="file" label="Subir Archivo" v-show="show" counter :error-message="errorMsg.file" :error="$v.file.$error" >
             <template v-slot:prepend>
               <q-icon name="cloud_upload" color="primary" @click.stop />
             </template>
@@ -87,7 +93,8 @@
               class="glossy q-pa-sm q-mt-md"
               color="primary"
               label="Subir"
-              style="width:100px; border-radius:20px"
+              icon="backup"
+              style="width:150px; border-radius:25px"
               v-show="show"
               @click="onSubmit()"
             />
@@ -101,6 +108,7 @@
 <script>
 import env from '../../env'
 import {AnimationVueTransition, AnimationVueTransitionType} from 'vue-animation'
+import { required } from 'vuelidate/lib/validators'
 export default {
   components: {
     [AnimationVueTransition.name]: AnimationVueTransition,
@@ -108,7 +116,17 @@ export default {
   data () {
     return {
       form: {
-        emails: []
+        emails: [],
+        name: '',
+        label: '',
+        expiration: null
+      },
+      errorMsg: {
+        name: 'Error en el Nombre',
+        label: 'Error en la Etiqueta',
+        emails: 'Error en el Email',
+        expiration: 'Error en la Fecha de Expiracion',
+        file: 'Error en el Archivo'
       },
       AnimationType: AnimationVueTransitionType,
       show: false,
@@ -122,27 +140,49 @@ export default {
     this.show = true
     this.baseu = env.apiUrl
   },
+  validations: {
+    form: {
+      name: { required },
+      label: { required },
+      emails: { required },
+      expiration: { required }
+    },
+    file: { required }
+  },
   methods: {
     async onSubmit () {
-      console.log(this.file, 'filesss')
-      if (this.file) {
-        let formData = new FormData()
-        formData.append('files', this.file)
-        formData.append('dat', JSON.stringify(this.form))
-        console.log(formData, 'formdata')
-        await this.$api.post('uploads', formData, {
-          headers: {
-            'Content-Type': undefined
-          }
-        }).then((res) => {
-          console.log(res, 'RESPUESTA')
-        })
+      if (!this.validarError()) {
+        if (this.file) {
+          let formData = new FormData()
+          formData.append('files', this.file)
+          formData.append('dat', JSON.stringify(this.form))
+          console.log(formData, 'formdata')
+          await this.$api.post('uploads', formData, {
+            headers: {
+              'Content-Type': undefined
+            }
+          }).then((res) => {
+            console.log(res, 'RESPUESTA')
+          })
+        }
       }
     },
     addEmail () {
       this.form.emails.push(this.email)
       this.email = ''
       this.addEmailShow = false
+    },
+    validarError () {
+      let error = false
+      this.$v.$touch()
+      if (this.$v.form.$error || this.$v.file.$error ) {
+        error = true
+        this.$q.notify({
+          message: 'Todos Los Campos Son Requeridos Para Subir Tu Archivo',
+          color: 'negative'
+        })
+      }
+      return error
     }
   }
 }

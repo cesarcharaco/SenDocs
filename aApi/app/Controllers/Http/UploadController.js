@@ -30,11 +30,15 @@ class UploadController {
     } else {
       mkdirp.sync(`${__dirname}/storage/Excel`)
     }
-    const data = {
-      name: profilePic.fileName
-    }
+    const data = { name: profilePic.fileName }
     if (!profilePic.moved()) {
       return profilePic.error()
+    } else {
+      dat.idUser = idUser
+      dat.archiveName = data.name
+      console.log(dat, 'data')
+      const archivo = await Archivo.create(dat)
+      console.log(archivo, 'Creado en BD')
     }
     return data
   }

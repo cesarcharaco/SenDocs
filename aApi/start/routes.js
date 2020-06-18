@@ -52,6 +52,7 @@ addPrefixToGroup(
 
     ////////////Usuarios////////////////////////
     Route.post('uploads', 'UploadController.upload');
+    Route.get('archives', 'ArchivoController.index');
 
   }).middleware("auth")
 );

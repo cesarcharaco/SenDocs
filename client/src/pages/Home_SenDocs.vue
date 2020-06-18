@@ -112,6 +112,7 @@ export default {
   mounted () {
     this.show = true
     this.getUser()
+    this.getRecord()
   },
   methods: {
     refresh (done) {
@@ -127,6 +128,11 @@ export default {
     },
     getUser () {
       this.userInfo = JSON.parse(localStorage.getItem('SD_SESSION_INFO'))
+    },
+    getRecord () {
+      this.$api.get('archives').then(res => {
+        this.lastFiles = res
+      })
     }
   }
 }

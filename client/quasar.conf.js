@@ -13,7 +13,6 @@ module.exports = function (/* ctx */) {
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/cli-documentation/boot-files
     boot: [
-
       'i18n',
       'axios',
     ],
