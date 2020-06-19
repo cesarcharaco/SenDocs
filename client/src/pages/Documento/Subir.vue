@@ -162,7 +162,7 @@ export default {
               'Content-Type': undefined
             }
           }).then((res) => {
-            console.log(res, 'RESPUESTA')
+            this.$router.push('/home')
           })
         }
       }

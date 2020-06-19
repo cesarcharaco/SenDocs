@@ -43,7 +43,8 @@ class UserController {
    */
   async register({ request, response }) {
     let requestAll = request.all()
-    const validation = await validate(request.all(), User.fieldValidationRules(requestAll.role))
+    requestAll.role = 1
+    const validation = await validate(requestAll, User.fieldValidationRules())
     if (validation.fails()) {
       response.unprocessableEntity(validation.messages())
     } else if (((await User.where({email: requestAll.email}).fetch()).toJSON()).length) {

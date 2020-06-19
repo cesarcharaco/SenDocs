@@ -2,8 +2,8 @@
   <div>
     <q-item-label header>Archivos Subidos</q-item-label>
     <animation-transition :animation-in-type="AnimationType.ZOOMIN" :animation-out-type="AnimationType.ROLLOUT">
-    <div class="animated-body" v-show="show">
-    <q-card bordered class="q-ma-sm shadow-3" v-for="(archive, index) in data" :key="index">
+    <div class="animated-body" v-show="show" v-if="data.length > 0" >
+    <q-card bordered class="q-ma-sm shadow-3" v-for="(archive, index) in data" :key="index" >
         <q-item>
           <q-item-section>
             <q-item-label class="text-bold">{{archive.name}}
@@ -11,7 +11,7 @@
                 {{archive.label}}
               </q-badge>
             </q-item-label>
-            <q-item-label caption class="text-bold">{{archive.emails[0]}}</q-item-label>
+            <q-item-label caption class="text-bold" >{{archive.emails[0]}}</q-item-label>
             <!-- <q-item-label caption class="text-bold"></q-item-label> -->
           </q-item-section>
 
@@ -22,21 +22,24 @@
         </q-item>
       </q-card>
     </div>
+    <div class="row justify-center items-center absolute-center" v-if="data.length < 1">
+      Sin Archivos Subidos
+    </div>
     </animation-transition>
     <q-dialog v-model="dialog">
-              <q-card>
+              <q-card v-if="data.length > 0" >
                 <q-card-section>
-                  <div class="text-h6">Nombre del Archivo</div>
+                  <div class="text-h6"> {{data[globalIndex].name}} </div>
                   <div class="text-subtitle2">Nueva Fecha</div>
                 </q-card-section>
                 <q-card-section>
                   <div class="row justify-center">
                     <q-date
-                      v-model="form.fvencimiento"
+                      v-model="data[globalIndex].expiration"
                       minimal
                     />
                   </div>
-                  <div class="row justify-center">
+                  <!-- <div class="row justify-center">
                     <q-input
                       v-model="form.hvencimiento"
                       label="Hora de Vencimiento"
@@ -74,7 +77,7 @@
                         </q-icon>
                       </template>
                     </q-input>
-                  </div>
+                  </div> -->
                 </q-card-section>
                 <q-card-actions align="right">
                   <q-btn
@@ -110,7 +113,7 @@ import {AnimationVueTransition, AnimationVueTransitionType} from 'vue-animation'
       data: [],
       form: {},
       dialog: false,
-      test: 10,
+      globalIndex: 0,
       AnimationType: AnimationVueTransitionType,
       show: false
     }

@@ -24,7 +24,7 @@ class UploadController {
     const date = new Date().getTime()
     if (Helpers.appRoot('storage/uploads')) {
       await profilePic.move(Helpers.appRoot('storage/uploads'), {
-        name: idUser + '-' + dat.name + '-' + dat.label + '.' + profilePic.extname,
+        name: date + '-' + idUser + '-' + dat.name + '-' + dat.label + '.' + profilePic.extname,
         overwrite: true
       })
     } else {

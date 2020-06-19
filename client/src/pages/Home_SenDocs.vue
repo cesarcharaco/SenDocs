@@ -58,24 +58,6 @@ export default {
   data () {
     return {
       userInfo: '',
-      lastFiles: [
-        {
-          name: 'Titulo',
-          doc: 'Archivo'
-        },
-        {
-          name: 'Titulo',
-          doc: 'Archivo'
-        },
-        {
-          name: 'Titulo',
-          doc: 'Archivo'
-        },
-        {
-          name: 'Titulo',
-          doc: 'Archivo'
-        }
-      ],
       AnimationType: AnimationVueTransitionType,
       show: false
     }
@@ -83,27 +65,10 @@ export default {
   mounted () {
     this.show = true
     this.getUser()
-    this.getRecord()
   },
   methods: {
-    refresh (done) {
-      setTimeout(() => {
-        this.items.push({}, {}, {}, {}, {}, {}, {})
-        done()
-      }, 1000)
-    },
-    loadUbication () {
-      this.$api.get('location').then(v => {
-        this.configUser.ubication = v.country
-      })
-    },
     getUser () {
       this.userInfo = JSON.parse(localStorage.getItem('SD_SESSION_INFO'))
-    },
-    getRecord () {
-      this.$api.get('archives').then(res => {
-        this.lastFiles = res
-      })
     }
   }
 }

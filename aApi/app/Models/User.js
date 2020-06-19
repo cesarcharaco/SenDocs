@@ -22,7 +22,7 @@ class User extends Model {
   static fieldValidationRules(role) {
     const rulesUser = {
       role: 'required|number',
-      fullName: "required|string|min:4|max:80",
+      fullName: "required|string|min:3|max:80",
       email: 'required|email',
       password: 'required|string|min:8|max:256'
     }

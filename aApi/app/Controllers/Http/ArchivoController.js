@@ -20,7 +20,8 @@ class ArchivoController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view, auth }) {
-    let archivos = (await Archivo.all()).toJSON()
+    const idUser = ((await auth.getUser()).toJSON())._id
+    let archivos = (await Archivo.where({idUser: idUser}).fetch()).toJSON()
     response.send(archivos)
   }
 

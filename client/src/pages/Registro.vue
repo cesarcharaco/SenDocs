@@ -51,7 +51,7 @@
             </animation-transition>
             <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
               <div class="col animated-body" v-show="show">
-                <q-btn class="shadow-3" push color="primary" label="Guardar" style="float: right" icon-right="save" />
+                <q-btn class="shadow-3" push color="primary" label="Guardar" style="float: right" icon-right="save" @click="onSubmit" />
               </div>
             </animation-transition>
           </div>
@@ -93,8 +93,17 @@ export default {
     onSubmit () {
       this.$q.loading.show()
       this.$v.$touch()
-      if (!validateErrors()) {
-        //Guardar
+      if (!this.validateErrors()) {
+        this.form.password = this.password
+        this.$api.post('register', this.form).then(res => {
+          if (res) {
+            this.$router.push('/')
+            this.$q.notify({
+              message: 'Ya formas parte de Sendocs',
+              color: 'positive'
+            })
+          }
+        })
       }
       this.$q.loading.hide()
     },
