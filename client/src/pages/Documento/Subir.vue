@@ -151,6 +151,9 @@ export default {
   },
   methods: {
     async onSubmit () {
+      this.$q.loading.show({
+        message: 'Guardando Sus Datos'
+      })
       if (!this.validarError()) {
         if (this.file) {
           let formData = new FormData()
@@ -166,6 +169,7 @@ export default {
           })
         }
       }
+      this.$q.loading.hide()
     },
     addEmail () {
       this.form.emails.push(this.email)

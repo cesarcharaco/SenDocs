@@ -28,8 +28,7 @@
        <q-separator inset class="q-ma-md"/>
       <animation-transition :animation-in-type="AnimationType.BOUNCEINUP" :animation-out-type="AnimationType.ROLLOUT">
       <div
-        class="q-pa-sm scroll text-bold text-grey-10 animated-body"
-        style="height: 295px"
+        class="q-pa-sm text-bold text-grey-10 animated-body"
         v-show="show"
       >
       <Archivos />
