@@ -47,7 +47,7 @@ class UploadController {
     response
   }) {
     const fileName = params.filename
-    return fileName
+    // return fileName
     response.download(Helpers.appRoot('storage/uploads') + `/${fileName}`)
   }
 

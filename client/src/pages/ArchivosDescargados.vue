@@ -17,7 +17,27 @@
 
           <q-item-section side top>
             <q-item-label caption>{{archive.expiration}}</q-item-label>
-            <q-btn flat class="q-mt-xs q-mr-sm" round color="primary" icon="update" @click="dialog = true" />
+            <div class="row">
+              <q-btn color="primary" round flat icon="more_vert">
+                <q-menu cover auto-close>
+                  <q-list>
+                    <q-item clickable class="q-mr-md">
+                      <q-item-section>
+                        <q-btn flat class="q-mt-xs q-mr-sm" round color="primary" icon="update" @click="dialog = true, globalIndex = index" />
+                      </q-item-section>
+                      <q-item-section class="text-bold">Renovar</q-item-section>
+                    </q-item>
+                    <q-separator inset />
+                    <q-item clickable @click="$router.push('/documento/editar/' + archive._id)" >
+                      <q-item-section>
+                        <q-btn flat class="q-mt-xs q-mr-sm" round color="primary" icon="edit" @click="dialog = true, globalIndex = index" />
+                      </q-item-section>
+                      <q-item-section class="text-bold" >Editar</q-item-section>
+                    </q-item>
+                  </q-list>
+                </q-menu>
+              </q-btn>
+            </div>
           </q-item-section>
         </q-item>
       </q-card>
@@ -93,11 +113,13 @@
                     rounded
                     color="primary"
                     label="Renovar"
+                    @click="renovate(data[globalIndex])"
                     v-close-popup
                   />
                 </q-card-actions>
               </q-card>
             </q-dialog>
+            <p class="q-pa-sm text-bold" style="text-align:center;font-size:15px">Un Proyecto por EICHE</p>
   </div>
 </template>
 
@@ -124,9 +146,33 @@ import {AnimationVueTransition, AnimationVueTransitionType} from 'vue-animation'
   },
   methods: {
     getRecord () {
+      this.$q.loading.show({
+        message: 'Cargando...'
+      })
       this.$api.get('archives').then(res => {
         this.data = res
       })
+      this.$q.loading.hide()
+    },
+    renovate (data) {
+      console.log('data: ',data)
+      this.$q.loading.show({
+        message: 'Guardando...'
+      })
+      this.$api.put('renovate_file/' + data._id, data ).then(res => {
+        if (res) {
+          this.$q.notify({
+            message: 'Renovado de Forma Exitosa',
+            color: 'postive',
+            type: 'positive'
+          })
+        }
+        console.log('res: ', res)
+      })
+      this.$q.loading.hide()
+    },
+    test (data) {
+      console.log(data)
     }
   }
 }

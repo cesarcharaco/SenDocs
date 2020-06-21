@@ -19,7 +19,7 @@
             <q-card-section class="q-pt-xs q-mt-sm">
               <div class="text-h6 q-mt-sm">{{userInfo.fullName}}</div>
               <div class="text-overline">{{userInfo.email}}</div>
-              <div class="text-caption text-grey">ultima conexión</div>
+              <!-- <div class="text-caption text-grey">ultima conexión</div> -->
             </q-card-section>
           </q-card-section>
         </q-card>
@@ -35,10 +35,10 @@
       </div>
       </animation-transition>
     </div>
-    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+    <q-page-sticky position="bottom-right" :offset="[18, 20]">
       <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
         <div class="animated-body" v-show="show">
-          <q-btn round size="lg" color="teal" icon="backup" to="/documento/subir" class="shadow-3" />
+          <q-btn round size="20px" color="primary" icon="backup" to="/documento/subir" class="shadow-3" />
         </div>
       </animation-transition>
     </q-page-sticky>
