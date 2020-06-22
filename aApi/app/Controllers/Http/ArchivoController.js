@@ -6,6 +6,16 @@ const mkdirp = use('mkdirp')
 const fs = require('fs')
 const { validate } = use("Validator")
 
+const mailgun = require("mailgun-js");
+const DOMAIN = "sandbox8fb6864a19f6435d8bd53aac398d265e.mailgun.org";
+const mg = mailgun({apiKey: "dbe172f06716896c0001e2cb5813e095-468bde97-68240f12", domain: DOMAIN});
+const data = {
+	from: "Mailgun Sandbox <postmaster@sandbox8fb6864a19f6435d8bd53aac398d265e.mailgun.org>",
+	to: "haideemartinez96@gmail.com",
+	subject: "Hello",
+	text: "Testing some Mailgun awesomness!"
+};
+
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
@@ -28,6 +38,12 @@ class ArchivoController {
     const idUser = ((await auth.getUser()).toJSON())._id
     let archivos = (await Archivo.where({idUser: idUser}).fetch()).toJSON()
     response.send(archivos)
+  }
+
+  async enviarCorreo ({ request, response, view, auth }) {
+    mg.messages().send(data, function (error, body) {
+      console.log(data);
+    });
   }
 
   /**

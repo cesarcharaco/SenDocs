@@ -57,6 +57,7 @@ addPrefixToGroup(
     Route.put('renovate_file/:id', 'ArchivoController.renovate');
     Route.get('show_file/:id', 'ArchivoController.show');
     Route.get('get_file/:filename', 'UploadController.getFile');
+    Route.post('test_email', 'ArchivoController.enviarCorreo');
     // Route.post('obtener/:filename', 'UploadController.getFile');
 
   }).middleware("auth")
