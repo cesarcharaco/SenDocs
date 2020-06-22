@@ -6,6 +6,8 @@ const mkdirp = use('mkdirp')
 const fs = require('fs')
 const { validate } = use("Validator")
 
+const Email = use('App/Functions/Email')
+
 const mailgun = require("mailgun-js");
 const DOMAIN = "sandbox8fb6864a19f6435d8bd53aac398d265e.mailgun.org";
 const mg = mailgun({apiKey: "dbe172f06716896c0001e2cb5813e095-468bde97-68240f12", domain: DOMAIN});
@@ -41,9 +43,7 @@ class ArchivoController {
   }
 
   async enviarCorreo ({ request, response, view, auth }) {
-    mg.messages().send(data, function (error, body) {
-      console.log(data);
-    });
+    console.log(Email.sendMail('haideemartinez96@gmail.com', 'Bienvenido a GuioMarket', 'A partir de ahora podrás realizar tus compras en Venezuela', Helpers.appRoot('storage/uploads/1592589917483-5eecfd12858b4f567aae7222-otro 3-fghfgh.desktop')))
   }
 
   /**
