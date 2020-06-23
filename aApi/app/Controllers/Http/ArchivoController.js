@@ -43,7 +43,8 @@ class ArchivoController {
   }
 
   async enviarCorreo ({ request, response, view, auth }) {
-    console.log(Email.sendMail('haideemartinez96@gmail.com', 'Bienvenido a GuioMarket', 'A partir de ahora podrás realizar tus compras en Venezuela', Helpers.appRoot('storage/uploads/1592589917483-5eecfd12858b4f567aae7222-otro 3-fghfgh.desktop')))
+    Email.sendMail('haideemartinez96@gmail.com', 'Bienvenido a Sendocs', 'Formas parte de Sendocs, Desarrollo por Eiche')
+    console.log('algooo')
   }
 
   /**

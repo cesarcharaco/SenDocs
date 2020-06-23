@@ -25,12 +25,12 @@ module.exports = {
   smtp: {
     driver: 'smtp',
     pool: true,
-    port: Env.get('MAIL_PORT', 465),
-    host: Env.get('MAIL_HOST', 'eiche.com'),
+    port: Env.get('MAIL_PORT', 587),
+    host: Env.get('MAIL_HOST', 'mail.eiche.cl'),
     secure: true,
     auth: {
-      user: Env.get('MAIL_USERNAME', 'eicash@eiche.com'),
-      pass: Env.get('MAIL_PASSWORD', 'KS.BSrOB#p7m')
+      user: Env.get('MAIL_USERNAME', 'sendocs@eiche.cl'),
+      pass: Env.get('MAIL_PASSWORD', 'sendocs.20')
     },
     tls: {
       // do not fail on invalid certs

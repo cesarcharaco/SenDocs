@@ -1,15 +1,19 @@
 const Mail = use('Mail')
 
 exports.sendMail = async (to, subject, message, attach, cc, bcc) => {
-  /* await Mail.raw(message, (msg) => {
-    msg.from('eicash@eiche.com', 'GuioMarket')
-    msg.to(to)
-    msg.subject(subject)
-    msg.cc(cc)
-    msg.bcc(bcc)
-    if (attach) {
-      msg.attach(attach)
-    }
-  }) */
-  return 'Message sent';
+  try {
+    await Mail.raw(message, (msg) => {
+      msg.from('sendocs@eiche.cl', 'Sendocs')
+      msg.to(to)
+      msg.subject(subject)
+      msg.cc(cc)
+      msg.bcc(bcc)
+      if (attach) {
+        msg.attach(attach)
+      }
+    })
+    return 'Message sent';
+  } catch (error) {
+    console.log(error, 'erorrrrr')
+  }
 };
