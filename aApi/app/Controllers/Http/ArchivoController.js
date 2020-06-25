@@ -177,6 +177,12 @@ async function updateData (elRequest, data, changeFilename, dat) {
     const archivo = await Archivo.find(dat._id);
     archivo.name = body.name;
     archivo.archiveName = changeFilename ? data.name : body.archiveName
+    if (changeFilename) {
+      fs.unlink(`storage/uploads/${body.archiveName}`, (err) => {
+        if (err) throw err;
+        console.log('path/file.txt was deleted');
+      });
+    }
     archivo.emails = body.emails
     archivo.expiration = body.expiration
     archivo.idUser = body.idUser
