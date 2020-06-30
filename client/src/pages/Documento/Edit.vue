@@ -44,33 +44,19 @@
           </q-card>
         </q-dialog>
         <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
-          <q-input
-            v-model="form.expiration"
-            mask="date"
-            readonly
-            :rules="['date']"
-            label="Fecha de Vencimiento"
-            v-show="show"
-            :error-message="errorMsg.expiration"
-            :error="$v.form.expiration.$error"
-          >
+          <q-input v-show="show" v-model="form.expiration">
+            <template v-slot:prepend>
+              <q-btn icon="event" class="cursor-pointer" color="primary" flat round>
+                <q-popup-proxy transition-show="scale" transition-hide="scale">
+                  <q-date v-model="form.expiration" mask="DD/MM/YYYY HH:mm" />
+                </q-popup-proxy>
+              </q-btn>
+            </template>
+
             <template v-slot:append>
-              <q-btn
-                icon="event"
-                color="primary"
-                class="q-mr-md"
-                round
-                flat
-              >
-                <q-popup-proxy
-                  ref="qDateProxy"
-                  transition-show="scale"
-                  transition-hide="scale"
-                >
-                  <q-date
-                    v-model="form.expiration"
-                    @input="() => $refs.qDateProxy.hide()"
-                  />
+              <q-btn icon="access_time" class="cursor-pointer" color="primary" flat round>
+                <q-popup-proxy transition-show="scale" transition-hide="scale">
+                  <q-time v-model="form.expiration" mask="DD/MM/YYYY HH:mm" format24h />
                 </q-popup-proxy>
               </q-btn>
             </template>

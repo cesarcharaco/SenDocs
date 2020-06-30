@@ -147,7 +147,7 @@ class ArchivoController {
 
   async renovate ({ params, request, response }) {
     const rule = {
-      expiration: 'required|date'
+      expiration: 'required|string'
     }
     const validation = await validate(request.all(), rule);
     if (!validation.fails()) {
@@ -165,16 +165,15 @@ class ArchivoController {
 async function updateData (elRequest, data, changeFilename, dat) {
   const rule = {
     emails: "required|array",
-    expiration: 'required|date',
+    expiration: 'required|string',
     idUser: 'required|string',
     label: 'required|string',
     name: 'required|string'
   }
-  console.log(dat)
   const validation = await validate(dat, rule);
   if (!validation.fails()) {
     const body = dat // .only(["emails", "expiration", "idUser", "label", "name", "archiveName" ]);
-    const archivo = await Archivo.find(dat._id);
+    let archivo = await Archivo.find(dat._id);
     archivo.name = body.name;
     archivo.archiveName = changeFilename ? data.name : body.archiveName
     if (changeFilename) {
@@ -187,6 +186,7 @@ async function updateData (elRequest, data, changeFilename, dat) {
     archivo.expiration = body.expiration
     archivo.idUser = body.idUser
     archivo.label = body.label
+    archivo.status = 0
     await archivo.save();
     return archivo
   } else {

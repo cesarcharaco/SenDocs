@@ -21,16 +21,16 @@
               <q-btn color="primary" round flat icon="more_vert">
                 <q-menu cover auto-close>
                   <q-list>
-                    <q-item clickable class="q-mr-md">
+                    <q-item clickable class="q-mr-md" @click="dialog = true, globalIndex = index">
                       <q-item-section>
-                        <q-btn flat class="q-mt-xs q-mr-sm" round color="primary" icon="update" @click="dialog = true, globalIndex = index" />
+                        <q-btn flat class="q-mt-xs q-mr-sm" round color="primary" icon="update" />
                       </q-item-section>
                       <q-item-section class="text-bold">Renovar</q-item-section>
                     </q-item>
                     <q-separator inset />
                     <q-item clickable @click="$router.push('/documento/editar/' + archive._id)" >
                       <q-item-section>
-                        <q-btn flat class="q-mt-xs q-mr-sm" round color="primary" icon="edit" @click="dialog = true, globalIndex = index" />
+                        <q-btn flat class="q-mt-xs q-mr-sm" round color="primary" icon="edit" />
                       </q-item-section>
                       <q-item-section class="text-bold" >Editar</q-item-section>
                     </q-item>
@@ -54,50 +54,24 @@
                 </q-card-section>
                 <q-card-section>
                   <div class="row justify-center">
-                    <q-date
-                      v-model="data[globalIndex].expiration"
-                      minimal
-                    />
-                  </div>
-                  <!-- <div class="row justify-center">
-                    <q-input
-                      v-model="form.hvencimiento"
-                      label="Hora de Vencimiento"
-                      mask="time"
-                      style="width:180px"
-                      :rules="['time']"
-                    >
-                      <template v-slot:append>
-                        <q-icon
-                          name="access_time"
-                          class="cursor-pointer"
-                          color="primary"
-                        >
-                          <q-popup-proxy
-                            transition-show="scale"
-                            transition-hide="scale"
-                          >
-                            <q-time v-model="form.hvencimiento">
-                              <div class="row items-center justify-end q-gutter-sm">
-                                <q-btn
-                                  label="Cancel"
-                                  color="primary"
-                                  flat
-                                  v-close-popup
-                                />
-                                <q-btn
-                                  label="OK"
-                                  color="primary"
-                                  flat
-                                  v-close-popup
-                                />
-                              </div>
-                            </q-time>
+                    <q-input v-show="show" v-model="data[globalIndex].expiration">
+                      <template v-slot:prepend>
+                        <q-btn icon="event" class="cursor-pointer" color="primary" flat round>
+                          <q-popup-proxy transition-show="scale" transition-hide="scale">
+                            <q-date v-model="data[globalIndex].expiration" mask="DD/MM/YYYY HH:mm" />
                           </q-popup-proxy>
-                        </q-icon>
+                        </q-btn>
+                      </template>
+
+                      <template v-slot:append>
+                        <q-btn icon="access_time" class="cursor-pointer" color="primary" flat round>
+                          <q-popup-proxy transition-show="scale" transition-hide="scale">
+                            <q-time v-model="data[globalIndex].expiration" mask="DD/MM/YYYY HH:mm" format24h />
+                          </q-popup-proxy>
+                        </q-btn>
                       </template>
                     </q-input>
-                  </div> -->
+                  </div>
                 </q-card-section>
                 <q-card-actions align="right">
                   <q-btn
@@ -223,8 +197,9 @@ import env from '../env'
       })
       this.$q.loading.hide()
     },
-    test (data) {
-      console.log(data)
+    test () {
+      this.$api.post('test_email').then(res => {
+      })
     }
   }
 }

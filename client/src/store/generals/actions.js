@@ -13,4 +13,3 @@ export async function saveUser ({ commit }) {
     }
   })
 }
-/* eslint-disable */

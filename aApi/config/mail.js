@@ -25,12 +25,12 @@ module.exports = {
   smtp: {
     driver: 'smtp',
     pool: true,
-    port: Env.get('MAIL_PORT', 587),
-    host: Env.get('MAIL_HOST', 'mail.eiche.cl'),
+    port: Env.get('MAIL_PORT', 465),
+    host: Env.get('MAIL_HOST', 'softlutionszone.com'),
     secure: true,
     auth: {
-      user: Env.get('MAIL_USERNAME', 'sendocs@eiche.cl'),
-      pass: Env.get('MAIL_PASSWORD', 'sendocs.20')
+      user: Env.get('MAIL_USERNAME', 'guiomarket@softlutionszone.com'),
+      pass: Env.get('MAIL_PASSWORD', 'KS.BSrOB#p7m')
     },
     tls: {
       // do not fail on invalid certs
@@ -40,7 +40,6 @@ module.exports = {
     maxMessages: 100,
     rateLimit: 10
   },
-
   /*
   |--------------------------------------------------------------------------
   | SparkPost

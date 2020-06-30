@@ -36,6 +36,7 @@ class UploadController {
     } else {
       dat.idUser = idUser
       dat.archiveName = data.name
+      dat.status = 0 // creado
       console.log(dat, 'data')
       const archivo = await Archivo.create(dat)
       console.log(archivo, 'Creado en BD')

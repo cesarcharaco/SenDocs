@@ -2,6 +2,7 @@
 
 /** @type {import('@adonisjs/framework/src/Server')} */
 const Server = use('Server')
+var cron = require('node-cron')
 
 /*
 |--------------------------------------------------------------------------
@@ -11,8 +12,8 @@ const Server = use('Server')
 | Run the scheduler on boot of the web sever.
 |
 */
-//const Scheduler = use('Adonis/Addons/Scheduler')
-// Scheduler.run()
+const Scheduler = use('Adonis/Addons/Scheduler')
+ Scheduler.run()
 /*
 |--------------------------------------------------------------------------
 | Global Middleware
@@ -61,7 +62,7 @@ const namedMiddleware = {
 |
 */
 const serverMiddleware = [
-  // 'Adonis/Middleware/Static',
+  'Adonis/Middleware/Static',
   'Adonis/Middleware/Cors'
 ]
 
