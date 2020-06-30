@@ -38,7 +38,7 @@ class ArchivoController {
    */
   async index ({ request, response, view, auth }) {
     const idUser = ((await auth.getUser()).toJSON())._id
-    let archivos = (await Archivo.where({idUser: idUser}).fetch()).toJSON()
+    let archivos = (await Archivo.where({idUser: idUser}).sort({created_at: -1}).fetch()).toJSON()
     response.send(archivos)
   }
 

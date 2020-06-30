@@ -12,13 +12,15 @@
               </q-badge>
             </q-item-label>
             <q-item-label caption class="text-bold" >{{archive.emails[0]}}</q-item-label>
-            <!-- <q-item-label caption class="text-bold"></q-item-label> -->
+            <q-item-label caption class="text-bold">
+              <q-badge outline :color="archive.status === 0 ? 'green' : 'red'" :label="archive.status === 0 ? 'Activo' : 'Caduco'" />
+            </q-item-label>
           </q-item-section>
 
           <q-item-section side top>
             <q-item-label caption>{{archive.expiration}}</q-item-label>
             <div class="row">
-              <q-btn color="primary" round flat icon="more_vert">
+              <q-btn color="primary" round flat icon="more_vert" v-if="archive.status == 0">
                 <q-menu cover auto-close>
                   <q-list>
                     <q-item clickable class="q-mr-md" @click="dialog = true, globalIndex = index">
