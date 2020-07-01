@@ -36,6 +36,12 @@
                       </q-item-section>
                       <q-item-section class="text-bold" >Editar</q-item-section>
                     </q-item>
+                    <q-item clickable @click="deleteFile(archive._id)" >
+                      <q-item-section>
+                        <q-btn flat class="q-mt-xs q-mr-sm" round color="primary" icon="delete" />
+                      </q-item-section>
+                      <q-item-section class="text-bold" >Eliminar</q-item-section>
+                    </q-item>
                   </q-list>
                 </q-menu>
               </q-btn>
@@ -113,7 +119,9 @@ import env from '../env'
       dialog: false,
       globalIndex: 0,
       AnimationType: AnimationVueTransitionType,
-      show: false
+      show: false,
+      showDialogDelete: false,
+      loadingDelete: true
     }
   },
   mounted() {
@@ -121,6 +129,26 @@ import env from '../env'
     this.getRecord()
   },
   methods: {
+    deleteFile (id) {
+      this.$q.dialog({
+        title: 'Confirmar',
+        message: '¿Esta seguro que desea Eliminar el Registro y Su Archivo del Servidor?',
+        cancel: true,
+        persistent: true,
+        loading: this.loadingDelete
+      }).onOk(() => {
+        this.confirmDelete(id)
+      })
+    },
+    confirmDelete (id) {
+      this.$q.loading.show({
+        message: 'Cargando...'
+      })
+      this.$api.delete('archives').then(res => {
+        this.data = res
+      })
+      this.$q.loading.hide()
+    },
     download (file) {
       this.$q.dialog({
         title: 'Confirmar',

@@ -143,6 +143,13 @@ class ArchivoController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+    let archivo = await Archivo.find(params.id)
+    fs.unlink(`storage/uploads/${archivo.archiveName}`, (err) => {
+      if (err) throw err;
+      console.log(`'${archivo.archiveName} was deleted por el cliente'`);
+    });
+    await archivo.delete()
+    response.send(archivo)
   }
 
   async renovate ({ params, request, response }) {
