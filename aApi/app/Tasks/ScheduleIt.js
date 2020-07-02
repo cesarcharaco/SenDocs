@@ -10,14 +10,17 @@ const fs = require('fs')
 
 class ScheduleIt extends Task {
   static get schedule () {
-    return '0 */1 * * * *'
+    return '0 */2 * * * *'
   }
 
   async handle () {
+    let actual =  Moment().toDate()
+    console.log(actual, 'Fecha y Hora ACtual')
     let archivosCaducados = (await Archivo.where({
-      expiration : { $lte : Moment().format('DD/MM/YYYY HH:mm')},
+      expiration : { $lte : actual },
       status: 0
     }).with('userInfo').fetch()).toJSON()
+    console.log(archivosCaducados, 'Archivos Caducados')
     if (archivosCaducados.length > 0) {
       for (let i in archivosCaducados) {
         let element = archivosCaducados[i]

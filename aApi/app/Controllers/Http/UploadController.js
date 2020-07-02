@@ -4,6 +4,7 @@ const Helpers = use('Helpers')
 const mkdirp = use('mkdirp')
 const fs = require('fs')
 const Archivo = use("App/Models/Archivo")
+const Moment = require("moment")
 
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
@@ -37,9 +38,11 @@ class UploadController {
       dat.idUser = idUser
       dat.archiveName = data.name
       dat.status = 0 // creado
-      console.log(dat, 'data')
+      console.log(dat.expiration, 'aquiiiiiiiiiiiiiii')
+      let expirate = Moment(dat.expiration).format()
+      let formatt = Moment(expirate).utc().toDate()
+      dat.expiration = formatt
       const archivo = await Archivo.create(dat)
-      console.log(archivo, 'Creado en BD')
     }
     return data
   }

@@ -48,7 +48,7 @@
             <template v-slot:prepend>
               <q-btn icon="event" class="cursor-pointer" color="primary" flat round>
                 <q-popup-proxy transition-show="scale" transition-hide="scale">
-                  <q-date v-model="form.expiration" mask="DD/MM/YYYY HH:mm" />
+                  <q-date v-model="form.expiration" mask="YYYY-MM-DD HH:mm:ss" />
                 </q-popup-proxy>
               </q-btn>
             </template>
@@ -56,7 +56,7 @@
             <template v-slot:append>
               <q-btn icon="access_time" class="cursor-pointer" color="primary" flat round>
                 <q-popup-proxy transition-show="scale" transition-hide="scale">
-                  <q-time v-model="form.expiration" mask="DD/MM/YYYY HH:mm" format24h />
+                  <q-time v-model="form.expiration" mask="YYYY-MM-DD HH:mm:ss" format24h />
                 </q-popup-proxy>
               </q-btn>
             </template>

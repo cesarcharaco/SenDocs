@@ -53,7 +53,7 @@ addPrefixToGroup(
     ////////////Usuarios////////////////////////
     Route.post('uploads', 'UploadController.upload');
     Route.get('archives', 'ArchivoController.index');
-    Route.delete('archives', 'ArchivoController.destroy');
+    Route.delete('archives/:id', 'ArchivoController.destroy');
     Route.put('archives/:id/:filet', 'ArchivoController.update');
     Route.put('renovate_file/:id', 'ArchivoController.renovate');
     Route.get('show_file/:id', 'ArchivoController.show');

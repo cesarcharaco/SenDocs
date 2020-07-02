@@ -5,7 +5,7 @@ const Helpers = use('Helpers')
 const mkdirp = use('mkdirp')
 const fs = require('fs')
 const { validate } = use("Validator")
-
+const Moment = require("moment")
 const Email = use('App/Functions/Email')
 
 const mailgun = require("mailgun-js");
@@ -39,6 +39,13 @@ class ArchivoController {
   async index ({ request, response, view, auth }) {
     const idUser = ((await auth.getUser()).toJSON())._id
     let archivos = (await Archivo.where({idUser: idUser}).sort({created_at: -1}).fetch()).toJSON()
+    if (archivos) {
+      for (let j in archivos) {
+        let expirate = Moment(archivos[j].expiration).toDate()
+        let formatt = Moment(expirate).format('DD/MM/YYYY HH:mm')
+        archivos[j].expiration = formatt
+      }
+    }
     response.send(archivos)
   }
 
@@ -81,6 +88,9 @@ class ArchivoController {
    */
   async show ({ params, request, response, view }) {
     const archivo = await Archivo.find(params.id);
+    let expirate = Moment(archivo.expiration).toDate()
+    let formatt = Moment(expirate).format('YYYY-MM-DD HH:mm:ss')
+    archivo.expiration = formatt
     //response.download(Helpers.appRoot('storage/uploads') + `/${archivo.archiveName}`)
     response.send(archivo);
   }
@@ -154,13 +164,15 @@ class ArchivoController {
 
   async renovate ({ params, request, response }) {
     const rule = {
-      expiration: 'required|string'
+      expiration: 'required'
     }
     const validation = await validate(request.all(), rule);
     if (!validation.fails()) {
       const body = request.only(["expiration"]);
       const archivo = await Archivo.find(params.id)
-      archivo.expiration = body.expiration
+      let expirate = Moment(body.expiration).format()
+      let formatt = Moment(expirate).utc().toDate()
+      archivo.expiration = formatt
       await archivo.save();
       return archivo
     } else {
@@ -172,7 +184,7 @@ class ArchivoController {
 async function updateData (elRequest, data, changeFilename, dat) {
   const rule = {
     emails: "required|array",
-    expiration: 'required|string',
+    // expiration: 'required|string',
     idUser: 'required|string',
     label: 'required|string',
     name: 'required|string'
@@ -190,7 +202,10 @@ async function updateData (elRequest, data, changeFilename, dat) {
       });
     }
     archivo.emails = body.emails
-    archivo.expiration = body.expiration
+    let expirate = Moment(body.expiration).format()
+    let formatt = Moment(expirate).utc().toDate()
+
+    archivo.expiration = formatt
     archivo.idUser = body.idUser
     archivo.label = body.label
     archivo.status = 0

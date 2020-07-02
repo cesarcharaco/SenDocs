@@ -144,8 +144,13 @@ import env from '../env'
       this.$q.loading.show({
         message: 'Cargando...'
       })
-      this.$api.delete('archives').then(res => {
-        this.data = res
+      this.$api.delete(`archives/${id}`).then(res => {
+        this.$q.notify({
+          message: 'Eliminado de Forma Exitosa',
+          color: 'green',
+          type: 'positive'
+        })
+        this.getRecord()
       })
       this.$q.loading.hide()
     },
