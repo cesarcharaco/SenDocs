@@ -87,6 +87,7 @@
             <p
               align="center"
               class="gray text-bold"
+              @click="recoveryShow = true"
             >¿Olvidaste la contraseña?</p>
           </div>
           </animation-transition>
@@ -99,19 +100,25 @@
         </div>
       </q-page>
     </q-page-container>
+    <q-dialog v-model="recoveryShow">
+      <recover-password />
+    </q-dialog>
   </q-layout>
 </template>
 
 <script>
 import { mapMutations } from 'vuex'
+import RecoverPassword from '../components/RecoverPassword'
 import {AnimationVueTransition, AnimationVueTransitionType} from 'vue-animation'
 export default {
   components: {
     [AnimationVueTransition.name]: AnimationVueTransition,
+    RecoverPassword
   },
   data () {
     return {
       form: {},
+      recoveryShow: false,
       isPwd: true,
       loading: false,
       AnimationType: AnimationVueTransitionType,

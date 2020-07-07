@@ -38,6 +38,9 @@ addPrefixToGroup(
     // Insertar rutas sin protección de autenticación aquí
     Route.post("login", "UserController.login");
     Route.post("register", "UserController.register")
+    Route.post('forgot_password', 'UserController.forgotPassword') // enviar codigo de cambio de contraseña
+    Route.post('verify_code', 'UserController.verifyCode') // enviar codigo de cambio de contraseña
+    Route.put('change_password', 'UserController.changePassword') // enviar codigo de cambio de contraseña
 
   })
 );

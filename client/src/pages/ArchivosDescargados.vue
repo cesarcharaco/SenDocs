@@ -134,8 +134,7 @@ import env from '../env'
         title: 'Confirmar',
         message: '¿Esta seguro que desea Eliminar el Registro y Su Archivo del Servidor?',
         cancel: true,
-        persistent: true,
-        loading: this.loadingDelete
+        persistent: true
       }).onOk(() => {
         this.confirmDelete(id)
       })
@@ -224,7 +223,7 @@ import env from '../env'
         if (res) {
           this.$q.notify({
             message: 'Renovado de Forma Exitosa',
-            color: 'postive',
+            color: 'positive',
             type: 'positive'
           })
         }

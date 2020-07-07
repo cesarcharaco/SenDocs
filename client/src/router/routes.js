@@ -13,6 +13,8 @@ const routes = [
     ]
   },
   { path: '/inicio', component: () => import('pages/InicioAplicacionSD.vue') },
+  { path: '/verificacion_codigo/:email', component: () => import('pages/VerificationCode.vue') },
+  { path: '/change_password/:email', component: () => import('pages/RecoverPassword.vue') },
   { path: '/', component: () => import('layouts/Login.vue') }
 ]
 // Always leave this as last one

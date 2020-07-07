@@ -3,6 +3,11 @@
 const User = use("App/Models/User")
 const Role = use("App/Models/Role")
 const Email = use('App/Functions/Email')
+const Mail = use('Mail') // Adonis' mail
+var randomize = require('randomatic');
+
+const moment = require('moment') // moment (RUN NPM INSTALL MOMENT)
+const crypto = require('crypto') // crypto
 const {
   validate
 } = use("Validator")
@@ -31,6 +36,66 @@ class UserController {
   }) {
     let users = await User.all();
     response.send(users);
+  }
+
+  async forgotPassword({ request, response }) {
+    const rule = {
+      email: 'required'
+    }
+    let requestAll = request.all()
+    const validation = await validate(requestAll, rule)
+    if (validation.fails()) {
+      response.unprocessableEntity(validation.messages())
+    } else if (((await User.where({email: requestAll.email}).fetch()).toJSON()).length) {
+      const user = await User.findByOrFail('email', requestAll.email)
+      user.codeForgot = randomize('0', 6)
+      await Email.sendMail(requestAll.email, 'Cambio de Contraseña', 'Su codigo para cambiar su contraseña es ' + user.codeForgot + ' ,Ingrese este codigo en la aplicacion para poder acceder al cambio de contraseña para iniciar sesion en Sendocs')
+      await user.save()
+      response.send({message: 'Se envio un codigo a su email', error: false})
+    } else {
+      response.send({
+        message: 'Correo Inexistente!',
+        error: true
+      })
+    }
+  }
+
+  async verifyCode({ request, response }) {
+    const rule = {
+      code: 'required',
+      email: 'required'
+    }
+    let requestAll = request.all()
+    const validation = await validate(requestAll, rule)
+    if (validation.fails()) {
+      response.unprocessableEntity(validation.messages())
+    } else if (((await User.where({email: requestAll.email}).fetch()).toJSON()).length) {
+      const user = await User.findByOrFail('email', requestAll.email)
+      if (user.codeForgot == requestAll.code) {
+        user.codeForgot = ''
+        await user.save()
+        response.send({message: 'El Codigo Ingresado Es Valido, ya puede proceder a cambiar su contraseña', error: false})
+      } else {
+        response.send({message: 'El Codigo Ingresado Es Invalido', error: true})
+      }
+    }
+  }
+
+  async changePassword({ request, response }) {
+    const rule = {
+      newPassword: 'required',
+      email: 'required'
+    }
+    let requestAll = request.all()
+    const validation = await validate(requestAll, rule)
+    if (validation.fails()) {
+      response.unprocessableEntity(validation.messages())
+    } else if (((await User.where({email: requestAll.email}).fetch()).toJSON()).length) {
+      const user = await User.findByOrFail('email', requestAll.email)
+      user.password = requestAll.newPassword
+      await user.save()
+      response.send({message: 'Contraseña Cambiada con Exito'})
+    }
   }
 
   /**

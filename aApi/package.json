@@ -40,6 +40,7 @@
     "node-cron": "^2.0.3",
     "node-geometry-library": "^1.1.1",
     "pdfmake": "^0.1.63",
+    "randomatic": "^3.1.1",
     "sharp": "^0.25.2",
     "vuelidate": "^0.7.4"
   },
