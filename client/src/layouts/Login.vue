@@ -140,6 +140,9 @@ export default {
           if (client) {
             this.login(res)
             this.$router.push('home')
+          } else {
+            this.login(res)
+            this.$router.push('dashboard')
           }
         } else {
           console.log('hubo un error')

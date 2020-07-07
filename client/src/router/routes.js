@@ -12,6 +12,14 @@ const routes = [
       { path: '/home', component: () => import('pages/Home_SenDocs.vue') },
     ]
   },
+  {
+  path: '/home_adm',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '/dashboard', component: () => import('pages/Admin/Dashboard.vue') },
+      { path: '/lista_clientes', component: () => import('pages/Admin/ListaClientes.vue') }
+    ]
+  },
   { path: '/inicio', component: () => import('pages/InicioAplicacionSD.vue') },
   { path: '/verificacion_codigo/:email', component: () => import('pages/VerificationCode.vue') },
   { path: '/change_password/:email', component: () => import('pages/RecoverPassword.vue') },

@@ -29,12 +29,13 @@ class UserController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index({
-    request,
-    response,
-    view
-  }) {
-    let users = await User.all();
+  async index({ request, response, view }) {
+    let users = (await User.all()).toJSON();
+    for (let j in users) {
+      let element = users[j]
+      let create = element.created_at
+      users[j].created_at = moment(create).format('DD/MM/YYYY HH:mm')
+    }
     response.send(users);
   }
 
