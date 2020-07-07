@@ -19,6 +19,12 @@ const roleData = [
     name: 'Usuario',
     description: 'Rol de Usuario de Sendocs',
     permissions: [1]
+  },
+  {
+    id: 2,
+    name: 'Super Administrador',
+    description: 'Rol de Super Administrador de Sendocs',
+    permissions: [1]
   }
 ]
 
