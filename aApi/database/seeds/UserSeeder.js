@@ -19,7 +19,7 @@ const Factory = use('Factory')
 const userData = [
   {
     _id: '5e90d6e6f75366526a680091',
-    email: 'cliente@sendocs.com',
+    email: 'sadmin@sendocs.com',
     password: 'sendocs2020',
     fullName: 'Super Administrador',
     roles: [2]
