@@ -6,6 +6,7 @@ const Email = use('App/Functions/Email')
 const Archivo = use("App/Models/Archivo")
 const Moment = require("moment")
 const fs = require('fs')
+const moment = require("moment")
 
 
 class ScheduleIt extends Task {
@@ -15,7 +16,7 @@ class ScheduleIt extends Task {
 
   async handle () {
     let actual =  Moment().toDate()
-    console.log(actual, 'Fecha y Hora ACtual')
+    // console.log(actual, 'Fecha y Hora ACtual')
     let archivosCaducados = (await Archivo.where({
       expiration : { $lte : actual },
       status: 0

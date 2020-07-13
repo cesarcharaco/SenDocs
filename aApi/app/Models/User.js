@@ -7,10 +7,10 @@ const Model = use('Model')
 const Hash = use('Hash')
 
 class User extends Model {
-  /* shop() {
-    return this.hasOne('App/Models/Shop', '_id', 'user_id')
+  userInfo() {
+    return this.hasOne('App/Models/User', '_id', 'idUser')
   }
-  country() {
+  /* country() {
     return this.hasOne('App/Models/Country', 'country_id', '_id')
   }
   static get hidden() {

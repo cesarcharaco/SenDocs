@@ -2,7 +2,7 @@
 
 /** @type {import('@adonisjs/framework/src/Server')} */
 const Server = use('Server')
-var cron = require('node-cron')
+// var cron = require('node-cron')
 
 /*
 |--------------------------------------------------------------------------
