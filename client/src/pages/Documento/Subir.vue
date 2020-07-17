@@ -151,7 +151,16 @@ export default {
               'Content-Type': undefined
             }
           }).then((res) => {
-            this.$router.push('/home')
+            console.log(res,'RESSSSSSSSSSS AQUI DEL SUBIR ARCHIVOS')
+            if (res.error) {
+              this.$q.notify({
+                message: res.msg,
+                color: 'warning',
+                type: 'negative'
+              })
+            } else if (res) {
+              this.$router.push('/home')
+            }
           })
         }
       }

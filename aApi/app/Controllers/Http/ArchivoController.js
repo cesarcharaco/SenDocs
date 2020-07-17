@@ -7,6 +7,7 @@ const fs = require('fs')
 const { validate } = use("Validator")
 const Moment = require("moment")
 const Email = use('App/Functions/Email')
+const Storage = use('App/Functions/Storage')
 
 const mailgun = require("mailgun-js");
 const DOMAIN = "sandbox8fb6864a19f6435d8bd53aac398d265e.mailgun.org";
@@ -120,27 +121,32 @@ class ArchivoController {
     var dat = request.only(['dat'])
     dat = JSON.parse(dat.dat)
     if (params.filet === '0') {
+
       const profilePic = request.file('files', {
         size: '25mb'
       })
-      const date = new Date().getTime()
-      if (Helpers.appRoot('storage/uploads')) {
-        await profilePic.move(Helpers.appRoot('storage/uploads'), {
-          name: date + '-' + idUser + '-' + dat.name + '-' + dat.label + '.' + profilePic.extname,
-          overwrite: true
-        })
-      } else {
-        mkdirp.sync(`${__dirname}/storage/Excel`)
-      }
-      const data = { name: profilePic.fileName }
-      if (!profilePic.moved()) {
-        return profilePic.error()
-      } else {
-        return updateData(request, data, true, dat)
-      }
+      var fileSize = profilePic.size
+      const validateStorage = Storage.getStorate(idUser, profilePic.size, true)
+      if (!validateStorage.error) {
+        const date = new Date().getTime()
+        if (Helpers.appRoot('storage/uploads')) {
+          await profilePic.move(Helpers.appRoot('storage/uploads'), {
+            name: date + '-' + idUser + '-' + dat.name + '-' + dat.label + '.' + profilePic.extname,
+            overwrite: true
+          })
+        } else {
+          mkdirp.sync(`${__dirname}/storage/Excel`)
+        }
+        const data = { name: profilePic.fileName }
+        if (!profilePic.moved()) {
+          return profilePic.error()
+        } else {
+          return updateData(request, data, true, dat, fileSize)
+        }
+      } else if (validateStorage.error) { response.send(validateStorage) }
     } else {
       console.log('entro en filet no es 0')
-      return updateData(request, null , false, dat)
+      return updateData(request, null , false, dat, fileSize)
     }
   }
 
@@ -181,7 +187,7 @@ class ArchivoController {
   }
 }
 
-async function updateData (elRequest, data, changeFilename, dat) {
+async function updateData (elRequest, data, changeFilename, dat, fileSize) {
   const rule = {
     emails: "required|array",
     // expiration: 'required|string',
@@ -200,6 +206,7 @@ async function updateData (elRequest, data, changeFilename, dat) {
         if (err) throw err;
         console.log('path/file.txt was deleted');
       });
+      archivo.fileSize = fileSize
     }
     archivo.emails = body.emails
     let expirate = Moment(body.expiration).format()

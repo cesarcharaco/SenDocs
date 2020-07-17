@@ -5,6 +5,7 @@ const mkdirp = use('mkdirp')
 const fs = require('fs')
 const Archivo = use("App/Models/Archivo")
 const Moment = require("moment")
+const Storage = use('App/Functions/Storage')
 
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
@@ -15,36 +16,39 @@ const Moment = require("moment")
  * Resourceful controller for interacting with uploads
  */
 class UploadController {
-  async upload({ request, auth }) {
+  async upload({ request, auth, response }) {
     const profilePic = request.file('files', {
       size: '25mb'
     })
     const idUser = ((await auth.getUser()).toJSON())._id
-    var dat = request.only(['dat'])
-    dat = JSON.parse(dat.dat)
-    const date = new Date().getTime()
-    if (Helpers.appRoot('storage/uploads')) {
-      await profilePic.move(Helpers.appRoot('storage/uploads'), {
-        name: date + '-' + idUser + '-' + dat.name + '-' + dat.label + '.' + profilePic.extname,
-        overwrite: true
-      })
-    } else {
-      mkdirp.sync(`${__dirname}/storage/Excel`)
-    }
-    const data = { name: profilePic.fileName }
-    if (!profilePic.moved()) {
-      return profilePic.error()
-    } else {
-      dat.idUser = idUser
-      dat.archiveName = data.name
-      dat.status = 0 // creado
-      console.log(dat.expiration, 'aquiiiiiiiiiiiiiii')
-      let expirate = Moment(dat.expiration).format()
-      let formatt = Moment(expirate).utc().toDate()
-      dat.expiration = formatt
-      const archivo = await Archivo.create(dat)
-    }
-    return data
+    const validateStorage = await Storage.getStorage(idUser, profilePic.size, false)
+    if (!validateStorage.error) {
+      var dat = request.only(['dat'])
+      dat = JSON.parse(dat.dat)
+      const date = new Date().getTime()
+      if (Helpers.appRoot('storage/uploads')) {
+        await profilePic.move(Helpers.appRoot('storage/uploads'), {
+          name: date + '-' + idUser + '-' + dat.name + '-' + dat.label + '.' + profilePic.extname,
+          overwrite: true
+        })
+      } else {
+        mkdirp.sync(`${__dirname}/storage/Excel`)
+      }
+      const data = { name: profilePic.fileName }
+      if (!profilePic.moved()) {
+        return profilePic.error()
+      } else {
+        dat.idUser = idUser
+        dat.archiveName = data.name
+        dat.status = 0 // creado
+        dat.fileSize = profilePic.size
+        let expirate = Moment(dat.expiration).format()
+        let formatt = Moment(expirate).utc().toDate()
+        dat.expiration = formatt
+        const archivo = await Archivo.create(dat)
+      }
+      return data
+    } else if (validateStorage.error) { response.send(validateStorage) }
   }
   async getFile({
     params,

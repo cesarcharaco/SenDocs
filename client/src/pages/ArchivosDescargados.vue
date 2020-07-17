@@ -42,6 +42,12 @@
                       </q-item-section>
                       <q-item-section class="text-bold" >Eliminar</q-item-section>
                     </q-item>
+                    <q-item clickable @click="test(archive.archiveName)" >
+                      <q-item-section>
+                        <q-btn flat class="q-mt-xs q-mr-sm" round color="primary" icon="done" />
+                      </q-item-section>
+                      <q-item-section class="text-bold" >Test</q-item-section>
+                    </q-item>
                   </q-list>
                 </q-menu>
               </q-btn>
@@ -231,8 +237,9 @@ import env from '../env'
       })
       this.$q.loading.hide()
     },
-    test () {
-      this.$api.post('test_email').then(res => {
+    test (archiveName) {
+      this.$api.get('get_file/' + archiveName).then(res => {
+        console.log(res, 'RESSSSS TESTTTTTTTTTTTTT')
       })
     }
   }

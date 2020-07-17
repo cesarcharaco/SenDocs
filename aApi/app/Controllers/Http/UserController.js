@@ -29,6 +29,14 @@ class UserController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
+  async assignPlan({ request, response, params }) {
+    let user = await User.find(params.idUser)
+    let body = request.all()
+    user.plan = body
+    await user.save()
+    response.send(user)
+  }
+
   async index({ request, response, view }) {
     let users = (await User.all()).toJSON();
     for (let j in users) {

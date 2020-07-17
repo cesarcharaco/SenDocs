@@ -197,7 +197,7 @@ export default {
             if (res) {
               this.$q.notify({
                 message: 'Guardado de Forma Exitosa',
-                color: 'postive',
+                color: 'positive',
                 type: 'positive'
               })
               this.$router.push('/home')

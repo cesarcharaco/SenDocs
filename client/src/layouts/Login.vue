@@ -79,7 +79,7 @@
           </animation-transition>
           <animation-transition :animation-in-type="AnimationType.BOUNCEINUP" :animation-out-type="AnimationType.ROLLOUT">
           <div class="animated-body" v-show="show">
-            <p align="center"><a
+            <p align="center" v-if="registro"><a
                 style="color: blue"
                 class="text-bold"
                 @click="$router.push('registro')"
@@ -118,6 +118,7 @@ export default {
   data () {
     return {
       form: {},
+      registro: false,
       recoveryShow: false,
       isPwd: true,
       loading: false,

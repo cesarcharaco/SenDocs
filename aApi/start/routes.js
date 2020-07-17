@@ -64,7 +64,8 @@ addPrefixToGroup(
     Route.post('test_email', 'ArchivoController.enviarCorreo');
     Route.get('dashboard_adm', 'DashboardController.dashboardAdm');
     Route.get('users', 'UserController.index');
-    // Route.post('obtener/:filename', 'UploadController.getFile');
+    Route.put('assign_plan/:idUser', 'UserController.assignPlan');
+    //Route.get('obtener/:archiveName', 'UploadController.getFile');
 
   }).middleware("auth")
 );
