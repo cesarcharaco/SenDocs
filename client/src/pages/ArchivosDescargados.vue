@@ -36,6 +36,7 @@
                       </q-item-section>
                       <q-item-section class="text-bold" >Editar</q-item-section>
                     </q-item>
+                    <q-separator inset />
                     <q-item clickable @click="deleteFile(archive._id)" >
                       <q-item-section>
                         <q-btn flat class="q-mt-xs q-mr-sm" round color="primary" icon="delete" />
