@@ -1,8 +1,8 @@
 {
-  "name": "thor20",
+  "name": "thot20",
   "version": "0.0.1",
   "description": "envios de documentos",
-  "productName": "thor20",
+  "productName": "thot20",
   "cordovaId": "org.cordova.quasar.app",
   "capacitorId": "",
   "author": "eiche",

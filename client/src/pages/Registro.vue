@@ -3,7 +3,7 @@
     <q-page-container>
       <animation-transition :animation-in-type="AnimationType.BOUNCEINDOWN" :animation-out-type="AnimationType.ROLLOUT">
         <div class="row justify-center animated-body" v-show="show">
-          <img src="../statics/Sen-Docs logo.png" alt="Logo thor20" style="width: 40%;">
+          <img src="../statics/Sen-Docs logo.png" alt="Logo thot20" style="width: 40%;">
         </div>
       </animation-transition>
       <q-form class="q-gutter-md q-ma-md">
@@ -99,7 +99,7 @@ export default {
           if (res) {
             this.$router.push('/')
             this.$q.notify({
-              message: 'Ya formas parte de thor20',
+              message: 'Ya formas parte de thot20',
               color: 'positive'
             })
           }

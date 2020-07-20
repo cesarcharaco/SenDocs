@@ -1,2 +1,2 @@
-# thor20
+# thot20
 app para envio de archivos

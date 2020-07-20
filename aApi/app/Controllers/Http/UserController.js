@@ -58,7 +58,7 @@ class UserController {
     } else if (((await User.where({email: requestAll.email}).fetch()).toJSON()).length) {
       const user = await User.findByOrFail('email', requestAll.email)
       user.codeForgot = randomize('0', 6)
-      await Email.sendMail(requestAll.email, 'Cambio de Contraseña', 'Su codigo para cambiar su contraseña es ' + user.codeForgot + ' ,Ingrese este codigo en la aplicacion para poder acceder al cambio de contraseña para iniciar sesion en thor20')
+      await Email.sendMail(requestAll.email, 'Cambio de Contraseña', 'Su codigo para cambiar su contraseña es ' + user.codeForgot + ' ,Ingrese este codigo en la aplicacion para poder acceder al cambio de contraseña para iniciar sesion en thot20')
       await user.save()
       response.send({message: 'Se envio un codigo a su email', error: false})
     } else {
@@ -130,7 +130,7 @@ class UserController {
       body.roles = [requestAll.role]
       delete body.role
       const user = await User.create(body)
-      Email.sendMail(body.email, 'Bienvenido a thor20', 'A partir de Ahora Formas Parte De Nuestra Plataforma')
+      Email.sendMail(body.email, 'Bienvenido a thot20', 'A partir de Ahora Formas Parte De Nuestra Plataforma')
       response.send(user)
     }
   }

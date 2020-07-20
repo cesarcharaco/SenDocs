@@ -2,7 +2,7 @@
   <q-card class="full-width">
     <q-card-section>
       <div class="text-h6 text-primary">Olvide Mi Contraseña</div>
-      <p class="text-primary">Ingrese Email con el que se registro en thor20, se le enviara un link para el cambio de contraseña</p>
+      <p class="text-primary">Ingrese Email con el que se registro en thot20, se le enviara un link para el cambio de contraseña</p>
       <q-input class="full-width" label="Ingrese su Email" v-model="form.email" />
     </q-card-section>
     <q-card-actions align="center">

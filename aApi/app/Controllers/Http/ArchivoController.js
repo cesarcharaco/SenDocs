@@ -51,7 +51,7 @@ class ArchivoController {
   }
 
   async enviarCorreo ({ request, response, view, auth }) {
-    Email.sendMail('haideemartinez96@gmail.com', 'Bienvenido a thor20', 'Formas parte de thor20, Desarrollo por Eiche')
+    Email.sendMail('haideemartinez96@gmail.com', 'Bienvenido a thot20', 'Formas parte de thot20, Desarrollo por Eiche')
     console.log('algooo')
   }
 

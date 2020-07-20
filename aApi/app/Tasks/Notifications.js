@@ -8,7 +8,7 @@ const moment = require("moment")
 
 async function enviarMail (mail, archiveName, dias) {
   dias = dias + 1
-  await Email.sendMail(mail, 'Aviso', 'Quedan ' + dias + ' dias para que el archivo con el nombre: ' + archiveName + ' Esta por Caducar, puede cambiar su fecha de vencimiento ingresando a la app de thor20 y renovar su archivo, no lo dejes perder una vez terminado la fecha de vencimiento se enviara a lo/s correos ingresados cuando subió el archivo al sistema')
+  await Email.sendMail(mail, 'Aviso', 'Quedan ' + dias + ' dias para que el archivo con el nombre: ' + archiveName + ' Esta por Caducar, puede cambiar su fecha de vencimiento ingresando a la app de thot20 y renovar su archivo, no lo dejes perder una vez terminado la fecha de vencimiento se enviara a lo/s correos ingresados cuando subió el archivo al sistema')
   // console.log('Email enviado a: ', mail, 'Dias Restantes: ', dias)
 }
 

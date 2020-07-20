@@ -3,7 +3,7 @@ const Mail = use('Mail')
 exports.sendMail = async (to, subject, message, attach, cc, bcc) => {
   try {
     await Mail.raw(message, (msg) => {
-      msg.from('guiomarket@softlutionszone.com', 'Thor20')
+      msg.from('guiomarket@softlutionszone.com', 'Thot20')
       msg.to(to)
       msg.subject(subject)
       msg.cc(cc)
@@ -14,6 +14,6 @@ exports.sendMail = async (to, subject, message, attach, cc, bcc) => {
     })
     return 'Message sent';
   } catch (error) {
-    console.log(error, 'erorrrrr')
+    console.log(error, 'Error al Enviar Correo')
   }
 };
