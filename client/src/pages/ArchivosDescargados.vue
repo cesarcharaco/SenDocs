@@ -42,12 +42,13 @@
                       </q-item-section>
                       <q-item-section class="text-bold" >Eliminar</q-item-section>
                     </q-item>
-                    <q-item clickable @click="test(archive.archiveName)" >
+                    <!-- <q-item clickable @click="test(archive.archiveName)" >
                       <q-item-section>
                         <q-btn flat class="q-mt-xs q-mr-sm" round color="primary" icon="done" />
                       </q-item-section>
                       <q-item-section class="text-bold" >Test</q-item-section>
                     </q-item>
+                    !-->
                   </q-list>
                 </q-menu>
               </q-btn>

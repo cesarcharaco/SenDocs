@@ -1,8 +1,8 @@
 {
-  "name": "sendocs",
+  "name": "thor20",
   "version": "0.0.1",
   "description": "envios de documentos",
-  "productName": "sendocs",
+  "productName": "thor20",
   "cordovaId": "org.cordova.quasar.app",
   "capacitorId": "",
   "author": "eiche",

@@ -28,7 +28,7 @@ class ScheduleIt extends Task {
         let archivo = await Archivo.find(element._id)
         for (let j in element.emails) {
           console.log(element.archiveName, 'archive name')
-          await Email.sendMail(element.emails[j], 'Envio de Archivo', 'Este archivo ha caducado en Sendocs, por lo cual se le fue enviado a este correo', 'storage/uploads/' + element.archiveName)
+          await Email.sendMail(element.emails[j], 'Envio de Archivo', 'Este archivo ha caducado en thor20, por lo cual se le fue enviado a este correo', 'storage/uploads/' + element.archiveName)
           fs.unlink(`storage/uploads/${element.archiveName}`, (err) => {
             if (err) throw err;
             console.log( `${element.archiveName} was deleted`);

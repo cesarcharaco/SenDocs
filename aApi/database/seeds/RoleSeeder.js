@@ -17,13 +17,13 @@ const roleData = [
   {
     id: 1,
     name: 'Usuario',
-    description: 'Rol de Usuario de Sendocs',
+    description: 'Rol de Usuario de thor20',
     permissions: [1]
   },
   {
     id: 2,
     name: 'Super Administrador',
-    description: 'Rol de Super Administrador de Sendocs',
+    description: 'Rol de Super Administrador de thor20',
     permissions: [1]
   }
 ]

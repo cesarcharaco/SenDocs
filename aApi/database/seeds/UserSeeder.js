@@ -19,15 +19,15 @@ const Factory = use('Factory')
 const userData = [
   {
     _id: '5e90d6e6f75366526a680091',
-    email: 'sadmin@sendocs.com',
-    password: 'sendocs2020',
+    email: 'sadmin@thor20.com',
+    password: 'thor202020',
     fullName: 'Super Administrador',
     roles: [2]
   },
   {
     _id: '5e90d6e6f75366526a680092',
-    email: 'cliente@sendocs.com',
-    password: 'sendocs2020',
+    email: 'cliente@thor20.com',
+    password: 'thor202020',
     fullName: 'Haidee',
     roles: [1]
   }

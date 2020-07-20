@@ -183,7 +183,7 @@ cfg.module.rules.push({
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'sendocs'
+        appId: 'thor20'
       },
 
       // More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration
