@@ -8,9 +8,6 @@
             src="statics/Sen-Docs logo 500x500.png"
             style="width:250px; height:250px"
           >
-          <div class="footer gray">
-            <p>Un proyecto EICHE</p>
-          </div>
         </div>
       </q-page>
     </q-page-container>

@@ -1,7 +1,8 @@
 <template>
-  <div class="footer text-bold">
+  <div></div>
+  <!-- <div class="footer text-bold">
     Un Proyecto EICHE
-  </div>
+  </div> !-->
 </template>
 
 <script>

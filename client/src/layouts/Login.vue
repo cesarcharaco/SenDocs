@@ -93,9 +93,6 @@
           </animation-transition>
           </q-form>
           <animation-transition :animation-in-type="AnimationType.BOUNCEINUP" :animation-out-type="AnimationType.ROLLOUT">
-          <div class="footer gray text-bold animated-body" v-show="show">
-            <p>Un Proyecto EICHE</p>
-          </div>
           </animation-transition>
         </div>
       </q-page>

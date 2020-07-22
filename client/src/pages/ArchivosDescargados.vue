@@ -109,7 +109,6 @@
                 </q-card-actions>
               </q-card>
             </q-dialog>
-            <p class="q-pa-sm text-bold" style="text-align:center;font-size:15px">Un Proyecto por EICHE</p>
   </div>
 </template>
 
