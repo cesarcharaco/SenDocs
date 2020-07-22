@@ -65,6 +65,7 @@ addPrefixToGroup(
     Route.get('dashboard_adm', 'DashboardController.dashboardAdm');
     Route.get('users', 'UserController.index');
     Route.put('assign_plan/:idUser', 'UserController.assignPlan');
+    Route.get('get_info_plan', 'UserController.getInfoPlan');
     //Route.get('obtener/:archiveName', 'UploadController.getFile');
 
   }).middleware("auth")

@@ -18,7 +18,7 @@ const Storage = use('App/Functions/Storage')
 class UploadController {
   async upload({ request, auth, response }) {
     const profilePic = request.file('files', {
-      size: '25mb'
+      size: '1024mb'
     })
     const idUser = ((await auth.getUser()).toJSON())._id
     const validateStorage = await Storage.getStorage(idUser, profilePic.size, false)

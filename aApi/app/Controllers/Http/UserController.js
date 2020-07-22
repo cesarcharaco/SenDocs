@@ -3,11 +3,13 @@
 const User = use("App/Models/User")
 const Role = use("App/Models/Role")
 const Email = use('App/Functions/Email')
+const Storage = use('App/Functions/Storage')
 const Mail = use('Mail') // Adonis' mail
 var randomize = require('randomatic');
 
 const moment = require('moment') // moment (RUN NPM INSTALL MOMENT)
-const crypto = require('crypto') // crypto
+const crypto = require('crypto'); // crypto
+const { getStorage } = require('../../Functions/Storage');
 const {
   validate
 } = use("Validator")
@@ -29,6 +31,12 @@ class UserController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
+  async getInfoPlan({ response, auth }) {
+    const idUser = ((await auth.getUser()).toJSON())._id
+    const info = await Storage.getStorageBalance(idUser)
+    response.send(info)
+  }
+
   async assignPlan({ request, response, params }) {
     let user = await User.find(params.idUser)
     let body = request.all()

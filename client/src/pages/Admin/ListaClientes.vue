@@ -69,28 +69,28 @@ export default {
         {
           name: 'Plan 1',
           description: 'Plan Gratis, que Incluye 3 dias gratis y un almacenamiento de 1 GB y una cantidad de 5 archivos',
-          storage: 1048576, // establecido en Kilobytes Equivalente a 1GB
+          storage: 1073741824, // establecido en Bytesbytes Equivalente a 1GB
           fileLimit: 5, // limite de archivos que puede subir
           days: 3
         },
         {
           name: 'Plan 2',
           description: 'Plan 2, que Incluye un tiempo total de 1 año y un almacenamiento de 1 GB y una cantidad de 25 archivos',
-          storage: 1048576, // establecido en Kilobytes EQUIVALENTE A 1GB
+          storage: 1073741824, // establecido en Bytesbytes EQUIVALENTE A 1GB
           fileLimit: 25, // limite de archivos que puede subir
           days: 365
         },
         {
           name: 'Plan 3',
-          description: 'Plan Gratis, que Incluye un tiempo total de 1 año y un almacenamiento de 5 GB y una cantidad de 100 archivos',
-          storage: 5242880, // establecido en Kilobytes EQUIVALENTE A 5GB
+          description: 'Plan 3 que Incluye un tiempo total de 1 año y un almacenamiento de 5 GB y una cantidad de 100 archivos',
+          storage: 5368709120, // establecido en Bytesbytes EQUIVALENTE A 5GB
           fileLimit: 100, // limite de archivos que puede subir
           days: 365
         },
         {
           name: 'Plan 4',
-          description: 'Plan Gratis, que Incluye un tiempo total de 1 año y un almacenamiento de 15 GB y una cantidad ilimitada de archivos',
-          storage: 15728640, // establecido en Kilobytes EQUIVALENTE A 15GB
+          description: 'Plan 4 que Incluye un tiempo total de 1 año y un almacenamiento de 15 GB y una cantidad ilimitada de archivos',
+          storage: 16106127360, // establecido en Bytesbytes EQUIVALENTE A 15GB
           days: 365,
           fileLimit: 999999999 //  puede subir la cantidad que sea hasta cumplir el plazo de vencimiento del plan
         }

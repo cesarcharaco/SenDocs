@@ -10,8 +10,8 @@
           style="width: 100%;border-radius:20px"
         >
           <q-card-section horizontal>
-            <q-card-section class="col-4 flex flex-center">
-              <q-avatar size="100px">
+            <q-card-section class="col-3 flex flex-center">
+              <q-avatar size="50px">
                 <img src="statics/icons/favicon-128x128.png">
               </q-avatar>
             </q-card-section>
@@ -19,7 +19,20 @@
             <q-card-section class="q-pt-xs q-mt-sm">
               <div class="text-h6 q-mt-sm">{{userInfo.fullName}}</div>
               <div class="text-overline">{{userInfo.email}}</div>
-              <!-- <div class="text-caption text-grey">ultima conexión</div> -->
+              <q-separator inset />
+              <div class="text-caption text-bold q-mt-sm">Informacion del Plan</div>
+              <div class="column text-grey" v-if="planInfo.plan">
+                <div v-if="planInfo.plan.name != 'Plan 4'">
+                  Cantidad: {{planInfo.avaiableFiles}} / {{planInfo.plan.fileLimit}}
+                </div>
+                <div v-else-if="planInfo.plan.name == 'Plan 4'">
+                  Sin limite de Archivos
+                </div>
+                <div>
+                  Disponible: {{ planInfo.availableStorage}} / {{ planInfo.plan.storage  }}
+                </div>
+              </div>
+              <div v-else-if="planInfo.error" class="text-caption text-negative" >{{planInfo.msg}} </div>
             </q-card-section>
           </q-card-section>
         </q-card>
@@ -58,16 +71,47 @@ export default {
     return {
       userInfo: '',
       AnimationType: AnimationVueTransitionType,
-      show: false
+      show: false,
+      planInfo: {}
     }
   },
-  mounted () {
+  async mounted () {
     this.show = true
-    this.getUser()
+    await this.getUser()
+    await this.getPlan()
   },
   methods: {
     getUser () {
       this.userInfo = JSON.parse(localStorage.getItem('SD_SESSION_INFO'))
+    },
+    async getPlan () {
+      this.$q.loading.show()
+      await this.$api.get('get_info_plan').then(res => {
+        /* if (res.error) {
+            this.$q.notify({
+              message: 'Ya formas parte de thot20',
+              color: 'positive'
+            })
+          } */
+        this.planInfo = res
+        if (!this.planInfo.error) {
+          let totalgb = ((this.planInfo.availableStorage * 1) / 1073741824).toFixed(2) // esta cantidad es 1 gb en Bytes
+          let totalmb = (totalgb * 1024)
+          let availableStorage = totalmb
+          this.planInfo.availableStorage = totalmb
+          totalgb = ((this.planInfo.plan.storage * 1) / 1073741824).toFixed(2) // esta cantidad es 1 gb en Bytes
+          totalmb = (totalgb * 1024)
+          this.planInfo.plan.storage = totalmb + 'MB'
+          this.planInfo.availableStorage = (totalmb - availableStorage).toFixed(2) + 'MB'
+
+          let totalFiles = this.planInfo.plan.fileLimit - this.planInfo.avaiableFiles
+          this.planInfo.avaiableFiles = totalFiles
+        } else {
+
+        }
+        console.log(res, 'res del plan')
+      })
+      this.$q.loading.hide()
     }
   }
 }
