@@ -126,7 +126,7 @@ class ArchivoController {
         size: '25mb'
       })
       var fileSize = profilePic.size
-      const validateStorage = Storage.getStorate(idUser, profilePic.size, true)
+      const validateStorage = Storage.getStorage(idUser, profilePic.size, true)
       if (!validateStorage.error) {
         const date = new Date().getTime()
         if (Helpers.appRoot('storage/uploads')) {
