@@ -94,6 +94,7 @@ export default {
             })
           } */
         this.planInfo = res
+        console.log(res, ' res del plan 111')
         if (!this.planInfo.error) {
           let totalgb = ((this.planInfo.availableStorage * 1) / 1073741824).toFixed(2) // esta cantidad es 1 gb en Bytes
           let totalmb = (totalgb * 1024)
@@ -101,7 +102,7 @@ export default {
           this.planInfo.availableStorage = totalmb
           totalgb = ((this.planInfo.plan.storage * 1) / 1073741824).toFixed(2) // esta cantidad es 1 gb en Bytes
           totalmb = (totalgb * 1024)
-          this.planInfo.plan.storage = totalmb + 'MB'
+          this.planInfo.plan.storage = (totalmb).toFixed(2) + 'MB'
           this.planInfo.availableStorage = (totalmb - availableStorage).toFixed(2) + 'MB'
 
           let totalFiles = this.planInfo.plan.fileLimit - this.planInfo.avaiableFiles
@@ -109,7 +110,6 @@ export default {
         } else {
 
         }
-        console.log(res, 'res del plan')
       })
       this.$q.loading.hide()
     }
