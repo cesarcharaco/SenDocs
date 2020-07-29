@@ -12,9 +12,12 @@ async function enviarMail (mail, archiveName, dias) {
   console.log('Email enviado a: ', mail, 'Dias Restantes: ', dias)
 }
 
-async function modificarNotificacion (id, position, dias, edit) {
+async function modificarNotificacion (id, position, dias, edit, file) {
   let notificacion = await Notification.find(id)
   notificacion.days[position].send = true
+  notificacion.seen = false
+  notificacion.message = diasNotificacion.message = `Al archivo "${file.name}" con etiqueta "${file.label}" le faltan ${dias} dias para expirar`
+  notificacion.title = '!Atencion!'
   await notificacion.save()
 }
 
@@ -34,37 +37,37 @@ class Notifications extends Task {
           if (restante === 30 && !notificacion[0].days[0].send) {
             console.log('entro en: ', restante)
             enviarMail(element.userInfo.email, element.name, 30)
-            await modificarNotificacion(notificacion[0]._id, 0, 30, true)
+            await modificarNotificacion(notificacion[0]._id, 0, 30, true, element)
 
           } else if (restante === 15 && !notificacion[0].days[1].send) {
             console.log('entro en: ', restante)
             enviarMail(element.userInfo.email, element.name, 15)
-            await modificarNotificacion(notificacion[0]._id, 1, 15, true)
+            await modificarNotificacion(notificacion[0]._id, 1, 15, true, element)
 
           } else if (restante === 5 && !notificacion[0].days[2].send) {
             console.log('entro en: ', restante)
             enviarMail(element.userInfo.email, element.name, restante)
-            await modificarNotificacion(notificacion[0]._id, 2, 5, true)
+            await modificarNotificacion(notificacion[0]._id, 2, 5, true, element)
 
           } else if (restante === 4 && !notificacion[0].days[3].send) {
             console.log('entro en: ', restante)
             enviarMail(element.userInfo.email, element.name, restante)
-            await modificarNotificacion(notificacion[0]._id, 3, 4, true)
+            await modificarNotificacion(notificacion[0]._id, 3, 4, true, element)
 
           } else if (restante === 3 && !notificacion[0].days[4].send) {
             console.log('entro en: ', restante)
             enviarMail(element.userInfo.email, element.name, restante)
-            await modificarNotificacion(notificacion[0]._id, 4, 3, true)
+            await modificarNotificacion(notificacion[0]._id, 4, 3, true, element)
 
           } else if (restante === 2 && !notificacion[0].days[5].send) {
             console.log('entro en: ', restante)
             enviarMail(element.userInfo.email, element.name, restante)
-            await modificarNotificacion(notificacion[0]._id, 5, 2, true)
+            await modificarNotificacion(notificacion[0]._id, 5, 2, true, element)
 
           } else if (restante === 1 && !notificacion[0].days[6].send) {
             console.log('entro en: ', restante)
             enviarMail(element.userInfo.email, element.name, restante)
-            await modificarNotificacion(notificacion[0]._id, 6, 1, true)
+            await modificarNotificacion(notificacion[0]._id, 6, 1, true, element)
           }
         } else {
           let diasRestantes = moment().diff(element.expiration, 'days')
@@ -79,21 +82,42 @@ class Notifications extends Task {
               { send: false }, // 3 dias
               { send: false }, // 2 dias
               { send: false } // 1 dias
-            ]
+            ],
+            seen: false,
+            title: '!Atencion!',
+            idUser: element.idUser
           }
+          let file = await Archivo.find(element._id)
           if (restante === 30) {
             enviarMail(element.userInfo.email, element.name, 30)
             diasNotificacion.days[0].send = true
+            diasNotificacion.message = `Al archivo "${file.name}" con etiqueta "${file.label}" le faltan 30 dias para expirar`
           } else if (restante === 15) {
             enviarMail(element.userInfo.email, element.name, 15)
             diasNotificacion.days[1].send = true
+            diasNotificacion.message = `Al archivo "${file.name}" con etiqueta "${file.label}" le faltan 15 dias para expirar`
           } else if (restante <= 5) {
             enviarMail(element.userInfo.email, element.name, restante)
-            if (restante === 5) { diasNotificacion.days[2].send = true }
-            if (restante === 4) { diasNotificacion.days[3].send = true }
-            if (restante === 3) { diasNotificacion.days[4].send = true }
-            if (restante === 2) { diasNotificacion.days[5].send = true }
-            if (restante === 1) { diasNotificacion.days[6].send = true }
+            if (restante === 5) {
+              diasNotificacion.days[2].send = true
+              diasNotificacion.message = `Al archivo "${file.name}" con etiqueta "${file.label}" le faltan 5 dias para expirar`
+            }
+            if (restante === 4) {
+              diasNotificacion.days[3].send = true
+              diasNotificacion.message = `Al archivo "${file.name}" con etiqueta "${file.label}" le faltan 4 dias para expirar`
+            }
+            if (restante === 3) {
+              diasNotificacion.days[4].send = true
+              diasNotificacion.message = `Al archivo "${file.name}" con etiqueta "${file.label}" le faltan 3 dias para expirar`
+            }
+            if (restante === 2) {
+              diasNotificacion.days[5].send = true
+              diasNotificacion.message = `Al archivo "${file.name}" con etiqueta "${file.label}" le faltan 2 dias para expirar`
+            }
+            if (restante === 1) {
+              diasNotificacion.days[6].send = true
+              diasNotificacion.message = `Al archivo "${file.name}" con etiqueta "${file.label}" le faltan 1 dias para expirar`
+            }
           }
           await Notification.create(diasNotificacion)
         }

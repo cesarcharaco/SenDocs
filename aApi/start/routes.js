@@ -66,6 +66,9 @@ addPrefixToGroup(
     Route.get('users', 'UserController.index');
     Route.put('assign_plan/:idUser', 'UserController.assignPlan');
     Route.get('get_info_plan', 'UserController.getInfoPlan');
+    Route.get('notifications', 'NotificationController.show');
+    Route.put('notifications', 'NotificationController.seeAll');
+    Route.put('notification_disable/:id', 'NotificationController.update');
     //Route.get('obtener/:archiveName', 'UploadController.getFile');
 
   }).middleware("auth")

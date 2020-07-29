@@ -53,21 +53,13 @@
                     <q-separator />
                     <q-list>
                       <q-scroll-area style="height: 200px; max-width: 300px;">
-                        <q-item
-                          v-for="n in myNotification"
-                          :key="n.id"
-                          clickable
-                          v-close-popup
-                          :class="[n.status?'white':colorActive]"
+                        <q-item v-for="(n, index) in myNotification" :key="index" clickable v-close-popup
+                        :class="[n.seen?'bg-white':'bg-grey-4']" @click="disableNotify(n._id)"
                         >
-                          <q-item-section
-                            push
-                            @click="disableNotify(n.id)"
-                          >
-                            <q-item-label ovequasrline>{{n.title}}</q-item-label>
-                            <q-item-label lines="
-                    1">{{n.message}}</q-item-label>
-                            <q-item-label caption>{{n.createdAt}}</q-item-label>
+                          <q-item-section push @click="disableNotify(n._id)" >
+                            <q-item-label class="text-bold" ovequasrline>{{n.title}}</q-item-label>
+                            <q-item-label lines="5" style="font-size:12px"> {{n.message}} </q-item-label>
+                            <q-item-label caption>{{n.created_at}}</q-item-label>
                           </q-item-section>
                         </q-item>
                       </q-scroll-area>
@@ -133,20 +125,45 @@ export default {
   data () {
     return {
       nNotify: 0,
-      myNotification: {},
+      myNotification: [],
       AnimationType: AnimationVueTransitionType,
       show: false
     }
   },
   mounted () {
     this.show = true
+    this.getNotification()
   },
   methods: {
     ...mapMutations('generals', ['logout']),
     cerrarSesion () {
       this.logout()
       this.$router.push('/')
-    }
+    },
+    async getNotification () {
+      this.$api.get('notifications').then(res => {
+        this.myNotification = res
+        this.countNotify()
+      })
+    },
+    disableAllNotify () {
+      this.$api.put('notifications').then(res => {
+        this.myNotification = res
+        this.countNotify()
+      })
+    },
+    countNotify () {
+      for (let j in this.myNotification) {
+          if (this.myNotification[j].seen === false) {
+            this.nNotify = this.nNotify + 1
+          }
+        }
+    },
+    disableNotify (id) {
+      this.$api.put('notification_disable/' + id).then(res => {
+        this.getNotification()
+      })
+    },
   }
 }
 </script>
