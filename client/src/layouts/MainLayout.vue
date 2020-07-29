@@ -9,44 +9,17 @@
         </animation-transition>
         <animation-transition :animation-in-type="AnimationType.ZOOMIN" :animation-out-type="AnimationType.ROLLOUT">
         <div class="absolute-top-right q-pa-sm animated-body" v-show="show">
-                <q-btn
-                  flat
-                  dense
-                  icon="notifications"
-                  auto-close
-                  size="md"
-                >
-                  <q-badge
-                    color="red"
-                    floating
-                    transparent
-                    v-if="nNotify"
-                  >{{nNotify}}</q-badge>
-                  <q-menu
-                    transition-show="jump-down"
-                    transition-hide="jump-up"
-                    fit
-                    :offset="[0, 10]"
-                    anchor="bottom right"
-                    self="top right"
-                    v-close-popup
-                    auto-close
-                  >
+                <q-btn flat dense icon="notifications" auto-close size="md" >
+                  <q-badge color="red" floating transparent v-if="nNotify">{{nNotify}}</q-badge>
+                  <q-menu transition-show="jump-down" transition-hide="jump-up" fit :offset="[0, 10]" anchor="bottom right"
+                    self="top right" v-close-popup auto-close>
                     <q-item>
                       <q-item-section>
                         <q-item-label>Notificaciones</q-item-label>
                       </q-item-section>
-
-                      <q-item-section
-                        side
-                        bottom
-                      >
+                      <q-item-section side bottom >
                         <q-item-label caption>
-                          <a
-                            class="cursor-pointer text-primary"
-                            @click="disableAllNotify()"
-                            primary
-                          >Marcar como Leidas</a>
+                          <a class="cursor-pointer text-primary" @click="disableAllNotify()" primary>Marcar como Leidas</a>
                         </q-item-label>
                       </q-item-section>
                     </q-item>
@@ -66,39 +39,23 @@
                     </q-list>
                   </q-menu>
                 </q-btn>
-                <q-btn
-                  flat
-                  dense
-                  icon="settings"
-                  auto-close
-                  size="md"
-                >
-                  <q-menu
-                    transition-show="jump-down"
-                    transition-hide="jump-up"
-                    fit
-                    :offset="[0, 10]"
-                    anchor="bottom right"
-                    self="top right"
-                    v-close-popup
-                    auto-close
-                  >
-                    <q-item
-                      clickable
-                      v-ripple
-                      @click="cerrarSesion()"
-                      style="width:200px"
-                      class="text-primary"
-                    >
+                <q-btn flat dense icon="settings" auto-close size="md" >
+                  <q-menu transition-show="jump-down" transition-hide="jump-up" fit :offset="[0, 10]"
+                  anchor="bottom right" self="top right" v-close-popup auto-close >
+                    <q-item clickable v-ripple @click="$router.push('/profile')" style="width:200px" class="text-primary">
                       <q-item-section avatar>
-                        <q-icon
-                          color="primary"
-                          name="exit_to_app"
-                        />
+                        <q-icon color="primary" name="person" />
                       </q-item-section>
-
+                      <q-item-section>Perfil</q-item-section>
+                    </q-item>
+                    <q-separator inset />
+                    <q-item clickable v-ripple @click="cerrarSesion()" style="width:200px" class="text-primary">
+                      <q-item-section avatar>
+                        <q-icon color="primary" name="exit_to_app" />
+                      </q-item-section>
                       <q-item-section>Cerrar Sesión</q-item-section>
                     </q-item>
+
                   </q-menu>
                 </q-btn>
               </div>

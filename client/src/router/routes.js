@@ -10,6 +10,7 @@ const routes = [
       { path: '/documento/subir', component: () => import('pages/Documento/Subir.vue') },
       { path: '/home2', component: () => import('pages/Documento/Listado.vue') },
       { path: '/home', component: () => import('pages/Home_SenDocs.vue') },
+      { path: '/profile', component: () => import('pages/Profile.vue') },
     ]
   },
   {

@@ -4,6 +4,7 @@ const Helpers = use('Helpers')
 const mkdirp = use('mkdirp')
 const fs = require('fs')
 const Archivo = use("App/Models/Archivo")
+const User = use("App/Models/User")
 const Moment = require("moment")
 const Storage = use('App/Functions/Storage')
 
@@ -55,7 +56,7 @@ class UploadController {
     response
   }) {
     const fileName = params.filename
-    // return fileName
+    return fileName
     response.download(Helpers.appRoot('storage/uploads') + `/${fileName}`)
   }
 
@@ -162,35 +163,35 @@ class UploadController {
     response
   }) {}
 
-  async uploadShopImage ({ auth, request }) {
-    let user = await auth.getUser()
-    let shop_id = request.input('shop_id')
-    let shop = await Shop.find(shop_id)
-    let dir = `storage/uploads/user_${user._id}/shop_${shop_id}/logo`
-    let showingDir = `user_${ user._id }-shop_${shop_id}-logo`
-
-    if (!shop) {
-      response.unprocessableEntity('El comercio no existe. Vuelva a cargar el formulario')
-    }
-
-    const shopImage = request.file('files', {
+  async uploadProfileImage ({ auth, request }) {
+    const idUser = ((await auth.getUser()).toJSON())._id
+    const profilePic = request.file('files', {
       types: ['image'],
-      size: '2mb'
+      size: '20mb'
     })
-    let fileName = `${new Date().getTime()}.${shopImage.subtype}`
-    await shopImage.move(Helpers.appRoot(dir), {
-      name: fileName,
-      overwrite: true
-    })
-    if (!shopImage.moved()) {
-      return shopImage.error()
+
+    var dat = request.only(['dat'])
+    dat = JSON.parse(dat.dat)
+    console.log(dat, 'datttttttttt')
+    if (Helpers.appRoot('storage/uploads')) {
+      await profilePic.move(Helpers.appRoot('storage/uploads'), {
+        name: idUser + '.' + profilePic.extname,
+        overwrite: true
+      })
+    } else {
+      mkdirp.sync(`${__dirname}/storage/Excel`)
     }
-    if (shop.fileName) {
-      fs.unlinkSync(Helpers.appRoot(`storage/uploads/${shop.fileName.split('-').join('/')}`))
+    const data = {
+      name: profilePic.fileName
     }
-    shop.fileName = `${showingDir}-${fileName}`
-    await shop.save()
-    return shop.fileName
+    if (!profilePic.moved()) {
+      return profilePic.error()
+    } else {
+      let user = await User.find(idUser)
+      user.img_name = data.name
+      await user.save()
+    }
+    return data
   }
 
   async getFileByDirectory ({ params, response, request }) {

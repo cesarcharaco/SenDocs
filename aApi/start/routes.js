@@ -55,6 +55,7 @@ addPrefixToGroup(
 
     ////////////Usuarios////////////////////////
     Route.post('uploads', 'UploadController.upload');
+    Route.post('upload_profile_image', 'UploadController.uploadProfileImage');
     Route.get('archives', 'ArchivoController.index');
     Route.delete('archives/:id', 'ArchivoController.destroy');
     Route.put('archives/:id/:filet', 'ArchivoController.update');
@@ -69,6 +70,8 @@ addPrefixToGroup(
     Route.get('notifications', 'NotificationController.show');
     Route.put('notifications', 'NotificationController.seeAll');
     Route.put('notification_disable/:id', 'NotificationController.update');
+    Route.get('users_profile', 'UserController.show');
+    Route.put('users_profile', 'UserController.update');
     //Route.get('obtener/:archiveName', 'UploadController.getFile');
 
   }).middleware("auth")

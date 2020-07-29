@@ -5,6 +5,7 @@ const Role = use("App/Models/Role")
 const Email = use('App/Functions/Email')
 const Storage = use('App/Functions/Storage')
 const Mail = use('Mail') // Adonis' mail
+const Helpers = use('Helpers')
 var randomize = require('randomatic');
 
 const moment = require('moment') // moment (RUN NPM INSTALL MOMENT)
@@ -151,45 +152,36 @@ class UserController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show({
-    params,
-    request,
-    response,
-    view
-  }) {
-    const user = await User.find(params.id);
+  async show({ params, response, auth }) {
+    const idUser = ((await auth.getUser()).toJSON())._id
+    const user = await User.find(idUser);
     response.send(user);
   }
 
-  /**
-   * Render a form to update an existing user.
-   * GET users/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit({
-    params,
-    request,
-    response,
-    view
-  }) {}
 
-  /**
-   * Update user details.
-   * PUT or PATCH users/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async update({
-    params,
-    request,
-    response
-  }) {}
+  async update({ params, request, response, auth }) {
+    const rule = {
+      email: "required",
+      emailRecuperate: "required",
+      fullName: "required|string"
+    }
+    let requestAll = request.all()
+    const userAuth = (await auth.getUser()).toJSON()
+    const validation = await validate(requestAll, rule)
+    if (validation.fails()) {
+      response.unprocessableEntity(validation.messages())
+    } else {
+      let emails = (await User.where({email: requestAll.email}).fetch()).toJSON()
+      if (emails.length === 0 || emails[0].email === userAuth.email) {
+        const idUser = ((await auth.getUser()).toJSON())._id
+        let body = request.only(['email', 'fullName', 'emailRecuperate'])
+        await User.where('_id', idUser).update(body)
+        response.send({msg: 'datos guardados correctamente'})
+      } else {
+        response.send({error: true, message: 'Email Existente'})
+      }
+    }
+  }
 
   /**
    * Delete a user with id.

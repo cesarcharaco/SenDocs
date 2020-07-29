@@ -16,7 +16,7 @@ async function modificarNotificacion (id, position, dias, edit, file) {
   let notificacion = await Notification.find(id)
   notificacion.days[position].send = true
   notificacion.seen = false
-  notificacion.message = diasNotificacion.message = `Al archivo "${file.name}" con etiqueta "${file.label}" le faltan ${dias} dias para expirar`
+  notificacion.message = `Al archivo "${file.name}" con etiqueta "${file.label}" le faltan ${dias} dias para expirar`
   notificacion.title = '!Atencion!'
   await notificacion.save()
 }
