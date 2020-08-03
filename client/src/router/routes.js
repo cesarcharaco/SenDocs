@@ -11,6 +11,7 @@ const routes = [
       { path: '/home2', component: () => import('pages/Documento/Listado.vue') },
       { path: '/home', component: () => import('pages/Home_SenDocs.vue') },
       { path: '/profile', component: () => import('pages/Profile.vue') },
+      { path: '/test', component: () => import('pages/PruebaPaypal.vue') },
     ]
   },
   {
