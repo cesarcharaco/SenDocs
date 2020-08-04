@@ -32,8 +32,8 @@ export default {
       loaded: false,
       paidFor: false,
       product: {
-        price: 1.77,
-        description: "esto es una prueba de 1.77",
+        price: 0.5,
+        description: "esto es una prueba de 0.5",
         img: "../statics/Sen-Docs logo.png"
       }
     };
