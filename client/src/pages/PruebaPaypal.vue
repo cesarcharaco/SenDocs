@@ -6,14 +6,14 @@
     <q-card-section>
       <div>
         <div v-if="!paidFor">
-          <h6>Buy this Lamp - ${{ product.price }} OBO</h6>
+          <h6 class="text-red">Buy this Lamp - ${{ product.price }} OBO</h6>
 
           <p>{{ product.description }}</p>
 
         </div>
 
         <div v-if="paidFor">
-          <h6>Noice, you bought a beautiful lamp!</h6>
+          <h6 class="text-green">Noice, you bought a beautiful lamp!</h6>
         </div>
 
         <div ref="paypal"></div>
@@ -33,17 +33,17 @@ export default {
       paidFor: false,
       product: {
         price: 0.5,
-        description: "esto es una prueba de 0.5",
+        description: "esto es una prueba de 0.5$",
         img: "../statics/Sen-Docs logo.png"
       }
     };
   },
   mounted: function() {
-    const script = document.createElement("script");
+    const script = document.createElement("script")
     script.src =
-      "https://www.paypal.com/sdk/js?client-id=AfsxMQoZknp2zqdzyrBJYiQuVgP5NJjPpIU0ktY5vTzYZbBWZo8m5vbXk-0MVTb067EpOmO6Ezl6n3KQ";
-    script.addEventListener("load", this.setLoaded);
-    document.body.appendChild(script);
+      "https://www.paypal.com/sdk/js?client-id=AfsxMQoZknp2zqdzyrBJYiQuVgP5NJjPpIU0ktY5vTzYZbBWZo8m5vbXk-0MVTb067EpOmO6Ezl6n3KQ"
+    script.addEventListener("load", this.setLoaded)
+    document.body.appendChild(script)
   },
   methods: {
     setLoaded: function() {
@@ -61,21 +61,21 @@ export default {
                   }
                 }
               ]
-            });
+            })
           },
           onApprove: async (data, actions) => {
-            const order = await actions.order.capture();
-            this.paidFor = true;
-            console.log(order);
+            const order = await actions.order.capture()
+            this.paidFor = true
+            console.log(order)
           },
           onError: err => {
-            console.log(err);
+            console.log(err)
           }
         })
-        .render(this.$refs.paypal);
+        .render(this.$refs.paypal)
     }
   }
-};
+}
 </script>
 
 <style>
