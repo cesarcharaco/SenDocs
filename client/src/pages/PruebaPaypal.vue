@@ -6,7 +6,7 @@
     <q-card-section>
       <div>
         <div v-if="!paidFor">
-          <h6 class="text-red">Compra de Prueba por un precio de - ${{ product.price }}</h6>
+          <h6 class="text-red">Compra de Prueba por un precio de: ${{ product.price }}</h6>
 
           <p>{{ product.description }}</p>
 
