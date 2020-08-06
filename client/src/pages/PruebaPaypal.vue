@@ -6,14 +6,16 @@
     <q-card-section>
       <div>
         <div v-if="!paidFor">
-          <h6 class="text-red">Buy this Lamp - ${{ product.price }} OBO</h6>
+          <h6 class="text-red">Compra de Prueba por un precio de - ${{ product.price }}</h6>
 
           <p>{{ product.description }}</p>
 
         </div>
 
         <div v-if="paidFor">
-          <h6 class="text-green">Noice, you bought a beautiful lamp!</h6>
+          <h6 class="text-green">
+            Si Aparece esto, es porque se hizo la compra exitosamente por el total de ${{product.price}}
+          </h6>
         </div>
 
         <div ref="paypal"></div>
@@ -23,7 +25,7 @@
 </template>
 
 <script>
-// import image from "../assets/lamp.png"
+import image from "../statics/Sen-Docs logo 50x50.png"
 export default {
   name: "HelloWorld",
 
@@ -32,16 +34,16 @@ export default {
       loaded: false,
       paidFor: false,
       product: {
-        price: 0.5,
-        description: "esto es una prueba de 0.5$",
-        img: "../statics/Sen-Docs logo.png"
+        price: 1,
+        description: "esto es una prueba de 1$",
+        img: "../statics/Sen-Docs logo 50x50.png"
       }
     };
   },
   mounted: function() {
     const script = document.createElement("script")
     script.src =
-      "https://www.paypal.com/sdk/js?client-id=AfsxMQoZknp2zqdzyrBJYiQuVgP5NJjPpIU0ktY5vTzYZbBWZo8m5vbXk-0MVTb067EpOmO6Ezl6n3KQ"
+      "https://www.paypal.com/sdk/js?client-id=AZTnzmmUOx5sBDPMecAspoye5M5Gdgl0udOZw3EWaHDTUv36ELbU-4E6nHZncnt-ZJJkBT7hDVV5I6a-"
     script.addEventListener("load", this.setLoaded)
     document.body.appendChild(script)
   },
