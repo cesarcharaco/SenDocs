@@ -41,6 +41,7 @@ addPrefixToGroup(
     Route.post('forgot_password', 'UserController.forgotPassword') // enviar codigo de cambio de contraseña
     Route.post('verify_code', 'UserController.verifyCode') // enviar codigo de cambio de contraseña
     Route.put('change_password', 'UserController.changePassword') // enviar codigo de cambio de contraseña
+    Route.get('validate_email_exist/:email', 'UserController.validateEmailExist'); // validar si email ya existe
 
   })
 );

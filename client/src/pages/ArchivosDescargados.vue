@@ -1,10 +1,17 @@
 <template>
-  <div>
-    <q-item-label header>Archivos Subidos</q-item-label>
+  <q-card class="card-border q-ma-sm">
+    <div class="row q-pa-sm q-pt-xl q-ml-sm">
+      <q-btn color="primary" size="sm" label="Recibidos" icon-right="email" style="border-radius:10px" />
+      <q-btn color="grey" size="sm" label="Enviados" class="q-ml-md" flat icon-right="email" style="border-radius:10px" />
+    </div>
+    <q-separator inset />
     <animation-transition :animation-in-type="AnimationType.ZOOMIN" :animation-out-type="AnimationType.ROLLOUT">
-    <div class="animated-body" v-show="show" v-if="data.length > 0" >
-    <q-card bordered class="q-ma-sm shadow-3" v-for="(archive, index) in data" :key="index" >
-        <q-item>
+    <div v-show="show" v-if="data.length > 0" >
+    <q-card>
+        <q-item class="q-ma-sm" v-for="(archive, index) in data" :key="index">
+          <q-item-section avatar>
+            <q-icon name="sort" size="40px" :color="archive.status === 0 ? 'primary' : 'grey'" :label="archive.status === 0 ? 'Activo' : 'Caduco'" />
+          </q-item-section>
           <q-item-section  @click="download(archive.archiveName)">
             <q-item-label class="text-bold">{{archive.name}}
               <q-badge color="blue">
@@ -12,9 +19,6 @@
               </q-badge>
             </q-item-label>
             <q-item-label caption class="text-bold" >{{archive.emails[0]}}</q-item-label>
-            <q-item-label caption class="text-bold">
-              <q-badge outline :color="archive.status === 0 ? 'green' : 'red'" :label="archive.status === 0 ? 'Activo' : 'Caduco'" />
-            </q-item-label>
           </q-item-section>
 
           <q-item-section side top>
@@ -70,7 +74,9 @@
                 </q-card-section>
                 <q-card-section>
                   <div class="row justify-center">
-                    <q-input v-show="show" v-model="data[globalIndex].expiration">
+                    <q-input v-show="show" v-model="data[globalIndex].expiration" class="input-style q-pa-sm" dense
+                      borderless
+                    >
                       <template v-slot:prepend>
                         <q-btn icon="event" class="cursor-pointer" color="primary" flat round>
                           <q-popup-proxy transition-show="scale" transition-hide="scale">
@@ -92,16 +98,17 @@
                 <q-card-actions align="right">
                   <q-btn
                     class="q-pa-sm"
-                    rounded
                     color="primary"
-                    flat
+                    outline
                     label="Cancelar"
                     v-close-popup
+                    dense
+                    style="border-radius:15px"
                   />
                   <q-btn
                     class="q-pa-sm"
-                    rounded
                     color="primary"
+                    style="border-radius:15px"
                     label="Renovar"
                     @click="renovate(data[globalIndex])"
                     v-close-popup
@@ -109,7 +116,7 @@
                 </q-card-actions>
               </q-card>
             </q-dialog>
-  </div>
+  </q-card>
 </template>
 
 <script>

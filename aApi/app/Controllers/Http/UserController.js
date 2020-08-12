@@ -143,6 +143,14 @@ class UserController {
       response.send(user)
     }
   }
+
+  async validateEmailExist({ params, response }) {
+    if (((await User.where({email: params.email}).fetch()).toJSON()).length) {
+      response.unprocessableEntity([{
+        message: 'Correo Existente! Eliga Otro'
+      }])
+    } else { response.send({error: false}) }
+  }
   /**
    * Display a single user.
    * GET users/:id

@@ -3,13 +3,13 @@
     <q-header elevated>
       <q-toolbar>
         <animation-transition :animation-in-type="AnimationType.ZOOMIN" :animation-out-type="AnimationType.ROLLOUT">
-          <div class="animated-body" v-show="show">
-            <q-img src="statics/Sen-Docs logo 50x50.png" basic style="width:40px; height:40px" class="q-ma-sm" />
+          <div class="text-bold text-white" style="font-size:17px" v-show="show">
+            THOT20
           </div>
         </animation-transition>
         <animation-transition :animation-in-type="AnimationType.ZOOMIN" :animation-out-type="AnimationType.ROLLOUT">
         <div class="absolute-top-right q-pa-sm animated-body" v-show="show">
-                <q-btn flat dense icon="notifications" auto-close size="md" >
+                <q-btn dense flat icon="notifications" round auto-close size="md" class="button-layout q-mr-sm">
                   <q-badge color="red" floating transparent v-if="nNotify">{{nNotify}}</q-badge>
                   <q-menu transition-show="jump-down" transition-hide="jump-up" fit :offset="[0, 10]" anchor="bottom right"
                     self="top right" v-close-popup auto-close>
@@ -39,7 +39,7 @@
                     </q-list>
                   </q-menu>
                 </q-btn>
-                <q-btn flat dense icon="settings" auto-close size="md" >
+                <q-btn flat dense icon="menu" round auto-close size="md" class="button-layout" >
                   <q-menu transition-show="jump-down" transition-hide="jump-up" fit :offset="[0, 10]"
                   anchor="bottom right" self="top right" v-close-popup auto-close >
                     <q-item clickable v-ripple @click="$router.push('/profile')" style="width:200px" class="text-primary">
@@ -55,14 +55,12 @@
                       </q-item-section>
                       <q-item-section>Cerrar Sesión</q-item-section>
                     </q-item>
-
                   </q-menu>
                 </q-btn>
               </div>
               </animation-transition>
       </q-toolbar>
     </q-header>
-
     <q-page-container>
       <router-view />
     </q-page-container>

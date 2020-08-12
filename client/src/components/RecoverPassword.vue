@@ -1,9 +1,9 @@
 <template>
   <q-card class="full-width">
     <q-card-section>
-      <div class="text-h6 text-primary">Olvide Mi Contraseña</div>
-      <p class="text-primary">Ingrese Email con el que se registro en thot20, se le enviara un link para el cambio de contraseña</p>
-      <q-input class="full-width" label="Ingrese su Email" v-model="form.email" />
+      <div class="text-h6 text-grey-10">Olvide Mi Contraseña</div>
+      <p class="text-grey-9">Ingrese Email con el que se registro en thot20, se le enviara un link para el cambio de contraseña</p>
+      <q-input class="full-width input-style q-pa-sm" label="Ingrese su Email" v-model="form.email" dense borderless/>
     </q-card-section>
     <q-card-actions align="center">
       <q-btn label="Enviar Email de Recuperación" @click="onSubmit()" class="full-width" color="primary" />

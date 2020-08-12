@@ -1,60 +1,21 @@
 <template>
   <!-- Nuevo proyecto -->
-  <q-page class=" row bg-grey-1">
+  <q-page class=" row fondo-gris">
     <div class="col" v-show="show">
-      <q-separator />
-      <animation-transition :animation-in-type="AnimationType.ZOOMIN" :animation-out-type="AnimationType.ROLLOUT">
-      <div class="q-pa-sm row items-start justify-start animated-body" v-show="show">
-        <q-card
-          class="bg-grey-1 shadow-2 q-ma-xs q-mt-sm"
-          style="width: 100%;border-radius:20px"
-        >
-          <q-card-section horizontal>
-            <q-card-section class="col-3 flex flex-center">
-              <q-avatar size="50px">
-                <img src="statics/icons/favicon-128x128.png">
-              </q-avatar>
-            </q-card-section>
-            <q-separator inset vertical />
-            <q-card-section class="q-pt-xs q-mt-sm">
-              <div class="text-h6 q-mt-sm">{{userInfo.fullName}}</div>
-              <div class="text-overline">{{userInfo.email}}</div>
-              <q-separator inset />
-              <div class="text-caption text-bold q-mt-sm">Informacion del Plan</div>
-              <div class="column text-grey" v-if="planInfo.plan">
-                <div v-if="planInfo.plan.name != 'Plan 4'">
-                  Cantidad: {{planInfo.avaiableFiles}} / {{planInfo.plan.fileLimit}}
-                </div>
-                <div v-else-if="planInfo.plan.name == 'Plan 4'">
-                  Sin limite de Archivos
-                </div>
-                <div>
-                  Disponible: {{ planInfo.availableStorage}} / {{ planInfo.plan.storage  }}
-                </div>
-              </div>
-              <div v-else-if="planInfo.error" class="text-caption text-negative" >{{planInfo.msg}} </div>
-            </q-card-section>
-          </q-card-section>
-        </q-card>
+      <div class="row q-mt-xl q-ml-md ">
+        <q-breadcrumbs>
+          <q-breadcrumbs-el icon="home" label="Home" class="text-grey-8" style="font-size:22px" />
+        </q-breadcrumbs>
+        <q-space />
+        <q-btn color="primary" to="/documento/subir" rounded label="enviar nuevo" class="q-mb-sm q-mr-md button-enviar-nuevo-home" icon="cloud_upload" dense size="md" />
       </div>
-      </animation-transition>
-       <q-separator inset class="q-ma-md"/>
+      <q-separator inset class="q-mb-md"/>
       <animation-transition :animation-in-type="AnimationType.BOUNCEINUP" :animation-out-type="AnimationType.ROLLOUT">
-      <div
-        class="q-pa-sm text-bold text-grey-10 animated-body"
-        v-show="show"
-      >
+      <div class="q-pa-sm text-bold text-grey-10 animated-body" v-show="show">
       <Archivos />
       </div>
       </animation-transition>
     </div>
-    <q-page-sticky position="bottom-right" :offset="[18, 20]">
-      <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
-        <div class="animated-body" v-show="show">
-          <q-btn round size="20px" color="primary" icon="backup" to="/documento/subir" class="shadow-3" />
-        </div>
-      </animation-transition>
-    </q-page-sticky>
   </q-page>
 </template>
 
