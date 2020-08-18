@@ -53,6 +53,17 @@
                   </q-input>
                 </div>
               </animation-transition>
+              <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
+                <div class="animated-body" v-show="show">
+                  <q-input class="text-bold input-style q-pa-sm" type="email" v-model="form.emailRecuperate" label="Correo electrónico de Recuperacion" dense borderless
+                    :error-message="formError.emailRecuperate" :error="$v.form.emailRecuperate.$error" @blur="$v.form.emailRecuperate.$touch()"
+                  >
+                    <template v-slot:prepend>
+                      <q-icon name="mail" color="primary"></q-icon>
+                    </template>
+                  </q-input>
+                </div>
+              </animation-transition>
               <div class="column">
                 <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
                   <div class="col full-width" v-show="show">
@@ -67,10 +78,12 @@
               </div>
           </q-form>
         </q-card-section>
+        <q-card-section v-if="pasoN === 2">
+          <animation-transition :animation-in-type="AnimationType.BOUNCEINDOWN" :animation-out-type="AnimationType.ROLLOUT">
+            <planes :form="form" v-show="show_plan" />
+          </animation-transition>
+        </q-card-section>
       </q-card>
-      <q-dialog v-model="planDialog">
-        <planes />
-      </q-dialog>
     </q-page-container>
   </q-layout>
 </template>
@@ -93,14 +106,15 @@ export default {
       formError: {},
       AnimationType: AnimationVueTransitionType,
       show: false,
-      planDialog: false,
+      show_plan: false,
       pasoN: 1
     }
   },
   validations: {
     form: {
       fullName: { required, maxLength: maxLength(50), minLength: minLength(4) },
-      email: { required, email }
+      email: { required, email },
+      emailRecuperate: { required, email }
     },
     repeatPassword: {
       sameAsPassword: sameAs('password')
@@ -111,21 +125,18 @@ export default {
     this.show = true
   },
   methods: {
-    onSubmit () {
+    async onSubmit () {
       this.$q.loading.show()
-      this.$v.$touch()
-      if (!this.validateErrors()) {
-        this.form.password = this.password
-        this.$api.post('register', this.form).then(res => {
-          if (res) {
-            this.$router.push('/')
-            this.$q.notify({
-              message: 'Ya formas parte de thot20',
-              color: 'positive'
-            })
-          }
-        })
-      }
+      this.form.password = this.password
+      await this.$api.post('register', this.form).then(res => {
+        if (res) {
+          this.$router.push('/')
+          this.$q.notify({
+            message: 'Ya formas parte de thot20',
+            color: 'positive'
+          })
+        }
+      })
       this.$q.loading.hide()
     },
     validateErrors () {
@@ -136,15 +147,19 @@ export default {
         this.formError.email = 'Ingrese su Email'
         this.formError.password = this.password.length < 7 ? 'la Contraseña debe ser mayor a 7 caracteres' : this.password.length > 256 ? 'la contraseña no puede ser tan larga' : 'Ingrese su Contraseña'
         this.formError.repeatPassword = 'Las Contraseñas no Coinciden'
+        this.formError.emailRecuperate = 'Ingrese un Email de Recuperacion valido'
       }
       return error
     },
     async next () {
+      this.$q.loading.show()
       this.$v.$touch()
       if (!this.validateErrors() && !await this.validateExistMail()) {
         this.form.password = this.password
-        this.planDialog = true
+        this.pasoN = 2
+        this.show_plan = true
       }
+      this.$q.loading.hide()
     },
     async validateExistMail() {
       var error = false

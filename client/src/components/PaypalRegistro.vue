@@ -13,6 +13,9 @@ export default {
     },
     product: {
       type: Object
+    },
+    form: {
+      type: Object
     }
   },
   data: function() {
@@ -48,6 +51,7 @@ export default {
           onApprove: async (data, actions) => {
             const order = await actions.order.capture()
             this.paidFor = true
+            await this.registrar()
             console.log(order)
           },
           onError: err => {
@@ -55,6 +59,19 @@ export default {
           }
         })
         .render(this.$refs.paypal)
+    },
+    async registrar () {
+      this.$q.loading.show()
+      await this.$api.post('register', this.form).then(res => {
+        if (res) {
+          this.$router.push('/')
+          this.$q.notify({
+            message: 'Ya formas parte de thot20',
+            color: 'positive'
+          })
+        }
+      })
+      this.$q.loading.hide()
     }
   }
 }
