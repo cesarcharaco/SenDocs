@@ -1,8 +1,17 @@
 <template>
   <div>
-    <div class="text-h6 q-ma-md"> Cuentas Registradas </div>
-    <q-separator  inset/>
-    <q-list bordered class="shadow-2 q-pa-xs q-ma-sm">
+      <div class="row q-mt-xl q-mr-lg">
+        <div class="row">
+          <q-btn color="grey" @click="$router.go(-1)" icon="keyboard_backspace" round dense class="q-ml-md" />
+          <div class="row items-center q-ml-sm text-grey">Volver</div>
+        </div>
+        <q-space />
+        <q-breadcrumbs>
+          <q-breadcrumbs-el label="Home" icon="home" />
+          <q-breadcrumbs-el label="Cuentas Registradas" />
+        </q-breadcrumbs>
+      </div>
+    <q-list bordered class="shadow-2 q-pa-xs q-ma-sm card-border q-mt-md">
       <q-item v-for="(user,index) in data" :key="index" >
         <q-item-section avatar>
           <q-icon name="perm_identity" color="primary" />
@@ -57,6 +66,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   data () {
     return {
@@ -71,28 +81,32 @@ export default {
           description: 'Plan Gratis, que Incluye 3 dias gratis y un almacenamiento de 1 GB y una cantidad de 5 archivos',
           storage: 1073741824, // establecido en Bytesbytes Equivalente a 1GB
           fileLimit: 5, // limite de archivos que puede subir
-          days: 3
+          days: 3,
+          created_at: ''
         },
         {
           name: 'Plan 2',
           description: 'Plan 2, que Incluye un tiempo total de 1 año y un almacenamiento de 1 GB y una cantidad de 25 archivos',
           storage: 1073741824, // establecido en Bytesbytes EQUIVALENTE A 1GB
           fileLimit: 25, // limite de archivos que puede subir
-          days: 365
+          days: 365,
+          created_at: ''
         },
         {
           name: 'Plan 3',
           description: 'Plan 3 que Incluye un tiempo total de 1 año y un almacenamiento de 5 GB y una cantidad de 100 archivos',
           storage: 5368709120, // establecido en Bytesbytes EQUIVALENTE A 5GB
           fileLimit: 100, // limite de archivos que puede subir
-          days: 365
+          days: 365,
+          created_at: ''
         },
         {
           name: 'Plan 4',
           description: 'Plan 4 que Incluye un tiempo total de 1 año y un almacenamiento de 15 GB y una cantidad ilimitada de archivos',
           storage: 16106127360, // establecido en Bytesbytes EQUIVALENTE A 15GB
           days: 365,
-          fileLimit: 999999999 //  puede subir la cantidad que sea hasta cumplir el plazo de vencimiento del plan
+          fileLimit: 999999999, //  puede subir la cantidad que sea hasta cumplir el plazo de vencimiento del plan
+          created_at: ''
         }
       ]
     }
@@ -121,6 +135,7 @@ export default {
           this.formPlan = this.planes[j]
         }
       }
+      this.formPlan.created_at = moment().toDate()
       console.log(this.formPlan, 'formPlan')
       await this.$api.put('assign_plan/' + this.data[this.indexData]._id, this.formPlan).then(res => {
         if (res) {

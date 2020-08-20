@@ -31,6 +31,7 @@
 
 <script>
 import Paypal from '../components/PaypalRegistro'
+import moment from 'moment'
 export default {
   props: {
     form: {
@@ -64,7 +65,8 @@ export default {
           storage: 1073741824, // establecido en Bytesbytes EQUIVALENTE A 1GB
           fileLimit: 25, // limite de archivos que puede subir
           days: 365,
-          price: 30
+          price: 30,
+          created_at: ''
         },
         {
           name: 'Plan 3',
@@ -72,7 +74,8 @@ export default {
           storage: 5368709120, // establecido en Bytesbytes EQUIVALENTE A 5GB
           fileLimit: 100, // limite de archivos que puede subir
           days: 365,
-          price: 40
+          price: 40,
+          created_at: ''
         },
         {
           name: 'Plan 4',
@@ -80,7 +83,8 @@ export default {
           storage: 16106127360, // establecido en Bytesbytes EQUIVALENTE A 15GB
           days: 365,
           fileLimit: 999999999, //  puede subir la cantidad que sea hasta cumplir el plazo de vencimiento del plan
-          price: 50
+          price: 50,
+          created_at: ''
         }
       ]
     }
@@ -92,6 +96,7 @@ export default {
     async selectPrice (plan_name) {
       this.selectPlan = plan_name
       let plan = this.planes.find(element => element.name === this.selectPlan)
+      this.plan.created_at = moment().toDate()
       this.product.price = plan.price
       this.product.description = plan.description
       this.formPlan = plan
