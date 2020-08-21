@@ -7,16 +7,20 @@ const Archivo = use("App/Models/Archivo")
 const Moment = require("moment")
 const fs = require('fs')
 const moment = require("moment")
+const { dir } = require("console")
+const Env = use('Env')
+
 
 
 class ScheduleIt extends Task {
   static get schedule () {
-    return '0 */2 * * * *'
+    return '0 */1 * * * *'
   }
 
   async handle () {
     let actual =  Moment().toDate()
     // console.log(actual, 'Fecha y Hora ACtual')
+    let dirWeb = `${Env.get('HOST')}:${Env.get('PORT')}/api/file/`
     let archivosCaducados = (await Archivo.where({
       expiration : { $lte : actual },
       status: 0
@@ -28,13 +32,20 @@ class ScheduleIt extends Task {
         let archivo = await Archivo.find(element._id)
         for (let j in element.emails) {
           console.log(element.archiveName, 'archive name')
-          await Email.sendMail(element.emails[j], 'Envio de Archivo', 'Este archivo ha caducado en thot20, por lo cual se le fue enviado a este correo', 'storage/uploads/' + element.archiveName)
-          fs.unlink(`storage/uploads/${element.archiveName}`, (err) => {
-            if (err) throw err;
-            console.log( `${element.archiveName} was deleted`);
-          });
+          dirWeb = dirWeb + element.archiveName
+          if (element.fileSize < 5000000) {
+            await Email.sendMail(element.emails[j], 'Envio de Archivo', 'Este archivo ha caducado en thot20, por lo cual se le fue enviado a este correo', 'storage/uploads/' + element.archiveName)
+            fs.unlink(`storage/uploads/${element.archiveName}`, (err) => {
+              if (err) throw err;
+              console.log( `${element.archiveName} was deleted`);
+            })
+            archivo.status = 1 // estatus 1 Eliminado y Enviado por correo
+          } else {
+            await Email.sendMail(element.emails[j], 'Envio de Archivo', 'Este archivo ha caducado en thot20, por lo cual se le fue enviado a este un link ' + dirWeb)
+            archivo.status = 2 // estatus 2 enviado un link de descarga
+          }
         }
-        archivo.status = 1 // estatus 1 Eliminado y Enviado por correo
+
         await archivo.save()
       }
     }

@@ -12,7 +12,7 @@
           <q-item-section avatar>
             <q-icon name="sort" size="40px" :color="archive.status === 0 ? 'primary' : 'grey'" :label="archive.status === 0 ? 'Activo' : 'Caduco'" />
           </q-item-section>
-          <q-item-section  @click="download(archive.archiveName)">
+          <q-item-section  @click="download(archive.archiveName, archive.status)">
             <q-item-label class="text-bold">{{archive.name}}
               <q-badge color="blue">
                 {{archive.label}}
@@ -167,33 +167,35 @@ import env from '../env'
       })
       this.$q.loading.hide()
     },
-    download (file) {
-      this.$q.dialog({
-        title: 'Confirmar',
-        message: '¿Esta seguro que desea descargar el archivo?',
-        cancel: true,
-        persistent: true
-      }).onOk(() => {
-        this.$api.get(`get_file/${file}`, { responseType: 'blob' }).then(res => {
-        const blob = new Blob([res])
-        const ext = file.split('.')
-        const fileName = `${file} ${ext[ext.length - 1]}`
-
-        if (this.$q.platform.is.mobile) { // Si es teléfono
-          this.saveBlob2File(fileName, blob)
-        } else { // Si es navegador
-          const url = window.URL.createObjectURL(blob)
-          const link = document.createElement('a')
-          link.href = url
-          link.setAttribute('download', fileName)
-          document.body.appendChild(link)
-          link.click()
-        }
-        //this.$q.loading.hide()
-      }).catch(function (error) {
-        console.log('error descargando', error)
-      })
-      })
+    download (file, status) {
+      if (status === 0) {
+        this.$q.dialog({
+          title: 'Confirmar',
+          message: '¿Esta seguro que desea descargar el archivo?',
+          cancel: true,
+          persistent: true
+        }).onOk(() => {
+          this.$api.get(`file/${file}`, { responseType: 'blob' }).then(res => {
+          const blob = new Blob([res])
+          // const ext = file.split('.')
+          const fileName = `${file}`
+          console.log(fileName, 'filename')
+          if (this.$q.platform.is.mobile) { // Si es teléfono
+            this.saveBlob2File(fileName, blob)
+          } else { // Si es navegador
+            const url = window.URL.createObjectURL(blob)
+            const link = document.createElement('a')
+            link.href = url
+            link.setAttribute('download', fileName)
+            document.body.appendChild(link)
+            link.click()
+          }
+          //this.$q.loading.hide()
+        }).catch(function (error) {
+          console.log('error descargando', error)
+        })
+        })
+      }
     },
     confrim (file) {
       console.log(file)
