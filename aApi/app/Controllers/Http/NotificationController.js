@@ -55,37 +55,18 @@ class NotificationController {
    */
   async show ({ response, auth }) {
     const idUser = ((await auth.getUser()).toJSON())._id
-    let notifications = (await Notification.where({idUser: idUser}).fetch()).toJSON()
-    response.send(notifications)
+    let notifications = (await Notification.where({idUser: idUser}).sort({created_at: -1}).fetch()).toJSON()
+    let countNotify = notifications.filter(val => val.seen === false)
+    response.send({notifications: notifications, count: countNotify.length})
   }
 
-  /**
-   * Render a form to update an existing notification.
-   * GET notifications/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
-  }
-
-  /**
-   * Update notification details.
-   * PUT or PATCH notifications/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
   async seeAll ({ params, request, response, auth }) {
     const idUser = ((await auth.getUser()).toJSON())._id
     let notifications = (await Notification.where({idUser: idUser, seen: false}).update({
       seen: true
     })).toJSON()
-    notifications = (await Notification.where({idUser: idUser}).fetch()).toJSON()
-    response.send(notifications)
+    notifications = (await Notification.where({idUser: idUser}).sort({created_at: -1}).fetch()).toJSON()
+    response.send({notifications: notifications, count: 0})
   }
 
   async update ({ params, response}) {

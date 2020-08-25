@@ -97,14 +97,16 @@ export default {
     },
     async getNotification () {
       this.$api.get('notifications').then(res => {
-        this.myNotification = res
-        this.countNotify()
+        this.myNotification = res.notifications
+        this.nNotify = res.count
+        // this.countNotify()
       })
     },
     disableAllNotify () {
       this.$api.put('notifications').then(res => {
-        this.myNotification = res
-        this.countNotify()
+        this.myNotification = res.notifications
+        this.nNotify = res.count
+        // this.countNotify()
       })
     },
     countNotify () {
