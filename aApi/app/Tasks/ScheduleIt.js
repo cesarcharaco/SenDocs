@@ -34,7 +34,7 @@ class ScheduleIt extends Task {
         for (let j in element.emails) {
           console.log(element.archiveName, 'archive name')
           dir_web_production = dir_web_production + element.archiveName
-          if (element.fileSize < 1000000) {
+          if (element.fileSize < 5000000) {
             await Email.sendMail(element.emails[j], 'Envio de Archivo', 'Este archivo ha caducado en thot20, por lo cual se le fue enviado a este correo', 'storage/uploads/' + element.archiveName)
             fs.unlink(`storage/uploads/${element.archiveName}`, (err) => {
               if (err) throw err;
