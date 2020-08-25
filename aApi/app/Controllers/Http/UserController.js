@@ -1,6 +1,7 @@
 "use strict";
 
 const User = use("App/Models/User")
+const Payment = use("App/Models/Payment")
 const Role = use("App/Models/Role")
 const Email = use('App/Functions/Email')
 const Storage = use('App/Functions/Storage')
@@ -139,6 +140,10 @@ class UserController {
       body.roles = [requestAll.role]
       delete body.role
       const user = await User.create(body)
+      let plan = {}
+      plan.id_user = user._id.toString()
+      plan.payment = user.plan.price
+      await Payment.create(plan)
       Email.sendMail(body.email, 'Bienvenido a thot20', 'A partir de Ahora Formas Parte De Nuestra Plataforma')
       response.send(user)
     }
