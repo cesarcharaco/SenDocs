@@ -19,8 +19,8 @@ const providers = [
   '@adonisjs/validator/providers/ValidatorProvider',
   'lucid-mongo/providers/LucidMongoProvider',
   '@adonisjs/mail/providers/MailProvider',
-  '@adonisjs/framework/providers/ViewProvider',
-  'adonis-scheduler/providers/SchedulerProvider'
+  '@adonisjs/framework/providers/ViewProvider'
+  //'adonis-scheduler/providers/SchedulerProvider'
 ]
 
 /*
@@ -34,8 +34,8 @@ const providers = [
 */
 const aceProviders = [
   '@adonisjs/lucid/providers/MigrationsProvider',
-  'lucid-mongo/providers/MigrationsProvider',
-  'adonis-scheduler/providers/CommandsProvider'
+  'lucid-mongo/providers/MigrationsProvider'
+  // 'adonis-scheduler/providers/CommandsProvider'
 ]
 
 /*
@@ -51,7 +51,7 @@ const aceProviders = [
 |
 */
 const aliases = {
-  Scheduler: 'Adonis/Addons/Scheduler'
+  //Scheduler: 'Adonis/Addons/Scheduler'
 }
 
 /*
@@ -63,7 +63,7 @@ const aliases = {
 |
 */
 const commands = [
-  'adonis-scheduler/providers/CommandsProvider'
+  //'adonis-scheduler/providers/CommandsProvider'
 ]
 
 module.exports = { providers, aceProviders, aliases, commands }
