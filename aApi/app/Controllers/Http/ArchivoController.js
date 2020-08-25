@@ -123,13 +123,15 @@ class ArchivoController {
     if (params.filet === '0') {
 
       const profilePic = request.file('files', {
-        size: '25mb'
+        size: '1024mb'
       })
       var fileSize = profilePic.size
       const validateStorage = Storage.getStorage(idUser, profilePic.size, true)
       if (!validateStorage.error) {
         const date = new Date().getTime()
         if (Helpers.appRoot('storage/uploads')) {
+          let nombre = dat.name + '-' + dat.label
+          nombre = nombre.split(' ').join('-')
           await profilePic.move(Helpers.appRoot('storage/uploads'), {
             name: date + '-' + idUser + '-' + dat.name + '-' + dat.label + '.' + profilePic.extname,
             overwrite: true

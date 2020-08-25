@@ -28,8 +28,11 @@ class UploadController {
       dat = JSON.parse(dat.dat)
       const date = new Date().getTime()
       if (Helpers.appRoot('storage/uploads')) {
+        let nombre = dat.name + '-' + dat.label
+        nombre = nombre.split(' ').join('-')
+        console.log(nombre)
         await profilePic.move(Helpers.appRoot('storage/uploads'), {
-          name: date + '-' + idUser + '-' + dat.name + '-' + dat.label + '.' + profilePic.extname,
+          name: date + '-' + idUser + '-' + nombre + '.' + profilePic.extname,
           overwrite: true
         })
       } else {
