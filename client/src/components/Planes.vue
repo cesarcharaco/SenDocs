@@ -96,7 +96,7 @@ export default {
     async selectPrice (plan_name) {
       this.selectPlan = plan_name
       let plan = this.planes.find(element => element.name === this.selectPlan)
-      this.plan.created_at = moment().toDate()
+      plan.created_at = moment().toDate()
       this.product.price = plan.price
       this.product.description = plan.description
       this.formPlan = plan
