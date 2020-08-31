@@ -65,7 +65,7 @@ export default {
           storage: 1073741824, // establecido en Bytesbytes EQUIVALENTE A 1GB
           fileLimit: 25, // limite de archivos que puede subir
           days: 365,
-          price: 30,
+          price: 1,
           created_at: ''
         },
         {
@@ -74,7 +74,7 @@ export default {
           storage: 5368709120, // establecido en Bytesbytes EQUIVALENTE A 5GB
           fileLimit: 100, // limite de archivos que puede subir
           days: 365,
-          price: 40,
+          price: 1,
           created_at: ''
         },
         {
@@ -83,7 +83,7 @@ export default {
           storage: 16106127360, // establecido en Bytesbytes EQUIVALENTE A 15GB
           days: 365,
           fileLimit: 999999999, //  puede subir la cantidad que sea hasta cumplir el plazo de vencimiento del plan
-          price: 50,
+          price: 1,
           created_at: ''
         }
       ]
