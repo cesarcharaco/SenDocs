@@ -26,7 +26,7 @@ class User extends Model {
       email: 'required|email',
       password: 'required|string|min:8|max:256',
       plan: 'required',
-      email_recovery: 'required|email'
+      emailRecuperate: 'required|email'
     }
     return rulesUser
   }
