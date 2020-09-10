@@ -32,6 +32,7 @@ const userData = [
     roles: [1]
   },
   {
+    _id: '5f5a87dc2bc7262a0afa7dbf',
     email: 'repo1969@hotmail.com',
     password: 'repo1969',
     fullName: 'Cliente',
@@ -42,7 +43,7 @@ const userData = [
 class UserSeeder {
   async run () {
     for (let i of userData) {
-      let user = await User.find(i.email)
+      let user = await User.find(i._id)
       if (!user) {
         await User.create(i)
       }
