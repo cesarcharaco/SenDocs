@@ -1,16 +1,20 @@
 <template>
   <div>
-      <div class="row q-mt-xl q-mr-lg">
-        <div class="row">
-          <q-btn color="grey" @click="$router.go(-1)" icon="keyboard_backspace" round dense class="q-ml-md" />
-          <div class="row items-center q-ml-sm text-grey">Volver</div>
-        </div>
-        <q-space />
-        <q-breadcrumbs>
-          <q-breadcrumbs-el label="Home" icon="home" />
-          <q-breadcrumbs-el label="Cuentas Registradas" />
-        </q-breadcrumbs>
+    <div class="row q-mt-xl q-mr-lg">
+      <div class="row">
+        <q-btn color="grey" @click="$router.go(-1)" icon="keyboard_backspace" round dense class="q-ml-md" />
+        <div class="row items-center q-ml-sm text-grey">Volver</div>
       </div>
+      <q-space />
+      <q-breadcrumbs>
+        <q-breadcrumbs-el label="Home" icon="home" />
+        <q-breadcrumbs-el label="Cuentas Registradas" />
+      </q-breadcrumbs>
+    </div>
+    <div class="row q-mt-sm q-mr-md">
+      <q-space />
+      <q-btn label="nuevo usuario" color="primary" style="border-radius: 15px" to="/crear_usuario" />
+    </div>
     <q-list bordered class="shadow-2 q-pa-xs q-ma-sm card-border q-mt-md">
       <q-item v-for="(user,index) in data" :key="index" >
         <q-item-section avatar>

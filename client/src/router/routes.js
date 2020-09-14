@@ -19,7 +19,8 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '/dashboard', component: () => import('pages/Admin/Dashboard.vue') },
-      { path: '/lista_clientes', component: () => import('pages/Admin/ListaClientes.vue') }
+      { path: '/lista_clientes', component: () => import('pages/Admin/ListaClientes.vue') },
+      { path: '/crear_usuario', component: () => import('pages/Admin/CrearUsuario.vue') }
     ]
   },
   { path: '/inicio', component: () => import('pages/InicioAplicacionSD.vue') },

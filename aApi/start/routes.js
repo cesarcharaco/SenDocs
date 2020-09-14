@@ -43,7 +43,7 @@ addPrefixToGroup(
     Route.put('change_password', 'UserController.changePassword') // enviar codigo de cambio de contraseña
     Route.get('validate_email_exist/:email', 'UserController.validateEmailExist'); // validar si email ya existe
     Route.get("file/:dir", "UploadController.getFileByDirectory")
-
+    Route.delete("file_delete/:dir", "UploadController.deleteFileByDirectory")
   })
 );
 
@@ -74,6 +74,7 @@ addPrefixToGroup(
     Route.put('notification_disable/:id', 'NotificationController.update');
     Route.get('users_profile', 'UserController.show');
     Route.put('users_profile', 'UserController.update');
+    Route.post("create_user", "UserController.createUser")
 
   }).middleware("auth")
 );

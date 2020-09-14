@@ -149,6 +149,26 @@ class UserController {
     }
   }
 
+  async createUser({ request, response }) {
+    let requestAll = request.all()
+    requestAll.role = 1
+    const validation = await validate(requestAll, User.fieldValidationRules())
+    if (validation.fails()) {
+      response.unprocessableEntity(validation.messages())
+    } else if (((await User.where({email: requestAll.email}).fetch()).toJSON()).length) {
+      response.unprocessableEntity([{
+        message: 'Correo Existente!'
+      }])
+    } else {
+      let body = request.only(User.fillable)
+      body.roles = [requestAll.role]
+      delete body.role
+      const user = await User.create(body)
+      Email.sendMail(body.email, 'Bienvenido a thot20', 'A partir de Ahora Formas Parte De Nuestra Plataforma')
+      response.send(user)
+    }
+  }
+
   async validateEmailExist({ params, response }) {
     if (((await User.where({email: params.email}).fetch()).toJSON()).length) {
       response.unprocessableEntity([{
