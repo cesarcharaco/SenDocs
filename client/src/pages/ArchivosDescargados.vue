@@ -12,7 +12,7 @@
           <q-item-section avatar>
             <q-icon name="sort" size="40px" :color="archive.status === 0 ? 'primary' : 'grey'" :label="archive.status === 0 ? 'Activo' : 'Caduco'" />
           </q-item-section>
-          <q-item-section  @click="download(archive.archiveName, archive.status)">
+          <q-item-section  @click="download(archive.archiveNameEncryp, archive.status, archive.archiveName)">
             <q-item-label class="text-bold">{{archive.name}}
               <q-badge color="blue">
                 {{archive.label}}
@@ -67,55 +67,38 @@
     </div>
     </animation-transition>
     <q-dialog v-model="dialog">
-              <q-card v-if="data.length > 0" >
-                <q-card-section>
-                  <div class="text-h6"> {{data[globalIndex].name}} </div>
-                  <div class="text-subtitle2">Nueva Fecha</div>
-                </q-card-section>
-                <q-card-section>
-                  <div class="row justify-center">
-                    <q-input v-show="show" v-model="data[globalIndex].expiration" class="input-style q-pa-sm" dense
-                      borderless
-                    >
-                      <template v-slot:prepend>
-                        <q-btn icon="event" class="cursor-pointer" color="primary" flat round>
-                          <q-popup-proxy transition-show="scale" transition-hide="scale">
-                            <q-date v-model="data[globalIndex].expiration" mask="DD/MM/YYYY HH:mm" />
-                          </q-popup-proxy>
-                        </q-btn>
-                      </template>
+      <q-card v-if="data.length > 0" >
+        <q-card-section>
+          <div class="text-h6"> {{data[globalIndex].name}} </div>
+          <div class="text-subtitle2">Nueva Fecha</div>
+        </q-card-section>
+        <q-card-section>
+          <div class="row justify-center">
+            <q-input v-show="show" v-model="data[globalIndex].expiration" class="input-style q-pa-sm" dense borderless >
+              <template v-slot:prepend>
+                <q-btn icon="event" class="cursor-pointer" color="primary" flat round>
+                  <q-popup-proxy transition-show="scale" transition-hide="scale">
+                    <q-date v-model="data[globalIndex].expiration" mask="DD/MM/YYYY HH:mm" />
+                  </q-popup-proxy>
+                </q-btn>
+              </template>
 
-                      <template v-slot:append>
-                        <q-btn icon="access_time" class="cursor-pointer" color="primary" flat round>
-                          <q-popup-proxy transition-show="scale" transition-hide="scale">
-                            <q-time v-model="data[globalIndex].expiration" mask="DD/MM/YYYY HH:mm" format24h />
-                          </q-popup-proxy>
-                        </q-btn>
-                      </template>
-                    </q-input>
-                  </div>
-                </q-card-section>
-                <q-card-actions align="right">
-                  <q-btn
-                    class="q-pa-sm"
-                    color="primary"
-                    outline
-                    label="Cancelar"
-                    v-close-popup
-                    dense
-                    style="border-radius:15px"
-                  />
-                  <q-btn
-                    class="q-pa-sm"
-                    color="primary"
-                    style="border-radius:15px"
-                    label="Renovar"
-                    @click="renovate(data[globalIndex])"
-                    v-close-popup
-                  />
-                </q-card-actions>
-              </q-card>
-            </q-dialog>
+              <template v-slot:append>
+                <q-btn icon="access_time" class="cursor-pointer" color="primary" flat round>
+                  <q-popup-proxy transition-show="scale" transition-hide="scale">
+                    <q-time v-model="data[globalIndex].expiration" mask="DD/MM/YYYY HH:mm" format24h />
+                  </q-popup-proxy>
+                </q-btn>
+              </template>
+            </q-input>
+          </div>
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn class="q-pa-sm" color="primary" outline label="Cancelar" v-close-popup style="border-radius:15px" />
+          <q-btn class="q-pa-sm" color="primary" style="border-radius:15px" label="Renovar" @click="renovate(data[globalIndex])" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-card>
 </template>
 
@@ -167,7 +150,7 @@ import env from '../env'
       })
       this.$q.loading.hide()
     },
-    download (file, status) {
+    async download (file, status, archiveName) {
       if (status === 0) {
         this.$q.dialog({
           title: 'Confirmar',
@@ -176,9 +159,10 @@ import env from '../env'
           persistent: true
         }).onOk(() => {
           this.$api.get(`file/${file}`, { responseType: 'blob' }).then(res => {
+          console.log('aquiii', res)
           const blob = new Blob([res])
           // const ext = file.split('.')
-          const fileName = `${file}`
+          const fileName = `${archiveName}`
           console.log(fileName, 'filename')
           if (this.$q.platform.is.mobile) { // Si es teléfono
             this.saveBlob2File(fileName, blob)
@@ -189,6 +173,8 @@ import env from '../env'
             link.setAttribute('download', fileName)
             document.body.appendChild(link)
             link.click()
+            this.$api.delete('file_delete/' + fileName).then(res => {
+            })
           }
           //this.$q.loading.hide()
         }).catch(function (error) {

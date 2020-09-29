@@ -7,6 +7,8 @@ const Archivo = use("App/Models/Archivo")
 const User = use("App/Models/User")
 const Moment = require("moment")
 const Storage = use('App/Functions/Storage')
+const Encriptacion = use('App/Functions/Encriptacion')
+const encrypt = require('node-file-encrypt')
 
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
@@ -35,6 +37,9 @@ class UploadController {
           name: date + '-' + idUser + '-' + nombre + '.' + profilePic.extname,
           overwrite: true
         })
+
+
+
       } else {
         mkdirp.sync(`${__dirname}/storage/Excel`)
       }
@@ -42,8 +47,20 @@ class UploadController {
       if (!profilePic.moved()) {
         return profilePic.error()
       } else {
+        let encryptPath = ''
+        let encryptFilePath = 'storage/uploads/' + data.name
+        let f = new encrypt.FileEncrypt(encryptFilePath)
+        f.openSourceFile()
+        await f.encrypt('111111')
+        encryptPath = f.encryptFilePath
+
+        await fs.unlink(`storage/uploads/${data.name}`, (err) => {
+          if (err) throw err;
+          console.log('borrado para reemplazar por encryptado');
+        })
         dat.idUser = idUser
         dat.archiveName = data.name
+        dat.archiveNameEncryp = f.encryptFileName
         dat.status = 0 // creado
         dat.fileSize = profilePic.size
         let expirate = Moment(dat.expiration).format()
@@ -198,8 +215,13 @@ class UploadController {
   }
 
   async getFileByDirectory ({ params, response, request }) {
-    //const dir = params.dir.split('-').join('/')
-    response.download(Helpers.appRoot('storage/uploads') + `/${params.dir}`)
+    let filePath = await Encriptacion.decrypt(`storage/uploads/${params.dir}`)
+    await response.download(Helpers.appRoot(filePath))
+  }
+
+  async deleteFileByDirectory ({ params, response, request }) {
+    await fs.unlink(`storage/uploads/${params.dir}`, function() {})
+    response.send({message: 'Encriptado'})
   }
 
 

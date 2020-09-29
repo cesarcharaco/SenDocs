@@ -18,6 +18,7 @@ const data = {
 	subject: "Hello",
 	text: "Testing some Mailgun awesomness!"
 };
+const Encriptacion = use('App/Functions/Encriptacion')
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -162,7 +163,7 @@ class ArchivoController {
    */
   async destroy ({ params, request, response }) {
     let archivo = await Archivo.find(params.id)
-    fs.unlink(`storage/uploads/${archivo.archiveName}`, (err) => {
+    fs.unlink(`storage/uploads/${archivo.archiveNameEncryp}`, (err) => {
       if (err) throw err;
       console.log(`'${archivo.archiveName} was deleted por el cliente'`);
     });
@@ -204,10 +205,11 @@ async function updateData (elRequest, data, changeFilename, dat, fileSize) {
     archivo.name = body.name;
     archivo.archiveName = changeFilename ? data.name : body.archiveName
     if (changeFilename) {
-      fs.unlink(`storage/uploads/${body.archiveName}`, (err) => {
+      fs.unlink(`storage/uploads/${body.archiveNameEncryp}`, (err) => {
         if (err) throw err;
-        console.log('path/file.txt was deleted');
-      });
+      })
+      let filepath = (await Encriptacion.encrypt('storage/uploads/' + data.name)).encryptFileName
+      archivo.archiveNameEncryp = filepath
       archivo.fileSize = fileSize
     }
     archivo.emails = body.emails

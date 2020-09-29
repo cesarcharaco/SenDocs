@@ -181,13 +181,14 @@ export default {
                 color: 'warning',
                 type: 'negative'
               })
+              this.$q.loading.hide()
             } else if (res) {
               this.$router.push('/home')
+              this.$q.loading.hide()
             }
           })
         }
       }
-      this.$q.loading.hide()
     },
     addEmail () {
       this.form.emails.push(this.email)
