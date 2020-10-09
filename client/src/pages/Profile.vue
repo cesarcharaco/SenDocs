@@ -35,7 +35,8 @@
               </div>
         </div> -->
         <q-input type="email" label="Email" v-model="form.email" class="input-style q-pa-sm" dense borderless />
-        <q-input label="Nombre completo" v-model="form.fullName" class="input-style q-pa-sm" dense borderless />
+        <q-input label="Nombre" v-model="form.name" class="input-style q-pa-sm" dense borderless />
+        <q-input label="Apellido" v-model="form.lastName" class="input-style q-pa-sm" dense borderless />
         <q-input label="Email de recuperacion" v-model="form.emailRecuperate" class="input-style q-pa-sm" dense borderless />
       </q-card-section>
       <q-card-actions align="center">

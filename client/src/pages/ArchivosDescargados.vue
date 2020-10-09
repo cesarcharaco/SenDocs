@@ -177,9 +177,9 @@ import env from '../env'
             })
           }
           //this.$q.loading.hide()
-        }).catch(function (error) {
-          console.log('error descargando', error)
-        })
+          }).catch(function (error) {
+            console.log('error descargando', error)
+          })
         })
       }
     },
@@ -207,11 +207,11 @@ import env from '../env'
         console.log('error descargando', error)
       })
     },
-    getRecord () {
+    async getRecord () {
       this.$q.loading.show({
         message: 'Cargando...'
       })
-      this.$api.get('archives').then(res => {
+      await this.$api.get('archives').then(res => {
         this.data = res
       })
       this.$q.loading.hide()

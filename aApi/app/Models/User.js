@@ -17,16 +17,21 @@ class User extends Model {
     return ['password']
   } */
   static get fillable() {
-    return ['email', 'password', 'fullName', 'plan', 'email_recovery']
+    return ['email', 'password', 'name', 'lastName', 'plan', 'email_recovery', 'address', 'sex', 'placeLive']
   }
   static fieldValidationRules(role) {
     const rulesUser = {
       //role: 'required|number',
-      fullName: "required|string|min:3|max:80",
+      name: "required|string|min:3|max:80",
+      lastName: "required|string|min:3|max:80",
       email: 'required|email',
       password: 'required|string|min:8|max:256',
       plan: 'required',
-      emailRecuperate: 'required|email'
+      emailRecuperate: 'required|email',
+      address: 'string',
+      sex: 'string',
+      birthdate: 'date',
+      placeLive: 'string'
     }
     return rulesUser
   }

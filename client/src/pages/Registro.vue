@@ -8,14 +8,65 @@
       </animation-transition>
       <q-card class="shadow-2 card-border q-ma-md q-pt-md">
         <q-card-section v-if="pasoN === 1">
-          <q-form class="q-gutter-md q-ma-md">
+          <q-form class="q-gutter-md">
             <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
                 <div class="animated-body" v-show="show">
-                  <q-input class="text-bold input-style q-pa-sm" v-model="form.fullName" label="Nombre Completo" dense borderless
-                  :error-message="formError.fullName" :error="$v.form.fullName.$error" @blur="$v.form.fullName.$touch()"
+                  <q-input class="text-bold input-style q-pa-sm" v-model="form.name" label="Nombre" dense borderless
+                  :error-message="formError.name" :error="$v.form.name.$error" @blur="$v.form.name.$touch()"
                   >
                     <template v-slot:prepend>
                       <q-icon name="person" color="primary"></q-icon>
+                    </template>
+                  </q-input>
+                </div>
+              </animation-transition>
+              <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
+                <div class="animated-body" v-show="show">
+                  <q-input class="text-bold input-style q-pa-sm" v-model="form.lastName" label="Apellido" dense borderless
+                  :error-message="formError.lastName" :error="$v.form.lastName.$error" @blur="$v.form.lastName.$touch()"
+                  >
+                    <template v-slot:prepend>
+                      <q-icon name="person" color="primary"></q-icon>
+                    </template>
+                  </q-input>
+                </div>
+              </animation-transition>
+              <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
+                <div class="animated-body" v-show="show">
+                  <q-select class="text-bold input-style q-pa-sm" v-model="form.sex" label="Sexo" dense borderless :options="['Masculino', 'Femenino']"
+                  >
+                    <template v-slot:prepend>
+                      <q-icon name="person" color="primary"></q-icon>
+                    </template>
+                  </q-select>
+                </div>
+              </animation-transition>
+              <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
+                <div class="animated-body" v-show="show">
+                  <q-input class="text-bold input-style q-pa-sm" v-model="form.birthdate" label="Fecha de Nacimiento" dense borderless type="date" stack-label
+                  >
+                    <template v-slot:prepend>
+                      <q-icon name="event" color="primary"></q-icon>
+                    </template>
+                  </q-input>
+                </div>
+              </animation-transition>
+              <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
+                <div class="animated-body" v-show="show">
+                  <q-input class="text-bold input-style q-pa-sm" v-model="form.placeLive" label="Lugar donde Vives" dense borderless
+                  >
+                    <template v-slot:prepend>
+                      <q-icon name="home" color="primary"></q-icon>
+                    </template>
+                  </q-input>
+                </div>
+              </animation-transition>
+              <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
+                <div class="animated-body" v-show="show">
+                  <q-input class="text-bold input-style q-pa-sm" v-model="form.address" label="Dirección" dense borderless
+                  >
+                    <template v-slot:prepend>
+                      <q-icon name="swap_calls" color="primary"></q-icon>
                     </template>
                   </q-input>
                 </div>
@@ -99,7 +150,9 @@ export default {
   data () {
     return {
       form: {
-        fullName: ''
+        name: '',
+        lastName: '',
+        sex: ''
       },
       password: '',
       repeatPassword: '',
@@ -112,7 +165,8 @@ export default {
   },
   validations: {
     form: {
-      fullName: { required, maxLength: maxLength(50), minLength: minLength(4) },
+      name: { required, maxLength: maxLength(50), minLength: minLength(4) },
+      lastName: { required, maxLength: maxLength(50), minLength: minLength(4) },
       email: { required, email },
       emailRecuperate: { required, email }
     },
@@ -143,7 +197,8 @@ export default {
       let error = false
       if (this.$v.form.$error || this.$v.password.$error || this.$v.repeatPassword.$error) {
         error = true
-        this.formError.fullName = this.form.fullName.length < 2 ? 'Debe ser mayor a 2 caracteres' : this.form.fullName.length > 50 ? 'Ddebe ser menor a 50 caracteres' : 'Ingrese su Nombre Completo'
+        this.formError.name = this.form.name.length < 2 ? 'Debe ser mayor a 2 caracteres' : this.form.name.length > 50 ? 'Debe ser menor a 50 caracteres' : 'Ingrese su Nombre'
+        this.formError.lastName = this.form.lastName.length < 2 ? 'Debe ser mayor a 2 caracteres' : this.form.lastName.length > 50 ? 'Ddebe ser menor a 50 caracteres' : 'Ingrese su Apellido'
         this.formError.email = 'Ingrese su Email'
         this.formError.password = this.password.length < 7 ? 'la Contraseña debe ser mayor a 7 caracteres' : this.password.length > 256 ? 'la contraseña no puede ser tan larga' : 'Ingrese su Contraseña'
         this.formError.repeatPassword = 'Las Contraseñas no Coinciden'

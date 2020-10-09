@@ -2,7 +2,7 @@
   <q-card class="full-width">
     <q-card-section>
       <div class="texh-h6 text-bold">Selecciona un Plan</div>
-        <q-card v-ripple v-for="(plan, index) in planes" :key="index" class="shadow-2 q-pa-xs q-ma-sm" bordered @click="selectPrice(plan.name)">
+        <q-card v-ripple v-for="(plan, index) in planes" :key="index" class="shadow-2 q-pa-xs q-ma-sm" bordered @click="selectPrice(plan.name)" style="border-radius:15px">
           <q-card-section>
             <div class="row">
               <div class="text-h6 row justify-center text-grey-10 text-bold">
@@ -25,6 +25,9 @@
         <div class="col-5 text-bold text-primary" style="font-size:32px"> {{product.price}}$ </div>
       </div>
       <paypal v-if="product.price > 0" class="q-pa-lg" :product="product" :form="form" :selectedPlan="formPlan" />
+      <div class="row justify-center" v-if="form.plan.price === 0">
+        <q-btn style="border-radius:5px" label="Registrame" color="primary" @click="registrar()" />
+      </div>
     </q-card-section>
   </q-card>
 </template>
@@ -85,6 +88,15 @@ export default {
           fileLimit: 999999999, //  puede subir la cantidad que sea hasta cumplir el plazo de vencimiento del plan
           price: 1,
           created_at: ''
+        },
+        {
+          name: 'Plan Gratis',
+          description: 'Plan Gratis que Incluye un tiempo total de 1 año y un almacenamiento de 25 MB y una cantidad de 5 archivos',
+          storage: 26214400, // establecido en Bytesbytes EQUIVALENTE A 25MB
+          days: 365,
+          fileLimit: 25,
+          price: 0,
+          created_at: ''
         }
       ]
     }
@@ -102,6 +114,19 @@ export default {
       this.formPlan = plan
       this.form.plan = this.formPlan
       console.log(this.formPlan, 'formPlan', this.form, 'form')
+    },
+    async registrar () {
+      this.$q.loading.show()
+      await this.$api.post('register', this.form).then(res => {
+        if (res) {
+          this.$router.push('/')
+          this.$q.notify({
+            message: 'Ya formas parte de thot20',
+            color: 'positive'
+          })
+        }
+      })
+      this.$q.loading.hide()
     }
   }
 }

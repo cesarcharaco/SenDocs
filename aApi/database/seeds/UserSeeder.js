@@ -21,21 +21,16 @@ const userData = [
     _id: '5e90d6e6f75366526a680091',
     email: 'sadmin@thot20.com',
     password: 'thot202020',
-    fullName: 'Super Administrador',
+    name: 'Super',
+    lastName: 'Administrador',
     roles: [2]
   },
   {
     _id: '5e90d6e6f75366526a680092',
     email: 'cliente@thot20.com',
     password: 'thot202020',
-    fullName: 'Haidee',
-    roles: [1]
-  },
-  {
-    _id: '5f5a87dc2bc7262a0afa7dbf',
-    email: 'repo1969@hotmail.com',
-    password: 'repo1969',
-    fullName: 'Cliente',
+    name: 'Usuario',
+    lastName: 'De Prueba',
     roles: [1]
   }
 ]
@@ -50,7 +45,8 @@ class UserSeeder {
       else {
         user.email = i.email
         user.password = i.password
-        user.fullName = i.fullName
+        user.name = i.name
+        user.lastName = i.lastName
         user.roles = i.roles
         await user.save()
       }

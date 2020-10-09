@@ -5,8 +5,16 @@
       <q-card-section>
         <q-form class="q-gutter-md q-ma-md">
           <div class="animated-body" v-show="show">
-            <q-input class="text-bold input-style q-pa-sm" v-model="form.fullName" label="Nombre Completo" dense borderless
-            :error-message="formError.fullName" :error="$v.form.fullName.$error" @blur="$v.form.fullName.$touch()" >
+            <q-input class="text-bold input-style q-pa-sm" v-model="form.name" label="Nombre" dense borderless
+            :error-message="formError.name" :error="$v.form.name.$error" @blur="$v.form.name.$touch()" >
+              <template v-slot:prepend>
+                <q-icon name="person" color="primary"></q-icon>
+              </template>
+            </q-input>
+          </div>
+          <div class="animated-body" v-show="show">
+            <q-input class="text-bold input-style q-pa-sm" v-model="form.lastName" label="Apellido" dense borderless
+            :error-message="formError.lastName" :error="$v.form.lastName.$error" @blur="$v.form.lastName.$touch()" >
               <template v-slot:prepend>
                 <q-icon name="person" color="primary"></q-icon>
               </template>
@@ -79,7 +87,8 @@ export default {
    return {
      show: false,
      form: {
-       fullName: ''
+       name: '',
+       lastName: ''
      },
      formError: {},
      password: '',
@@ -126,7 +135,8 @@ export default {
  },
  validations: {
     form: {
-      fullName: { required, maxLength: maxLength(50), minLength: minLength(4) },
+      name: { required, maxLength: maxLength(50), minLength: minLength(4) },
+      lastName: { required, maxLength: maxLength(50), minLength: minLength(4) },
       email: { required, email },
       emailRecuperate: { required, email }
     },
@@ -161,7 +171,8 @@ export default {
       let error = false
       if (this.$v.form.$error || this.$v.password.$error || this.$v.repeatPassword.$error) {
         error = true
-        this.formError.fullName = this.form.fullName.length < 2 ? 'Debe ser mayor a 2 caracteres' : this.form.fullName.length > 50 ? 'Debe ser menor a 50 caracteres' : 'Ingrese su Nombre Completo'
+        this.formError.name = this.form.name.length < 2 ? 'Debe ser mayor a 2 caracteres' : this.form.name.length > 50 ? 'Debe ser menor a 50 caracteres' : 'Ingrese su Nombre'
+        this.formError.lastName = this.form.lastName.length < 2 ? 'Debe ser mayor a 2 caracteres' : this.form.lastName.length > 50 ? 'Debe ser menor a 50 caracteres' : 'Ingrese su Apellido'
         this.formError.email = 'Ingrese su Email'
         this.formError.password = this.password.length < 7 ? 'la Contraseña debe ser mayor a 7 caracteres' : this.password.length > 256 ? 'la contraseña no puede ser tan larga' : 'Ingrese su Contraseña'
         this.formError.repeatPassword = 'Las Contraseñas no Coinciden'

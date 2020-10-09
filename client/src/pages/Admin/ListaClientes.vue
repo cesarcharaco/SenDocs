@@ -21,7 +21,7 @@
           <q-icon name="perm_identity" color="primary" />
         </q-item-section>
         <q-item-section class="text-primary">
-          <q-item-label class="text-bold"> {{user.fullName}} </q-item-label>
+          <q-item-label class="text-bold"> {{user.name}} {{user.lastName}} </q-item-label>
           <q-item-label caption> {{user.email}} </q-item-label>
         </q-item-section>
         <q-item-section side top>
@@ -110,6 +110,15 @@ export default {
           storage: 16106127360, // establecido en Bytesbytes EQUIVALENTE A 15GB
           days: 365,
           fileLimit: 999999999, //  puede subir la cantidad que sea hasta cumplir el plazo de vencimiento del plan
+          created_at: ''
+        },
+        {
+          name: 'Plan Gratis',
+          description: 'Plan Gratis que Incluye un tiempo total de 1 año y un almacenamiento de 25 MB y una cantidad de 5 archivos',
+          storage: 26214400, // establecido en Bytesbytes EQUIVALENTE A 15GB
+          days: 365,
+          fileLimit: 5,
+          price: 0,
           created_at: ''
         }
       ]

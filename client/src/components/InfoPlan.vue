@@ -13,7 +13,7 @@
             </q-card-section>
             <q-separator inset vertical />
             <q-card-section class="q-pt-xs q-mt-sm">
-              <div class="text-h6 q-mt-sm">{{userInfo.fullName}}</div>
+              <div class="text-h6 q-mt-sm">{{userInfo.name}} {{userInfo.lastName}} </div>
               <div class="text-overline">{{userInfo.email}}</div>
               <q-separator inset />
               <div class="text-caption text-bold q-mt-sm">Informacion del Plan</div>

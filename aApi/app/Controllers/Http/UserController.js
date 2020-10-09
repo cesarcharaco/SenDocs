@@ -196,7 +196,8 @@ class UserController {
     const rule = {
       email: "required",
       emailRecuperate: "required",
-      fullName: "required|string"
+      name: "required|string",
+      lastName: 'required|string'
     }
     let requestAll = request.all()
     const userAuth = (await auth.getUser()).toJSON()
@@ -207,7 +208,7 @@ class UserController {
       let emails = (await User.where({email: requestAll.email}).fetch()).toJSON()
       if (emails.length === 0 || emails[0].email === userAuth.email) {
         const idUser = ((await auth.getUser()).toJSON())._id
-        let body = request.only(['email', 'fullName', 'emailRecuperate'])
+        let body = request.only(['email', 'name', 'emailRecuperate', 'lastName'])
         await User.where('_id', idUser).update(body)
         response.send({msg: 'datos guardados correctamente'})
       } else {
@@ -256,7 +257,8 @@ class UserController {
         token.permissions.push(element2)
       })
     })
-    token.fullName = user.fullName
+    token.name = user.name
+    token.lastName = user.lastName
     token.email = user.email
 
     let data = {}
