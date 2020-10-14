@@ -1,16 +1,15 @@
 <template>
-  <q-layout class="fondo">
-    <q-page-container>
+  <div class="fondo column items-center">
       <animation-transition :animation-in-type="AnimationType.BOUNCEINDOWN" :animation-out-type="AnimationType.ROLLOUT">
         <div class="row justify-center animated-body" v-show="show">
-          <img src="../statics/Sen-Docs logo.png" alt="Logo thot20" style="width: 40%;">
+          <img src="../statics/Sen-Docs logo.png" class="responsive-web" alt="Logo thot20" style="width: 150px; height:150px">
         </div>
       </animation-transition>
-      <q-card class="shadow-2 card-border q-ma-md q-pt-md">
+      <q-card class="shadow-2 card-border q-pt-md q-ma-md" style="max-width:100%">
         <q-card-section v-if="pasoN === 1">
-          <q-form class="q-gutter-md">
+          <div class="q-pa-sm row justify-center">
             <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
-                <div class="animated-body" v-show="show">
+                <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm" v-show="show">
                   <q-input class="text-bold input-style q-pa-sm" v-model="form.name" label="Nombre" dense borderless
                   :error-message="formError.name" :error="$v.form.name.$error" @blur="$v.form.name.$touch()"
                   >
@@ -21,7 +20,7 @@
                 </div>
               </animation-transition>
               <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
-                <div class="animated-body" v-show="show">
+                <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm" v-show="show">
                   <q-input class="text-bold input-style q-pa-sm" v-model="form.lastName" label="Apellido" dense borderless
                   :error-message="formError.lastName" :error="$v.form.lastName.$error" @blur="$v.form.lastName.$touch()"
                   >
@@ -32,7 +31,7 @@
                 </div>
               </animation-transition>
               <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
-                <div class="animated-body" v-show="show">
+                <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm" v-show="show">
                   <q-select class="text-bold input-style q-pa-sm" v-model="form.sex" label="Sexo" dense borderless :options="['Masculino', 'Femenino']"
                   >
                     <template v-slot:prepend>
@@ -42,7 +41,7 @@
                 </div>
               </animation-transition>
               <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
-                <div class="animated-body" v-show="show">
+                <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm" v-show="show">
                   <q-input class="text-bold input-style q-pa-sm" v-model="form.birthdate" label="Fecha de Nacimiento" dense borderless type="date" stack-label
                   >
                     <template v-slot:prepend>
@@ -52,7 +51,7 @@
                 </div>
               </animation-transition>
               <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
-                <div class="animated-body" v-show="show">
+                <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm" v-show="show">
                   <q-input class="text-bold input-style q-pa-sm" v-model="form.placeLive" label="Lugar donde Vives" dense borderless
                   >
                     <template v-slot:prepend>
@@ -62,7 +61,7 @@
                 </div>
               </animation-transition>
               <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
-                <div class="animated-body" v-show="show">
+                <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm" v-show="show">
                   <q-input class="text-bold input-style q-pa-sm" v-model="form.address" label="Dirección" dense borderless
                   >
                     <template v-slot:prepend>
@@ -72,7 +71,7 @@
                 </div>
               </animation-transition>
               <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
-                <div class="animated-body" v-show="show">
+                <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm" v-show="show">
                   <q-input class="text-bold input-style q-pa-sm" type="email" v-model="form.email" label="Correo electrónico" dense borderless
                     :error-message="formError.email" :error="$v.form.email.$error" @blur="$v.form.email.$touch()"
                   >
@@ -83,7 +82,7 @@
                 </div>
               </animation-transition>
               <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
-                <div class="animated-body" v-show="show">
+                <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm" v-show="show">
                   <q-input class="text-bold input-style q-pa-sm" type="password" v-model="password" label="Contraseña" dense borderless
                     :error-message="'Ingrese un Email Valido'" :error="$v.password.$error" @blur="$v.password.$touch()"
                   >
@@ -94,7 +93,7 @@
                 </div>
               </animation-transition>
               <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
-                <div class="animated-body" v-show="show">
+                <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm" v-show="show">
                   <q-input class="text-bold input-style q-pa-sm" type="password" v-model="repeatPassword" label="Repita su Contraseña" dense borderless
                     :error-message="formError.repeatPassword" :error="$v.repeatPassword.$error" @blur="$v.repeatPassword.$touch()"
                   >
@@ -105,7 +104,7 @@
                 </div>
               </animation-transition>
               <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
-                <div class="animated-body" v-show="show">
+                <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm" v-show="show">
                   <q-input class="text-bold input-style q-pa-sm" type="email" v-model="form.emailRecuperate" label="Correo electrónico de Recuperacion" dense borderless
                     :error-message="formError.emailRecuperate" :error="$v.form.emailRecuperate.$error" @blur="$v.form.emailRecuperate.$touch()"
                   >
@@ -115,19 +114,19 @@
                   </q-input>
                 </div>
               </animation-transition>
-              <div class="column">
-                <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
-                  <div class="col full-width" v-show="show">
-                    <q-btn class="shadow-3 full-width" push color="primary" label="Siguiente" glossy @click="next()" />
-                  </div>
-                </animation-transition>
-                <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
-                  <div class="col full-width q-mt-sm" v-show="show">
-                    <q-btn @click="$router.go(-1)" class="shadow-3" color="grey" label="Volver" icon="keyboard_backspace" />
-                  </div>
-                </animation-transition>
+          </div>
+          <div class="column items-center">
+            <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
+              <div v-show="show">
+                <q-btn class="shadow-3" style="width:200px" push color="primary" label="Siguiente" glossy @click="next()" />
               </div>
-          </q-form>
+            </animation-transition>
+            <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
+              <div class="q-mt-md" v-show="show">
+                <q-btn @click="$router.go(-1)" color="primary" label="Ya Tengo Cuenta" outline style="border-radius:7px"/>
+              </div>
+            </animation-transition>
+          </div>
         </q-card-section>
         <q-card-section v-if="pasoN === 2">
           <animation-transition :animation-in-type="AnimationType.BOUNCEINDOWN" :animation-out-type="AnimationType.ROLLOUT">
@@ -135,8 +134,7 @@
           </animation-transition>
         </q-card-section>
       </q-card>
-    </q-page-container>
-  </q-layout>
+  </div>
 </template>
 <script>
 import {AnimationVueTransition, AnimationVueTransitionType} from 'vue-animation'

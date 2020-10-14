@@ -14,41 +14,33 @@
       </div>
     </animation-transition>
     <q-card class="shadow-3 q-pa-md q-ml-md q-mr-md q-mt-lg card-border" bordered>
-      <div class="q-pa-sm q-gutter-sm">
+      <div class="q-pa-sm row justify-center">
         <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
-          <q-input
-            v-model="form.name"
-            label="Nombre del Documento"
-            class="input-style q-pa-sm"
-            dense
-            borderless
-            v-show="show"
-            :error-message="errorMsg.name"
-            :error="$v.form.name.$error"
-          />
+          <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm">
+            <q-input v-model="form.name" label="Nombre del Documento" class="input-style q-pa-sm" dense borderless v-show="show"
+              :error-message="errorMsg.name" :error="$v.form.name.$error"
+            />
+          </div>
         </animation-transition>
         <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
-          <q-input
-            v-model="form.label"
-            label="Etiqueta del Documento"
-            class="input-style q-pa-sm"
-            dense
-            borderless
-            v-show="show"
-            :error-message="errorMsg.label"
-            :error="$v.form.label.$error"
-          />
+          <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm">
+            <q-input v-model="form.label" label="Etiqueta del Documento" class="input-style q-pa-sm" dense borderless v-show="show"
+              :error-message="errorMsg.label" :error="$v.form.label.$error"
+            />
+          </div>
         </animation-transition>
         <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
-          <q-select label="Ingrese el/los Correo/s" v-model="form.emails" use-input use-chips multiple
-            hide-dropdown-icon input-debounce="0" new-value-mode="add-unique" v-show="show"
-            :error-message="errorMsg.emails" :error="$v.form.emails.$error"
-            class="input-style q-pa-sm" dense borderless
-          >
-            <template v-slot:append>
-              <q-btn icon="add" color="primary" round @click="addEmailShow = true" dense  />
-            </template>
-          </q-select>
+          <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm">
+            <q-select label="Ingrese el/los Correo/s" v-model="form.emails" use-input use-chips multiple
+              hide-dropdown-icon input-debounce="0" new-value-mode="add-unique" v-show="show"
+              :error-message="errorMsg.emails" :error="$v.form.emails.$error"
+              class="input-style q-pa-sm" dense borderless
+            >
+              <template v-slot:append>
+                <q-btn icon="add" color="primary" round @click="addEmailShow = true" dense  />
+              </template>
+            </q-select>
+          </div>
         </animation-transition>
         <q-dialog v-model="addEmailShow">
           <q-card class="window-width" >
@@ -67,41 +59,31 @@
           </q-card>
         </q-dialog>
         <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
-          <q-input v-show="show" v-model="form.expiration" class="input-style q-pa-sm" dense borderless>
-            <template v-slot:prepend>
-              <q-btn icon="event" class="cursor-pointer" color="primary" dense round>
-                <q-popup-proxy transition-show="scale" transition-hide="scale">
-                  <q-date v-model="form.expiration" mask="YYYY-MM-DD HH:mm:ss" />
-                </q-popup-proxy>
-              </q-btn>
-            </template>
+          <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm">
+            <q-input v-show="show" v-model="form.expiration" class="input-style q-pa-sm" dense borderless>
+              <template v-slot:prepend>
+                <q-btn icon="event" class="cursor-pointer" color="primary" dense round>
+                  <q-popup-proxy transition-show="scale" transition-hide="scale">
+                    <q-date v-model="form.expiration" mask="YYYY-MM-DD HH:mm:ss" />
+                  </q-popup-proxy>
+                </q-btn>
+              </template>
 
-            <template v-slot:append>
-              <q-btn icon="access_time" class="cursor-pointer" color="primary" dense round>
-                <q-popup-proxy transition-show="scale" transition-hide="scale">
-                  <q-time v-model="form.expiration" mask="YYYY-MM-DD HH:mm:ss" format24h />
-                </q-popup-proxy>
-              </q-btn>
-            </template>
-          </q-input>
+              <template v-slot:append>
+                <q-btn icon="access_time" class="cursor-pointer" color="primary" dense round>
+                  <q-popup-proxy transition-show="scale" transition-hide="scale">
+                    <q-time v-model="form.expiration" mask="YYYY-MM-DD HH:mm:ss" format24h />
+                  </q-popup-proxy>
+                </q-btn>
+              </template>
+            </q-input>
+          </div>
         </animation-transition>
         <animation-transition :animation-in-type="AnimationType.BOUNCEINLEFT" :animation-out-type="AnimationType.ROLLOUT">
-          <q-input
-            v-model="form.archiveName"
-            label="Nombre del Archivo"
-            v-show="show"
-            readonly
-            autogrow
-            class="input-style q-pa-sm"
-            dense
-            borderless
-          />
-        </animation-transition>
-        <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
-            <p v-show="show" align="center" class="q-pa-lg"><a
-                class="text-bold text-primary"
-                @click="editarShow = true"
-              >Click aqui para Cambiar el Archivo</a></p>
+          <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm">
+            <q-input v-model="form.archiveName" label="Nombre del Archivo" v-show="show" readonly autogrow class="input-style q-pa-sm" dense borderless
+            />
+          </div>
         </animation-transition>
         <q-dialog v-model="editarShow">
           <q-card class="full-width">
@@ -127,19 +109,17 @@
             </q-card-actions>
           </q-card>
         </q-dialog>
-        <q-card-actions align="center">
-          <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
-            <q-btn
-              class="glossy q-pa-sm q-mt-md"
-              color="primary"
-              label="Guardar"
-              icon="backup"
-              style="width:150px; border-radius:15px"
-              v-show="show"
-              @click="onSubmit()"
-            />
-          </animation-transition>
-        </q-card-actions>
+      </div>
+      <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
+        <p v-show="show" align="center" class="q-pb-md"><a
+            class="text-bold text-primary"
+            @click="editarShow = true"
+          >Click aqui para Cambiar el Archivo</a></p>
+      </animation-transition>
+      <div class="row justify-center">
+        <animation-transition :animation-in-type="AnimationType.BOUNCEINRIGHT" :animation-out-type="AnimationType.ROLLOUT">
+          <q-btn class="q-pa-sm" glossy color="primary" label="Guardar" icon="backup" style="width:150px; border-radius:15px" v-show="show" @click="onSubmit()"/>
+        </animation-transition>
       </div>
     </q-card>
   </div>

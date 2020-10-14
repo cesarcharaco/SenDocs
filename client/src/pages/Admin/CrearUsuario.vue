@@ -3,8 +3,8 @@
     <q-card class="shadow-2 card-border q-ma-md q-pt-md">
       <div class="q-ml-md q-mt-sm text-h6 text-grey-9">Crear Usuario</div>
       <q-card-section>
-        <q-form class="q-gutter-md q-ma-md">
-          <div class="animated-body" v-show="show">
+        <div class="q-pa-md row justify-center">
+          <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm" v-show="show">
             <q-input class="text-bold input-style q-pa-sm" v-model="form.name" label="Nombre" dense borderless
             :error-message="formError.name" :error="$v.form.name.$error" @blur="$v.form.name.$touch()" >
               <template v-slot:prepend>
@@ -12,7 +12,7 @@
               </template>
             </q-input>
           </div>
-          <div class="animated-body" v-show="show">
+          <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm" v-show="show">
             <q-input class="text-bold input-style q-pa-sm" v-model="form.lastName" label="Apellido" dense borderless
             :error-message="formError.lastName" :error="$v.form.lastName.$error" @blur="$v.form.lastName.$touch()" >
               <template v-slot:prepend>
@@ -20,7 +20,7 @@
               </template>
             </q-input>
           </div>
-          <div class="animated-body" v-show="show">
+          <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm" v-show="show">
             <q-input class="text-bold input-style q-pa-sm" type="email" v-model="form.email" label="Correo electrónico" dense borderless
               :error-message="formError.email" :error="$v.form.email.$error" @blur="$v.form.email.$touch()" >
               <template v-slot:prepend>
@@ -28,7 +28,7 @@
               </template>
             </q-input>
           </div>
-          <div class="animated-body" v-show="show">
+          <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm" v-show="show">
             <q-input class="text-bold input-style q-pa-sm" type="password" v-model="password" label="Contraseña" dense borderless
               :error-message="'Ingrese un Email Valido'" :error="$v.password.$error" @blur="$v.password.$touch()">
               <template v-slot:prepend>
@@ -36,7 +36,7 @@
               </template>
             </q-input>
           </div>
-          <div class="animated-body" v-show="show">
+          <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm" v-show="show">
             <q-input class="text-bold input-style q-pa-sm" type="password" v-model="repeatPassword" label="Repita su Contraseña" dense borderless
               :error-message="formError.repeatPassword" :error="$v.repeatPassword.$error" @blur="$v.repeatPassword.$touch()" >
               <template v-slot:prepend>
@@ -44,7 +44,7 @@
               </template>
             </q-input>
           </div>
-          <div class="animated-body" v-show="show">
+          <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm" v-show="show">
             <q-input class="text-bold input-style q-pa-sm" type="email" v-model="form.emailRecuperate" label="Correo electrónico de Recuperacion" dense borderless
               :error-message="formError.emailRecuperate" :error="$v.form.emailRecuperate.$error" @blur="$v.form.emailRecuperate.$touch()" >
               <template v-slot:prepend>
@@ -52,9 +52,9 @@
               </template>
             </q-input>
           </div>
-        </q-form>
+        </div>
         <div class="text-grey-9 text-h6">Seleccione el plan</div>
-        <q-list bordered>
+        <q-list bordered style="border-radius:12px">
           <q-item tag="label" v-for="(plan, index) in planes" :key="index" v-ripple clickable @click="selectPrice(plan.name)">
             <q-item-section side top>
               <q-radio v-model="selectPlan" :val="plan.name" @input="selectPrice(plan.name)"/>
@@ -128,6 +128,15 @@ export default {
           days: 365,
           fileLimit: 999999999, //  puede subir la cantidad que sea hasta cumplir el plazo de vencimiento del plan
           price: 1,
+          created_at: ''
+        },
+        {
+          name: 'Plan Gratis',
+          description: 'Plan Gratis que Incluye un tiempo total de 1 año y un almacenamiento de 25 MB y una cantidad de 5 archivos',
+          storage: 26214400, // establecido en Bytesbytes EQUIVALENTE A 25MB
+          days: 365,
+          fileLimit: 25,
+          price: 0,
           created_at: ''
         }
       ]

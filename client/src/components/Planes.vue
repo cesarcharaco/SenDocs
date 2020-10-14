@@ -2,21 +2,23 @@
   <q-card class="full-width">
     <q-card-section>
       <div class="texh-h6 text-bold">Selecciona un Plan</div>
-        <q-card v-ripple v-for="(plan, index) in planes" :key="index" class="shadow-2 q-pa-xs q-ma-sm" bordered @click="selectPrice(plan.name)" style="border-radius:15px">
-          <q-card-section>
-            <div class="row">
-              <div class="text-h6 row justify-center text-grey-10 text-bold">
-              {{plan.name}}
-                  <q-icon class="q-mt-xs q-ml-sm" name="check_circle_outline" color="positive" v-if="selectPlan === plan.name" />
+        <div class="q-pa-sm row justify-center">
+          <q-card v-ripple v-for="(plan, index) in planes" :key="index" class="shadow-2 q-mb-sm col-xs-12" bordered @click="selectPrice(plan.name)" style="border-radius:15px">
+            <q-card-section>
+              <div class="row">
+                <div class="text-h6 row justify-center text-grey-10 text-bold">
+                {{plan.name}}
+                    <q-icon class="q-mt-xs q-ml-sm" name="check_circle_outline" color="positive" v-if="selectPlan === plan.name" />
+                </div>
               </div>
-            </div>
-            <p class="text-grey-9"> {{plan.description}} </p>
-            <div class="row">
-              <div class="col text-bold text-grey-10 q-mt-xs" style="font-size:15px">Precio:</div>
-              <div class="col-9 text-bold text-primary" style="font-size:20px">{{plan.price}}$</div>
-            </div>
-          </q-card-section>
-        </q-card>
+              <p class="text-grey-9"> {{plan.description}} </p>
+              <div class="row">
+                <div class="col text-bold text-grey-10 q-mt-xs" style="font-size:15px">Precio:</div>
+                <div class="col-9 text-bold text-primary" style="font-size:20px">{{plan.price}}$</div>
+              </div>
+            </q-card-section>
+          </q-card>
+        </div>
     </q-card-section>
     <q-separator inset />
     <q-card-section>

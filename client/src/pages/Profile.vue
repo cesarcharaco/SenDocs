@@ -15,7 +15,7 @@
       <q-card-section>
         <div class="text-h6 text-grey-8 row justify-center">Tu Perfil</div>
       </q-card-section>
-      <q-card-section class="q-gutter-md">
+      <q-card-section class="row q-pa-sm">
        <!-- <div class="column items-center justify-center">
             <q-avatar size="140px" class="q-mb-lg">
               <q-img :src="img">
@@ -34,13 +34,21 @@
                 </label>
               </div>
         </div> -->
-        <q-input type="email" label="Email" v-model="form.email" class="input-style q-pa-sm" dense borderless />
-        <q-input label="Nombre" v-model="form.name" class="input-style q-pa-sm" dense borderless />
-        <q-input label="Apellido" v-model="form.lastName" class="input-style q-pa-sm" dense borderless />
-        <q-input label="Email de recuperacion" v-model="form.emailRecuperate" class="input-style q-pa-sm" dense borderless />
+        <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm">
+          <q-input type="email" label="Email" v-model="form.email" class="input-style q-pa-sm" dense borderless />
+        </div>
+        <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm">
+          <q-input label="Nombre" v-model="form.name" class="input-style q-pa-sm" dense borderless />
+        </div>
+        <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm">
+          <q-input label="Apellido" v-model="form.lastName" class="input-style q-pa-sm" dense borderless />
+        </div>
+        <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6 q-pb-sm q-pr-sm">
+          <q-input label="Email de recuperacion" v-model="form.emailRecuperate" class="input-style q-pa-sm" dense borderless />
+        </div>
       </q-card-section>
       <q-card-actions align="center">
-        <q-btn label="Guardar" @click="onSubmit()" color="primary" style="border-radius:12px;width:150px"  />
+        <q-btn label="Guardar" @click="onSubmit()" color="primary" style="border-radius:12px;width:150px" push glossy/>
       </q-card-actions>
     </q-card>
   </div>

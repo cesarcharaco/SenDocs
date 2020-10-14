@@ -1,6 +1,6 @@
 <template>
   <div>
-      <q-card class="q-pa-xs bg-secondary text-white" @click="$router.push('/lista_clientes')">
+      <q-card class="q-pa-xs bg-teal-9 text-white" @click="$router.push('/lista_clientes')">
         <q-card-section>
           <q-item>
             <q-item-section avatar>
@@ -23,7 +23,7 @@ export default {
   data () {
     return {
       data: {
-        users: 40
+        users: 0
       }
     }
   },

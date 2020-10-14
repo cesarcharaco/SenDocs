@@ -2,7 +2,7 @@
   <q-layout>
     <q-page-container class="fondo">
       <q-page class="row justify-center items-center">
-        <q-card class="shadow-3 card-border q-ma-md">
+        <q-card class="shadow-3 card-border q-ma-md responsive-web">
           <q-card-section>
             <div class="col column items-center justify-center">
               <animation-transition :animation-in-type="AnimationType.BOUNCEINDOWN" :animation-out-type="AnimationType.ROLLOUT">
