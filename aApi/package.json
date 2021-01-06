@@ -30,7 +30,7 @@
     "@googlemaps/google-maps-services-js": "^2.6.1",
     "adonis-pdf": "0.0.22",
     "adonis-scheduler": "^3.0.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "exceljs": "^3.5.0",
     "image-to-base64": "^2.0.1",
     "lucid-mongo": "^3.1.6",
